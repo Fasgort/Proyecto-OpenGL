@@ -21,13 +21,13 @@ class igvCamara {
 public:
 	// atributos
 
-	tipoCamara tipo;	// paralela o perspectiva
+	tipoCamara tipo; // paralela o perspectiva
 
 	// ventana de visión: parametros proyección paralela y frustum
 	GLdouble xwmin, xwmax, ywmin, ywmax;
 
 	// ventana de visión: parametros proyección perspectiva
-	GLdouble 	angulo, raspecto;
+	GLdouble angulo, raspecto;
 
 	// distancias de planos cercano y lejano
 	GLdouble znear, zfar;
