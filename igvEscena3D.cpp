@@ -185,7 +185,7 @@ void igvEscena3D::visualizar(void) {
 		glRotatef(90,0,1,0);
 		glPushName(BRAZO_1);
 		gluCylinder(brazo1, 0.5, 0.5, 3.5, 20, 20);
-		glPushName(BRAZO_1);
+		glPopName();
 		glPopMatrix();
 
 		glPushMatrix();
@@ -203,7 +203,7 @@ void igvEscena3D::visualizar(void) {
 		glTranslatef(3.5,0,0);
 		glPushName(PUÑO_1);
 		glutSolidSphere(1.0,20,20);
-		glPushName(PUÑO_1);
+		glPopName();
 
 		glPopMatrix();
 
@@ -235,12 +235,12 @@ void igvEscena3D::visualizar(void) {
 		glPopMatrix();
 
 		// Puño 2
-		if(seleccionado == PUÑO_1) glMaterialfv(GL_FRONT,GL_EMISSION,color_seleccion);
+		if(seleccionado == PUÑO_2) glMaterialfv(GL_FRONT,GL_EMISSION,color_seleccion);
 		else glMaterialfv(GL_FRONT,GL_EMISSION,color_puño);
 		glTranslatef(-3.5,0,0);
 		glPushName(PUÑO_2);
 		glutSolidSphere(1.0,20,20);
-		glPushName(PUÑO_2);
+		glPopName();
 
 		glPopMatrix();
 

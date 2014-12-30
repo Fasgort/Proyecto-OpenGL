@@ -23,8 +23,8 @@ igvInterfaz::~igvInterfaz () {}
 
 void igvInterfaz::crear_mundo(void) {
 	// crear cámaras
-	interfaz.camara.set(IGV_PARALELA, igvPunto3D(3.0,2.0,4),igvPunto3D(0,0,0),igvPunto3D(0,1.0,0),
-		-1*4.5, 1*4.5, -1*4.5, 1*4.5, -1*3, 200);
+	interfaz.camara.set(IGV_PERSPECTIVA, igvPunto3D(0, 0, 5.5),igvPunto3D(0, 0, 1),igvPunto3D(0, 1, 0),
+		120,1,0.001,15);
 }
 
 void igvInterfaz::configura_entorno(int argc, char** argv,
@@ -124,14 +124,6 @@ void igvInterfaz::set_glutReshapeFunc(int w, int h) {
 	interfaz.set_alto_ventana(h);
 
 	// establece los parámetros de la cámara y de la proyección
-	interfaz.camara.tipo = IGV_PERSPECTIVA;
-	interfaz.camara.P0 = igvPunto3D(0, 0, 5.5);
-	interfaz.camara.r = igvPunto3D(0, 0, 1);
-	interfaz.camara.V = igvPunto3D(0, 1, 0);
-	interfaz.camara.angulo = 120;
-	interfaz.camara.raspecto = 1;
-	interfaz.camara.znear = 0.001;
-	interfaz.camara.zfar = 15;
 	interfaz.camara.aplicar();
 }
 
@@ -174,16 +166,17 @@ void igvInterfaz::set_glutMouseFunc(GLint boton,GLint estado,GLint x,GLint y) {
 		if(estado == GLUT_DOWN) {
 			interfaz.modo = IGV_SELECCIONAR;
 			interfaz.boton_retenido = true;
-		} else if(estado == GLUT_UP) interfaz.boton_retenido = false;
 
-		// Apartado D: guardar el pixel pulsado
-		interfaz.cursorX = x;
-		interfaz.cursorY = y;
+			// Apartado D: guardar el pixel pulsado
+			interfaz.cursorX = x;
+			interfaz.cursorY = y;
 
-		// Apartado D: renovar el contenido de la ventana de vision
-		glutPostRedisplay();
+		} else interfaz.boton_retenido = false;
 
 	}
+
+	// Apartado D: renovar el contenido de la ventana de vision
+	glutPostRedisplay();
 
 }
 
@@ -212,7 +205,7 @@ void igvInterfaz::inicia_seleccion(int TAMANO_LISTA_IMPACTOS, GLuint *lista_impa
 
 	// Apartado D: establecer la camara en modo seleccion con los parámetros necesarios para realizar la selección
 	// para el alto y el ancho de la ventana de selección probar diferentes tamaños y comprobar la amplitud de la selección
-	interfaz.camara.establecerSeleccion(1,1,interfaz.cursorX,interfaz.cursorY);
+	interfaz.camara.establecerSeleccion(10, 10 ,cursorX,cursorY);
 }
 
 int procesar_impactos(int numero_impactos,GLuint *lista_impactos) {
