@@ -82,6 +82,9 @@ void igvCamara::aplicar(void) {
 		glGetIntegerv(GL_VIEWPORT,viewport);
 
 		////// Apartado D: cargar la matriz de proyección y generar el volumen de vision para la selección alrededor del pixel pulsado
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+
 		gluPickMatrix(cursorX,viewport[3]-cursorY,ancho_seleccion,alto_seleccion,viewport);
 
 		////// Apartado D: calcular la proyeccion (paralela, frustum o perspectiva), la misma que en modo visualización

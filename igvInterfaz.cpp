@@ -256,8 +256,9 @@ void igvInterfaz::finaliza_seleccion(int TAMANO_LISTA_IMPACTOS, GLuint *lista_im
 	// obteniendo el objeto seleccionado, si lo hay
 	if(numImpactos != 0) {
 		objeto_seleccionado = procesar_impactos(numImpactos, lista_impactos);
-		interfaz.escena.set_seleccionado(objeto_seleccionado);
-	}
+	} else objeto_seleccionado = -1;
+
+	interfaz.escena.set_seleccionado(objeto_seleccionado);
 
 	// Apartado D: seleccion terminada, pasar a visualización normal
 	interfaz.modo = IGV_VISUALIZAR;
