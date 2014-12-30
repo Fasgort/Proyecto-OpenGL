@@ -9,19 +9,21 @@
 
 // Metodos constructores 
 
-igvEscena3D::igvEscena3D () {
+igvEscena3D::igvEscena3D() {
+	// atributos
 	ejes = true;
 	salaPrincipal = true;
 	seleccionado = -1;
-	angY = 0;
-	angZ = 0;
-	esc = 0;
-	escb = true;
+
+	// grados de libertad
+	muneco_b1_ang = 0;
+	muneco_b2_ang = 0;
+	muneco_p1_esc = 0;
+	muneco_p2_esc = 0;
 }
 
 igvEscena3D::~igvEscena3D() {
 }
-
 
 // Metodos publicos 
 
@@ -45,12 +47,106 @@ void pintar_ejes(void) {
 	glEnd();
 }
 
+void igvEscena3D::creaMuneco(GLfloat* color_seleccion) {
+
+	GLfloat color_cubo[]={0,0,0.5};
+	GLfloat color_brazo[]={0,0.1,0};
+	GLfloat color_musculo[]={0.2,0.1,0};
+	GLfloat color_puño[]={0.5,0,0};
+
+	// Cuerpo
+	glMaterialfv(GL_FRONT,GL_EMISSION,color_cubo);
+	glutSolidCube(3.0);
+
+	glPushMatrix();
+
+	// Brazo 1
+	if(seleccionado == BRAZO_1) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
+	else glMaterialfv(GL_FRONT, GL_EMISSION, color_brazo);
+	GLUquadricObj *brazo1 = gluNewQuadric();
+	gluQuadricDrawStyle(brazo1, GLU_FILL);
+
+	glTranslatef(1,0,0);
+	glRotatef(0,0,1,0);
+	glRotatef(muneco_b1_ang,0,0,1);
+	glScalef(1-muneco_p1_esc,1,1);
+	glPushMatrix();
+	glRotatef(90,0,1,0);
+	glPushName(BRAZO_1);
+	gluCylinder(brazo1, 0.5, 0.5, 3.5, 20, 20);
+	glPopName();
+	glPopMatrix();
+
+	glPushMatrix();
+
+	// Músculo 1
+	glMaterialfv(GL_FRONT, GL_EMISSION, color_musculo);
+	glTranslatef(1.75,0.2,0);
+	glutSolidSphere(0.45,20,20);
+
+	glPopMatrix();
+
+	// Puño 1
+	if(seleccionado == PUÑO_1) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
+	else glMaterialfv(GL_FRONT, GL_EMISSION, color_puño);
+	glTranslatef(3.5,0,0);
+	glPushName(PUÑO_1);
+	glutSolidSphere(1.0,20,20);
+	glPopName();
+
+	glPopMatrix();
+
+	// Brazo 2
+	if(seleccionado == BRAZO_2) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
+	else glMaterialfv(GL_FRONT, GL_EMISSION, color_brazo);
+	GLUquadricObj *brazo2 = gluNewQuadric();
+	gluQuadricDrawStyle(brazo2, GLU_FILL);
+
+	glTranslatef(-1,0,0);
+	glRotatef(0,0,1,0);
+	glRotatef(-muneco_b2_ang,0,0,1);
+	glScalef(1+muneco_p2_esc,1,1);
+	glPushMatrix();
+	glRotatef(-90,0,1,0);
+	glPushName(BRAZO_2);
+	gluCylinder(brazo2, 0.5, 0.5, 3.5, 20, 20);
+	glPopName();
+	glPopMatrix();
+
+	glPushMatrix();
+
+	// Músculo 2
+	glMaterialfv(GL_FRONT, GL_EMISSION, color_musculo);
+
+	glTranslatef(-1.75,0.2,0);
+	glutSolidSphere(0.45,20,20);
+
+	glPopMatrix();
+
+	// Puño 2
+	if(seleccionado == PUÑO_2) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
+	else glMaterialfv(GL_FRONT, GL_EMISSION, color_puño);
+	glTranslatef(-3.5,0,0);
+	glPushName(PUÑO_2);
+	glutSolidSphere(1.0,20,20);
+	glPopName();
+
+	glPopMatrix();
+
+}
+
 void igvEscena3D::visualizar(void) {
 	// crear el modelo
 	glPushMatrix(); // guarda la matriz de modelado
 
 	// se pintan los ejes
 	if (ejes) pintar_ejes();
+
+	// Dibujando objetos
+	glInitNames();
+
+	// Color de selección
+	GLfloat color_seleccion[]={1,1,0};
 
 	GLfloat posLuz[4] = {0.0, 0.0, 6.0, 1.0};
 	igvColor colAmb(0.8, 0.8, 0.775, 1.0);
@@ -124,8 +220,11 @@ void igvEscena3D::visualizar(void) {
 	GLfloat puertapunto2[3] = {1,-3,1.05};
 	GLfloat puertapunto3[3] = {1,1.5,1.05};
 	GLfloat puertanormal1[3] = {0,0,1};
-	creaRectangulo(puertapunto1, puertapunto2, puertapunto3, puertanormal1); // puerta
 
+	if(seleccionado == PUERTA) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
+	glPushName(PUERTA);
+	creaRectangulo(puertapunto1, puertapunto2, puertapunto3, puertanormal1); // puerta
+	glPopName();
 	igvColor nlKaMat(0, 0, 0);
 	igvColor nlKdMat(0, 0, 0);
 	igvColor nlKsMat(0, 0, 0);
@@ -133,120 +232,19 @@ void igvEscena3D::visualizar(void) {
 	igvMaterial nlmaterial(nlKaMat, nlKdMat, nlKsMat, nlNsMat);
 	nlmaterial.aplicar();
 
-	// Dibujando objetos
-	glInitNames();
-
-	// Definición de nombres
-	unsigned int num = 0;
-
-	GLuint BRAZO_1 = num++;
-	GLuint BRAZO_2 = num++;
-	GLuint PUÑO_1 = num++;
-	GLuint PUÑO_2 = num++;
-
-	// Color de selección
-	GLfloat color_seleccion[]={1,1,0};
+	// Emplazamiento inicial
+	glTranslatef(0, 0, 2);
+	glPushMatrix();
 
 	if(salaPrincipal){
 		// Primera sala
 
 		// PRIMERA FIGURA (inferior izquierda)
 		glPushMatrix();
-
-		glTranslatef(-3, -1.5, 2);
+		glTranslatef(-3, -1.5, 0);
 		glScalef(0.33, 0.33, 0.33);
-
-		// crear el modelo
-
-		glPushMatrix();
-
-		GLfloat color_cubo[]={0,0,0.5};
-		GLfloat color_brazo[]={0,0.1,0};
-		GLfloat color_musculo[]={0.2,0.1,0};
-		GLfloat color_puño[]={0.5,0,0};
-
-		// Cuerpo
-		glMaterialfv(GL_FRONT,GL_EMISSION,color_cubo);
-		glutSolidCube(3.0);
-
-		glPushMatrix();
-
-		// Brazo 1
-		if(seleccionado == BRAZO_1) glMaterialfv(GL_FRONT,GL_EMISSION,color_seleccion);
-		else glMaterialfv(GL_FRONT,GL_EMISSION,color_brazo);
-		GLUquadricObj *brazo1 = gluNewQuadric();
-		gluQuadricDrawStyle(brazo1, GLU_FILL);
-
-		glTranslatef(1,0,0);
-		glRotatef(angY,0,1,0);
-		glRotatef(angZ,0,0,1);
-		glScalef(1+esc,1,1);
-		glPushMatrix();
-		glRotatef(90,0,1,0);
-		glPushName(BRAZO_1);
-		gluCylinder(brazo1, 0.5, 0.5, 3.5, 20, 20);
-		glPopName();
+		creaMuneco(color_seleccion);
 		glPopMatrix();
-
-		glPushMatrix();
-
-		// Músculo 1
-		glMaterialfv(GL_FRONT,GL_EMISSION,color_musculo);
-		glTranslatef(1.75,0.2,0);
-		glutSolidSphere(0.45,20,20);
-
-		glPopMatrix();
-
-		// Puño 1
-		if(seleccionado == PUÑO_1) glMaterialfv(GL_FRONT,GL_EMISSION,color_seleccion);
-		else glMaterialfv(GL_FRONT,GL_EMISSION,color_puño);
-		glTranslatef(3.5,0,0);
-		glPushName(PUÑO_1);
-		glutSolidSphere(1.0,20,20);
-		glPopName();
-
-		glPopMatrix();
-
-		// Brazo2
-		if(seleccionado == BRAZO_2) glMaterialfv(GL_FRONT,GL_EMISSION,color_seleccion);
-		else glMaterialfv(GL_FRONT,GL_EMISSION,color_brazo);
-		GLUquadricObj *brazo2 = gluNewQuadric();
-		gluQuadricDrawStyle(brazo2, GLU_FILL);
-
-		glTranslatef(-1,0,0);
-		glRotatef(-angY,0,1,0);
-		glRotatef(-angZ,0,0,1);
-		glScalef(1+esc,1,1);
-		glPushMatrix();
-		glRotatef(-90,0,1,0);
-		glPushName(BRAZO_2);
-		gluCylinder(brazo2, 0.5, 0.5, 3.5, 20, 20);
-		glPopName();
-		glPopMatrix();
-
-		glPushMatrix();
-
-		// Músculo 2
-		glMaterialfv(GL_FRONT,GL_EMISSION,color_musculo);
-
-		glTranslatef(-1.75,0.2,0);
-		glutSolidSphere(0.45,20,20);
-
-		glPopMatrix();
-
-		// Puño 2
-		if(seleccionado == PUÑO_2) glMaterialfv(GL_FRONT,GL_EMISSION,color_seleccion);
-		else glMaterialfv(GL_FRONT,GL_EMISSION,color_puño);
-		glTranslatef(-3.5,0,0);
-		glPushName(PUÑO_2);
-		glutSolidSphere(1.0,20,20);
-		glPopName();
-
-		glPopMatrix();
-
-		// FIN PRIMERA FIGURA
-		glPopMatrix();
-
 
 	} else {
 		// Segunda sala

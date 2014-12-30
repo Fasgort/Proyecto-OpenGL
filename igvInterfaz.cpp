@@ -185,21 +185,13 @@ void igvInterfaz::set_glutMotionFunc(GLint x,GLint y) {
 	// Apartado E: si el botón está retenido y hay algún objeto seleccionado,
 	// comprobar el objeto seleccionado y la posición del ratón y actualizar
 	// convenientemente el grado de libertad del objeto correspondiente 
-	int mov_x;
-	int mov_y;
+	float mov_x;
+	float mov_y;
 
 	mov_x = interfaz.cursorX - x;
 	mov_y = interfaz.cursorY - y;
 
-	switch(interfaz.escena.get_seleccionado()) {
-	case 0:
-		interfaz.escena.set_incrementoAngY(mov_y);
-		break;
-	case 1:
-		interfaz.escena.set_incrementoAngY(mov_y);
-		break;
-	}
-
+	interfaz.escena.motionMouse(mov_x, mov_y);
 
 	// Apartado E: guardar la nueva posición del ratón 	
 	interfaz.cursorX = x;
