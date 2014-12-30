@@ -155,17 +155,23 @@ void igvInterfaz::set_glutDisplayFunc() {
 void igvInterfaz::set_glutMouseFunc(GLint boton,GLint estado,GLint x,GLint y) {
 
 	// Apartado D: comprobar que se ha pulsado el botón izquierdo 
+	if(boton == GLUT_LEFT_BUTTON){
 
+		// Apartado D: guardar que el boton se ha presionado o se ha soltado, si se ha pulsado hay que
+		// pasar a modo IGV_SELECCIONAR
+		if(estado == GLUT_DOWN) {
+			interfaz.modo = IGV_SELECCIONAR;
+			interfaz.boton_retenido = true;
+		} else if(estado == GLUT_UP) interfaz.boton_retenido = false;
 
-	// Apartado D: guardar que el boton se ha presionado o se ha soltado, si se ha pulsado hay que
-	// pasar a modo IGV_SELECCIONAR
+		// Apartado D: guardar el pixel pulsado
+		interfaz.cursorX = x;
+		interfaz.cursorY = y;
 
+		// Apartado D: renovar el contenido de la ventana de vision
+		glutPostRedisplay();
 
-	// Apartado D: guardar el pixel pulsado
-
-
-	// Apartado D: renovar el contenido de la ventana de vision 
-
+	}
 
 }
 
@@ -177,9 +183,11 @@ void igvInterfaz::set_glutMotionFunc(GLint x,GLint y) {
 
 
 	// Apartado E: guardar la nueva posición del ratón 
-
+	interfaz.cursorX = x;
+	interfaz.cursorY = y;
 
 	// Apartado E: renovar el contenido de la ventana de vision 
+	glutPostRedisplay();
 
 }
 
@@ -217,16 +225,18 @@ int procesar_impactos(int numero_impactos,GLuint *lista_impactos) {
 void igvInterfaz::finaliza_seleccion(int TAMANO_LISTA_IMPACTOS, GLuint *lista_impactos) {
 
 	// Apartado D: volver a modo visualizacion OpenGL y obtener el número de impactos 
-	int glRenderMode(GL_RENDER);
+	int numImpactos = glRenderMode(GL_RENDER);
+	
 
 	// Apartado D: si hay impactos pasar a procesarlos con la funcion int procesar_impactos(numero_impactos,lista_impactos);
 	// obteniendo el objeto seleccionado, si lo hay
-
+	if(numImpactos != 0) procesar_impactos(numImpactos, lista_impactos);
 
 	// Apartado D: seleccion terminada, pasar a visualización normal
-
+	interfaz.modo = IGV_VISUALIZAR;
 
 	// Apartado D: establecer la camara en modo visualización
+	interfaz.camara.establecerVisualizacion();
 
 }
 
