@@ -47,6 +47,7 @@ void igvInterfaz::configura_entorno(int argc, char** argv,
 
 										glEnable(GL_LIGHTING); // activa la iluminacion de la escena
 										glEnable(GL_NORMALIZE); // normaliza los vectores normales para calculo iluminacion
+										glShadeModel(GL_SMOOTH);
 
 										glEnable(GL_TEXTURE_2D); // activa el uso de texturas
 
@@ -212,7 +213,7 @@ void igvInterfaz::inicia_seleccion(int TAMANO_LISTA_IMPACTOS, GLuint *lista_impa
 
 	// Apartado D: establecer la camara en modo seleccion con los parámetros necesarios para realizar la selección
 	// para el alto y el ancho de la ventana de selección probar diferentes tamaños y comprobar la amplitud de la selección
-	interfaz.camara.establecerSeleccion(10,10,interfaz.camara.cursorX,interfaz.camara.cursorY);
+	interfaz.camara.establecerSeleccion(1,1,interfaz.camara.cursorX,interfaz.camara.cursorY);
 }
 
 int procesar_impactos(int numero_impactos,GLuint *lista_impactos) {
@@ -240,6 +241,9 @@ int procesar_impactos(int numero_impactos,GLuint *lista_impactos) {
 	// corresponde: como la escena no se almacena en ninguna estructura de datos, para devolver el objeto seleccionado
 	// utilizar aquí directamente los nombres asignados a los objetos de la escena
 
+	cout<<"Codigo: "<<codigo<<endl;
+	cout<<"minZ: "<<minZ<<endl;
+
 	return codigo;
 }
 
@@ -250,14 +254,16 @@ void igvInterfaz::finaliza_seleccion(int TAMANO_LISTA_IMPACTOS, GLuint *lista_im
 
 	// Apartado D: si hay impactos pasar a procesarlos con la funcion int procesar_impactos(numero_impactos,lista_impactos);
 	// obteniendo el objeto seleccionado, si lo hay
-	if(numImpactos != 0) procesar_impactos(numImpactos, lista_impactos);
+	if(numImpactos != 0) {
+		objeto_seleccionado = procesar_impactos(numImpactos, lista_impactos);
+		interfaz.escena.set_seleccionado(objeto_seleccionado);
+	}
 
 	// Apartado D: seleccion terminada, pasar a visualización normal
 	interfaz.modo = IGV_VISUALIZAR;
 
 	// Apartado D: establecer la camara en modo visualización
 	interfaz.camara.establecerVisualizacion();
-
 }
 
 void igvInterfaz::inicializa_callbacks() {
@@ -265,4 +271,6 @@ void igvInterfaz::inicializa_callbacks() {
 	glutSpecialFunc(set_glutSpecialFunc);
 	glutReshapeFunc(set_glutReshapeFunc);
 	glutDisplayFunc(set_glutDisplayFunc);
+	glutMouseFunc(set_glutMouseFunc); 
+	glutMotionFunc(set_glutMotionFunc); 
 }

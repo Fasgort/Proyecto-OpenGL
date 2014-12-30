@@ -12,6 +12,7 @@
 igvEscena3D::igvEscena3D () {
 	ejes = true;
 	salaPrincipal = true;
+	seleccionado = -1;
 	angY = 0;
 	angZ = 0;
 	esc = 0;
@@ -50,14 +51,6 @@ void igvEscena3D::visualizar(void) {
 
 	// se pintan los ejes
 	if (ejes) pintar_ejes();
-
-	glEnable(GL_NORMALIZE);
-	glEnable(GL_LIGHTING);
-	glShadeModel(GL_SMOOTH);
-
-	/* glTranslatef(1,0,0);
-	glRotatef(angY,0,1,0);
-	glRotatef(angZ,0,0,1); */
 
 	GLfloat posLuz[4] = {0.0, 0.0, 6.0, 1.0};
 	igvColor colAmb(0.8, 0.8, 0.775, 1.0);
@@ -140,6 +133,20 @@ void igvEscena3D::visualizar(void) {
 	igvMaterial nlmaterial(nlKaMat, nlKdMat, nlKsMat, nlNsMat);
 	nlmaterial.aplicar();
 
+	// Dibujando objetos
+	glInitNames();
+
+	// Definición de nombres
+	unsigned int num = 0;
+
+	GLuint BRAZO_1 = num++;
+	GLuint BRAZO_2 = num++;
+	GLuint PUÑO_1 = num++;
+	GLuint PUÑO_2 = num++;
+
+	// Color de selección
+	GLfloat color_seleccion[]={1,1,0};
+
 	if(salaPrincipal){
 		// Primera sala
 
@@ -150,8 +157,6 @@ void igvEscena3D::visualizar(void) {
 		glScalef(0.33, 0.33, 0.33);
 
 		// crear el modelo
-
-		glInitNames();
 
 		glPushMatrix();
 
@@ -167,9 +172,8 @@ void igvEscena3D::visualizar(void) {
 		glPushMatrix();
 
 		// Brazo 1
-		GLuint BRAZO_1 = 1;
-
-		glMaterialfv(GL_FRONT,GL_EMISSION,color_brazo);
+		if(seleccionado == BRAZO_1) glMaterialfv(GL_FRONT,GL_EMISSION,color_seleccion);
+		else glMaterialfv(GL_FRONT,GL_EMISSION,color_brazo);
 		GLUquadricObj *brazo1 = gluNewQuadric();
 		gluQuadricDrawStyle(brazo1, GLU_FILL);
 
@@ -181,7 +185,7 @@ void igvEscena3D::visualizar(void) {
 		glRotatef(90,0,1,0);
 		glPushName(BRAZO_1);
 		gluCylinder(brazo1, 0.5, 0.5, 3.5, 20, 20);
-		glPopName();
+		glPushName(BRAZO_1);
 		glPopMatrix();
 
 		glPushMatrix();
@@ -194,16 +198,18 @@ void igvEscena3D::visualizar(void) {
 		glPopMatrix();
 
 		// Puño 1
-		glMaterialfv(GL_FRONT,GL_EMISSION,color_puño);
+		if(seleccionado == PUÑO_1) glMaterialfv(GL_FRONT,GL_EMISSION,color_seleccion);
+		else glMaterialfv(GL_FRONT,GL_EMISSION,color_puño);
 		glTranslatef(3.5,0,0);
+		glPushName(PUÑO_1);
 		glutSolidSphere(1.0,20,20);
+		glPushName(PUÑO_1);
 
 		glPopMatrix();
 
 		// Brazo2
-		GLuint BRAZO_2 = 2;
-
-		glMaterialfv(GL_FRONT,GL_EMISSION,color_brazo);
+		if(seleccionado == BRAZO_2) glMaterialfv(GL_FRONT,GL_EMISSION,color_seleccion);
+		else glMaterialfv(GL_FRONT,GL_EMISSION,color_brazo);
 		GLUquadricObj *brazo2 = gluNewQuadric();
 		gluQuadricDrawStyle(brazo2, GLU_FILL);
 
@@ -229,9 +235,12 @@ void igvEscena3D::visualizar(void) {
 		glPopMatrix();
 
 		// Puño 2
-		glMaterialfv(GL_FRONT,GL_EMISSION,color_puño);
+		if(seleccionado == PUÑO_1) glMaterialfv(GL_FRONT,GL_EMISSION,color_seleccion);
+		else glMaterialfv(GL_FRONT,GL_EMISSION,color_puño);
 		glTranslatef(-3.5,0,0);
+		glPushName(PUÑO_2);
 		glutSolidSphere(1.0,20,20);
+		glPushName(PUÑO_2);
 
 		glPopMatrix();
 

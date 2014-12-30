@@ -11,10 +11,11 @@ protected:
 	// Atributos
 	bool ejes;
 	bool salaPrincipal;
+	int seleccionado;
 	float angY;
-		float angZ;
-		float esc;
-		bool escb;
+	float angZ;
+	float esc;
+	bool escb;
 
 public:
 	// atributos públicos
@@ -32,6 +33,7 @@ public:
 
 	bool get_ejes() {return ejes;};
 	void set_ejes(bool _ejes){ejes = _ejes;};
+	void set_seleccionado(int _seleccionado){seleccionado = _seleccionado;};
 };
 
 #endif
