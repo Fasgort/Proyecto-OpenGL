@@ -185,14 +185,29 @@ void igvInterfaz::set_glutMotionFunc(GLint x,GLint y) {
 	// Apartado E: si el botón está retenido y hay algún objeto seleccionado,
 	// comprobar el objeto seleccionado y la posición del ratón y actualizar
 	// convenientemente el grado de libertad del objeto correspondiente 
+	int mov_x;
+	int mov_y;
+
+	mov_x = interfaz.cursorX - x;
+	mov_y = interfaz.cursorY - y;
+
+	switch(interfaz.escena.get_seleccionado()) {
+	case 0:
+		interfaz.escena.set_incrementoAngY(mov_y);
+		break;
+	case 1:
+		interfaz.escena.set_incrementoAngY(mov_y);
+		break;
+	}
 
 
-	// Apartado E: guardar la nueva posición del ratón 
-	//interfaz.cursorX = x;
-	//interfaz.cursorY = y;
+	// Apartado E: guardar la nueva posición del ratón 	
+	interfaz.cursorX = x;
+	interfaz.cursorY = y;
 
 	// Apartado E: renovar el contenido de la ventana de vision 
-	glutPostRedisplay();
+	glutPostRedisplay(); 
+
 
 }
 
@@ -213,7 +228,7 @@ int procesar_impactos(int numero_impactos,GLuint *lista_impactos) {
 	asignado con la pila de nombres, y si se han utilizado nombres jerárquicos hay que tener en cuenta que
 	esta función sólo devolver un único código */
 
-	GLuint minZ = 4294967295;
+	GLuint minZ = 0xffffffff;
 	unsigned int posArray = 0;
 	int codigo = -1;
 
@@ -221,27 +236,19 @@ int procesar_impactos(int numero_impactos,GLuint *lista_impactos) {
 	// guardar el más próximo al observador (minima Z)
 	// para empezar, considerar que la mínima Z tiene un valor de 0xffffffff (el tope del tipo GLuint)
 
-	cout<<"EXTRAYENDO ARRAY"<<endl;
-	for(int conteo = 0; conteo < 20; ++conteo){
-		cout<<lista_impactos[conteo]<<endl;
-	}
-	cout<<"FIN ARRAY"<<endl;
-
 	for(int cont = 0; cont < numero_impactos; ++cont) {
 		unsigned int numNombres = lista_impactos[posArray++];
-		if(lista_impactos[posArray] < minZ && numNombres != 0) minZ = lista_impactos[posArray];
-		posArray += 2;
-		codigo = lista_impactos[posArray];
-		posArray += numNombres;
+		if(lista_impactos[posArray] < minZ && numNombres != 0) {
+			minZ = lista_impactos[posArray];
+			posArray += 2;
+			codigo = lista_impactos[posArray];
+			posArray += numNombres;
+		} else posArray += numNombres+2;
 	}
 
 	// Apartado D: a partir de la información del impacto con la mínima Z, devolver el código del objeto que le
 	// corresponde: como la escena no se almacena en ninguna estructura de datos, para devolver el objeto seleccionado
 	// utilizar aquí directamente los nombres asignados a los objetos de la escena
-
-	cout<<"Codigo: "<<codigo<<endl;
-	cout<<"minZ: "<<minZ<<endl;
-
 	return codigo;
 }
 
@@ -249,8 +256,6 @@ void igvInterfaz::finaliza_seleccion(int TAMANO_LISTA_IMPACTOS, GLuint *lista_im
 
 	// Apartado D: volver a modo visualizacion OpenGL y obtener el número de impactos 
 	int numImpactos = glRenderMode(GL_RENDER);
-
-	cout<<"NumImpactos: "<<numImpactos<<endl;
 
 	// Apartado D: si hay impactos pasar a procesarlos con la funcion int procesar_impactos(numero_impactos,lista_impactos);
 	// obteniendo el objeto seleccionado, si lo hay
