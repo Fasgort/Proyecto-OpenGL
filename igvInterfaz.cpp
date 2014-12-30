@@ -13,6 +13,7 @@ igvInterfaz::igvInterfaz () {
 	modo = IGV_VISUALIZAR;
 	objeto_seleccionado = -1;
 	boton_retenido = false;
+	ampliado = false;
 }
 
 igvInterfaz::~igvInterfaz () {}
@@ -61,19 +62,19 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 
 	switch(key)	{
 	case GLUT_KEY_UP:
-		if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] < 1.5) {
+		if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] < 1.5 && interfaz.ampliado == false) {
 			interfaz.camara.P0[1] += 1.5;
 			interfaz.camara.r[1] += 1.5;
 		}
 		break;
 	case GLUT_KEY_DOWN:
-		if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] > -1.5) {
+		if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] > -1.5 && interfaz.ampliado == false) {
 			interfaz.camara.P0[1] -= 1.5;
 			interfaz.camara.r[1] -= 1.5;
 		}
 		break;
 	case GLUT_KEY_LEFT:
-		if(interfaz.camara.P0[0] > -3) {
+		if(interfaz.camara.P0[0] > -3 && interfaz.ampliado == false) {
 			interfaz.camara.P0[0] -= 3;
 			interfaz.camara.r[0] -= 3;
 			interfaz.camara.P0[1] = 0;
@@ -81,7 +82,7 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 		}
 		break;
 	case GLUT_KEY_RIGHT:
-		if(interfaz.camara.P0[0] < 3) {
+		if(interfaz.camara.P0[0] < 3 && interfaz.ampliado == false) {
 			interfaz.camara.P0[0] += 3;
 			interfaz.camara.r[0] += 3;
 			interfaz.camara.P0[1] = 0;
@@ -95,6 +96,16 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 
 void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 	switch (key) {
+	case ' ':
+		if(interfaz.ampliado == false && interfaz.camara.P0[1] != 0){
+			interfaz.camara.P0[2] -= 2;
+			interfaz.ampliado = true;
+		}
+		else if (interfaz.ampliado == true) {
+			interfaz.camara.P0[2] += 2;
+			interfaz.ampliado = false;
+		}
+		break;
 	case 'e': // activa/desactiva la visualizacion de los ejes
 		interfaz.escena.set_ejes(interfaz.escena.get_ejes()?false:true);
 		break;
