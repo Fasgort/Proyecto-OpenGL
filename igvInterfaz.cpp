@@ -158,7 +158,7 @@ void igvInterfaz::set_glutDisplayFunc() {
 	if (interfaz.modo == IGV_SELECCIONAR) {
 		// Apartado D: salir del modo seleccion y procesar la lista de impactos
 		interfaz.finaliza_seleccion(1024,lista_impactos); 
-	}	else {
+	} else {
 		// refresca la ventana
 		glutSwapBuffers();
 	}
@@ -195,8 +195,8 @@ void igvInterfaz::set_glutMotionFunc(GLint x,GLint y) {
 
 
 	// Apartado E: guardar la nueva posición del ratón 
-	interfaz.cursorX = x;
-	interfaz.cursorY = y;
+	//interfaz.cursorX = x;
+	//interfaz.cursorY = y;
 
 	// Apartado E: renovar el contenido de la ventana de vision 
 	glutPostRedisplay();
@@ -207,13 +207,12 @@ void igvInterfaz::inicia_seleccion(int TAMANO_LISTA_IMPACTOS, GLuint *lista_impa
 	// Apartado D: establecer dónde se van a almacenar los impactos
 	glSelectBuffer(TAMANO_LISTA_IMPACTOS, lista_impactos);
 
-
 	// Apartado D: pasar a modo de seleccion de OpenGL
 	glRenderMode(GL_SELECT);
 
 	// Apartado D: establecer la camara en modo seleccion con los parámetros necesarios para realizar la selección
 	// para el alto y el ancho de la ventana de selección probar diferentes tamaños y comprobar la amplitud de la selección
-	interfaz.camara.establecerSeleccion(1,1,interfaz.camara.cursorX,interfaz.camara.cursorY);
+	interfaz.camara.establecerSeleccion(1,1,interfaz.cursorX,interfaz.cursorY);
 }
 
 int procesar_impactos(int numero_impactos,GLuint *lista_impactos) {
@@ -228,6 +227,12 @@ int procesar_impactos(int numero_impactos,GLuint *lista_impactos) {
 	// Apartado D: recorrer la lista de impactos con numero_impactos impactos,
 	// guardar el más próximo al observador (minima Z)
 	// para empezar, considerar que la mínima Z tiene un valor de 0xffffffff (el tope del tipo GLuint)
+
+	cout<<"EXTRAYENDO ARRAY"<<endl;
+	for(int conteo = 0; conteo < 20; ++conteo){
+		cout<<lista_impactos[conteo]<<endl;
+	}
+	cout<<"FIN ARRAY"<<endl;
 
 	for(int cont = 0; cont < numero_impactos; ++cont) {
 		unsigned int numNombres = lista_impactos[posArray++];
@@ -251,6 +256,8 @@ void igvInterfaz::finaliza_seleccion(int TAMANO_LISTA_IMPACTOS, GLuint *lista_im
 
 	// Apartado D: volver a modo visualizacion OpenGL y obtener el número de impactos 
 	int numImpactos = glRenderMode(GL_RENDER);
+
+	cout<<"NumImpactos: "<<numImpactos<<endl;
 
 	// Apartado D: si hay impactos pasar a procesarlos con la funcion int procesar_impactos(numero_impactos,lista_impactos);
 	// obteniendo el objeto seleccionado, si lo hay
