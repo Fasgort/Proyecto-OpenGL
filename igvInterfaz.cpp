@@ -1,0 +1,238 @@
+#include <cstdlib>
+#include <stdio.h>
+
+#include "igvInterfaz.h"
+#include <iostream>
+using namespace std;
+extern igvInterfaz interfaz; // los callbacks deben ser estaticos y se requiere este objeto para acceder desde
+// ellos a las variables de la clase
+
+// Metodos constructores -----------------------------------
+
+igvInterfaz::igvInterfaz () {
+	modo = IGV_VISUALIZAR;
+	objeto_seleccionado = -1;
+	boton_retenido = false;
+}
+
+igvInterfaz::~igvInterfaz () {}
+
+
+// Metodos publicos ----------------------------------------
+
+void igvInterfaz::crear_mundo(void) {
+	// crear cámaras
+	interfaz.camara.set(IGV_PARALELA, igvPunto3D(3.0,2.0,4),igvPunto3D(0,0,0),igvPunto3D(0,1.0,0),
+		-1*4.5, 1*4.5, -1*4.5, 1*4.5, -1*3, 200);
+}
+
+void igvInterfaz::configura_entorno(int argc, char** argv,
+									int _ancho_ventana, int _alto_ventana,
+									int _pos_X, int _pos_Y,
+									string _titulo){
+										// inicialización de las variables de la interfaz																	
+										ancho_ventana = _ancho_ventana;
+										alto_ventana = _alto_ventana;
+
+										// inicialización de la ventana de visualización
+										glutInit(&argc, argv);
+										glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+										glutInitWindowSize(_ancho_ventana,_alto_ventana);
+										glutInitWindowPosition(_pos_X,_pos_Y);
+										glutCreateWindow(_titulo.c_str());
+
+										glEnable(GL_DEPTH_TEST); // activa el ocultamiento de superficies por z-buffer
+										glClearColor(1.0,1.0,1.0,0.0); // establece el color de fondo de la ventana
+
+										glEnable(GL_LIGHTING); // activa la iluminacion de la escena
+										glEnable(GL_NORMALIZE); // normaliza los vectores normales para calculo iluminacion
+
+										glEnable(GL_TEXTURE_2D); // activa el uso de texturas
+
+										crear_mundo(); // crea el mundo a visualizar en la ventana
+}
+
+void igvInterfaz::inicia_bucle_visualizacion() {
+	glutMainLoop(); // inicia el bucle de visualizacion de OpenGL
+}
+
+void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
+	// manejo de las teclas especiales del teclado
+
+	switch(key)	{
+	case GLUT_KEY_UP:
+		if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] < 1.5) {
+			interfaz.camara.P0[1] += 1.5;
+			interfaz.camara.r[1] += 1.5;
+		}
+		break;
+	case GLUT_KEY_DOWN:
+		if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] > -1.5) {
+			interfaz.camara.P0[1] -= 1.5;
+			interfaz.camara.r[1] -= 1.5;
+		}
+		break;
+	case GLUT_KEY_LEFT:
+		if(interfaz.camara.P0[0] > -3) {
+			interfaz.camara.P0[0] -= 3;
+			interfaz.camara.r[0] -= 3;
+			interfaz.camara.P0[1] = 0;
+			interfaz.camara.r[1] = 0;
+		}
+		break;
+	case GLUT_KEY_RIGHT:
+		if(interfaz.camara.P0[0] < 3) {
+			interfaz.camara.P0[0] += 3;
+			interfaz.camara.r[0] += 3;
+			interfaz.camara.P0[1] = 0;
+			interfaz.camara.r[1] = 0;
+		}
+		break;
+	}
+
+	glutPostRedisplay(); // renueva el contenido de la ventana de vision
+}
+
+void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
+	switch (key) {
+	case 'e': // activa/desactiva la visualizacion de los ejes
+		interfaz.escena.set_ejes(interfaz.escena.get_ejes()?false:true);
+		break;
+	case 27: // tecla de escape para SALIR
+		exit(1);
+		break;
+	}
+	glutPostRedisplay(); // renueva el contenido de la ventana de vision
+}
+
+void igvInterfaz::set_glutReshapeFunc(int w, int h) {
+	// dimensiona el viewport al nuevo ancho y alto de la ventana
+	// guardamos valores nuevos de la ventana de visualizacion
+	interfaz.set_ancho_ventana(w);
+	interfaz.set_alto_ventana(h);
+
+	// establece los parámetros de la cámara y de la proyección
+	interfaz.camara.tipo = IGV_PERSPECTIVA;
+	interfaz.camara.P0 = igvPunto3D(0, 0, 5.5);
+	interfaz.camara.r = igvPunto3D(0, 0, 1);
+	interfaz.camara.V = igvPunto3D(0, 1, 0);
+	interfaz.camara.angulo = 120;
+	interfaz.camara.raspecto = 1;
+	interfaz.camara.znear = 0.001;
+	interfaz.camara.zfar = 15;
+	interfaz.camara.aplicar();
+}
+
+void igvInterfaz::set_glutDisplayFunc() {
+	GLuint lista_impactos[1024]; // array con la lista de impactos cuando se visualiza en modo selección
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // borra la ventana y el z-buffer
+
+	// se establece el viewport
+	glViewport(0, 0, interfaz.get_ancho_ventana(), interfaz.get_alto_ventana());
+
+	// Apartado D: antes de aplicar las transformaciones de cámara y proyección hay comprobar el modo,
+	if (interfaz.modo == IGV_SELECCIONAR) {
+		// Apartado D: si se está seleccionando se pasa a modo selección de OpenGL y se pasan los parámetros de selección a la cámara
+		interfaz.inicia_seleccion(1024,lista_impactos);
+	}
+
+	// establece los parámetros de la cámara y de la proyección
+	interfaz.camara.aplicar();
+
+	//visualiza la escena
+	interfaz.escena.visualizar();
+
+	if (interfaz.modo == IGV_SELECCIONAR) {
+		// Apartado D: salir del modo seleccion y procesar la lista de impactos
+		interfaz.finaliza_seleccion(1024,lista_impactos); 
+	}	else {
+		// refresca la ventana
+		glutSwapBuffers();
+	}
+}
+
+void igvInterfaz::set_glutMouseFunc(GLint boton,GLint estado,GLint x,GLint y) {
+
+	// Apartado D: comprobar que se ha pulsado el botón izquierdo 
+
+
+	// Apartado D: guardar que el boton se ha presionado o se ha soltado, si se ha pulsado hay que
+	// pasar a modo IGV_SELECCIONAR
+
+
+	// Apartado D: guardar el pixel pulsado
+
+
+	// Apartado D: renovar el contenido de la ventana de vision 
+
+
+}
+
+void igvInterfaz::set_glutMotionFunc(GLint x,GLint y) {
+
+	// Apartado E: si el botón está retenido y hay algún objeto seleccionado,
+	// comprobar el objeto seleccionado y la posición del ratón y actualizar
+	// convenientemente el grado de libertad del objeto correspondiente 
+
+
+	// Apartado E: guardar la nueva posición del ratón 
+
+
+	// Apartado E: renovar el contenido de la ventana de vision 
+
+}
+
+void igvInterfaz::inicia_seleccion(int TAMANO_LISTA_IMPACTOS, GLuint *lista_impactos) {
+	// Apartado D: establecer dónde se van a almacenar los impactos
+	glSelectBuffer(TAMANO_LISTA_IMPACTOS, lista_impactos);
+
+
+	// Apartado D: pasar a modo de seleccion de OpenGL
+	glRenderMode(GL_SELECT);
+
+	// Apartado D: establecer la camara en modo seleccion con los parámetros necesarios para realizar la selección
+	// para el alto y el ancho de la ventana de selección probar diferentes tamaños y comprobar la amplitud de la selección
+	interfaz.camara.establecerSeleccion(10,10,interfaz.camara.cursorX,interfaz.camara.cursorY);
+}
+
+int procesar_impactos(int numero_impactos,GLuint *lista_impactos) {
+	/* Apartado D: esta función debe devolver el código del objeto seleccionado, que no tiene porque coincidir con el nombre
+	asignado con la pila de nombres, y si se han utilizado nombres jerárquicos hay que tener en cuenta que
+	esta función sólo devolver un único código */
+
+	// Apartado D: recorrer la lista de impactos con numero_impactos impactos,
+	// guardar el más próximo al observador (minima Z)
+	// para empezar, considerar que la mínima Z tiene un valor de 0xffffffff (el tope del tipo GLuint)
+
+
+	// Apartado D: a partir de la información del impacto con la mínima Z, devolver el código del objeto que le
+	// corresponde: como la escena no se almacena en ninguna estructura de datos, para devolver el objeto seleccionado
+	// utilizar aquí directamente los nombres asignados a los objetos de la escena
+
+
+	return(-1);
+}
+
+void igvInterfaz::finaliza_seleccion(int TAMANO_LISTA_IMPACTOS, GLuint *lista_impactos) {
+
+	// Apartado D: volver a modo visualizacion OpenGL y obtener el número de impactos 
+	int glRenderMode(GL_RENDER);
+
+	// Apartado D: si hay impactos pasar a procesarlos con la funcion int procesar_impactos(numero_impactos,lista_impactos);
+	// obteniendo el objeto seleccionado, si lo hay
+
+
+	// Apartado D: seleccion terminada, pasar a visualización normal
+
+
+	// Apartado D: establecer la camara en modo visualización
+
+}
+
+void igvInterfaz::inicializa_callbacks() {
+	glutKeyboardFunc(set_glutKeyboardFunc);
+	glutSpecialFunc(set_glutSpecialFunc);
+	glutReshapeFunc(set_glutReshapeFunc);
+	glutDisplayFunc(set_glutDisplayFunc);
+}
