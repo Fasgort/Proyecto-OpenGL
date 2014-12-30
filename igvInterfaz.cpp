@@ -209,24 +209,33 @@ int procesar_impactos(int numero_impactos,GLuint *lista_impactos) {
 	asignado con la pila de nombres, y si se han utilizado nombres jerárquicos hay que tener en cuenta que
 	esta función sólo devolver un único código */
 
+	GLuint minZ = 4294967295;
+	unsigned int posArray = 0;
+	int codigo = -1;
+
 	// Apartado D: recorrer la lista de impactos con numero_impactos impactos,
 	// guardar el más próximo al observador (minima Z)
 	// para empezar, considerar que la mínima Z tiene un valor de 0xffffffff (el tope del tipo GLuint)
 
+	for(int cont = 0; cont < numero_impactos; ++cont) {
+		unsigned int numNombres = lista_impactos[posArray++];
+		if(lista_impactos[posArray] < minZ && numNombres != 0) minZ = lista_impactos[posArray];
+		posArray += 2;
+		codigo = lista_impactos[posArray];
+		posArray += numNombres;
+	}
 
 	// Apartado D: a partir de la información del impacto con la mínima Z, devolver el código del objeto que le
 	// corresponde: como la escena no se almacena en ninguna estructura de datos, para devolver el objeto seleccionado
 	// utilizar aquí directamente los nombres asignados a los objetos de la escena
 
-
-	return(-1);
+	return codigo;
 }
 
 void igvInterfaz::finaliza_seleccion(int TAMANO_LISTA_IMPACTOS, GLuint *lista_impactos) {
 
 	// Apartado D: volver a modo visualizacion OpenGL y obtener el número de impactos 
 	int numImpactos = glRenderMode(GL_RENDER);
-	
 
 	// Apartado D: si hay impactos pasar a procesarlos con la funcion int procesar_impactos(numero_impactos,lista_impactos);
 	// obteniendo el objeto seleccionado, si lo hay
