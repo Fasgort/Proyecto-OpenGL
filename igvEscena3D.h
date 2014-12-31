@@ -54,6 +54,7 @@ public:
 
 	// Métodos para crear objetos
 
+	void creaMuseo(GLfloat* color_seleccion);
 	void creaMuneco(GLfloat* color_seleccion);
 
 	// Métodos para variar grados de libertad
