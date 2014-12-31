@@ -14,6 +14,10 @@ igvInterfaz::igvInterfaz () {
 	objeto_seleccionado = -1;
 	boton_retenido = false;
 	ampliado = false;
+	up = false;
+	down = false;
+	left = false;
+	right = false;
 }
 
 igvInterfaz::~igvInterfaz () {}
@@ -66,12 +70,20 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 		if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] < 1.5 && interfaz.ampliado == false) {
 			interfaz.camara.P0[1] += 1.5;
 			interfaz.camara.r[1] += 1.5;
+		} else if(!interfaz.up && interfaz.ampliado == true) {
+			interfaz.camara.P0[1] += 1;
+			if(interfaz.down) interfaz.down = false;
+			else interfaz.up = true;
 		}
 		break;
 	case GLUT_KEY_DOWN:
 		if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] > -1.5 && interfaz.ampliado == false) {
 			interfaz.camara.P0[1] -= 1.5;
 			interfaz.camara.r[1] -= 1.5;
+		} else if(!interfaz.down && interfaz.ampliado == true) {
+			interfaz.camara.P0[1] -= 1;
+			if(interfaz.up) interfaz.up = false;
+			else interfaz.down = true;
 		}
 		break;
 	case GLUT_KEY_LEFT:
@@ -80,6 +92,10 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 			interfaz.camara.r[0] -= 3;
 			interfaz.camara.P0[1] = 0;
 			interfaz.camara.r[1] = 0;
+		} else if(!interfaz.left && interfaz.ampliado == true) {
+			interfaz.camara.P0[0] -= 1;
+			if(interfaz.right) interfaz.right = false;
+			else interfaz.left = true;
 		}
 		break;
 	case GLUT_KEY_RIGHT:
@@ -88,6 +104,10 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 			interfaz.camara.r[0] += 3;
 			interfaz.camara.P0[1] = 0;
 			interfaz.camara.r[1] = 0;
+		} else if(!interfaz.right && interfaz.ampliado == true) {
+			interfaz.camara.P0[0] += 1;
+			if(interfaz.left) interfaz.left = false;
+			else interfaz.right = true;
 		}
 		break;
 	}
@@ -100,11 +120,30 @@ void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 	case ' ':
 		if(interfaz.ampliado == false && interfaz.camara.P0[1] != 0){
 			interfaz.camara.P0[2] -= 2;
+			interfaz.camara.r[2] = 2;
 			interfaz.ampliado = true;
 		}
 		else if (interfaz.ampliado == true) {
 			interfaz.camara.P0[2] += 2;
+			interfaz.camara.r[2] = 0;
 			interfaz.ampliado = false;
+			if(interfaz.up) {
+				interfaz.camara.P0[1] -= 1;
+				interfaz.up = false;
+			}
+			if(interfaz.down) {
+				interfaz.camara.P0[1] += 1;
+				interfaz.down = false;
+			}
+			if(interfaz.left) {
+				interfaz.camara.P0[0] += 1;
+				interfaz.left = false;
+			}
+			if(interfaz.right) {
+				interfaz.camara.P0[0] -= 1;
+				interfaz.right = false;
+			}
+
 		}
 		break;
 	case 'e': // activa/desactiva la visualizacion de los ejes

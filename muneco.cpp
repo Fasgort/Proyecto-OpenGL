@@ -2,8 +2,9 @@
 
 Muneco::Muneco() {
 	_seleccionado = -1;
-	GLfloat color_seleccion[]={1,1,0};
-	_color_seleccion = color_seleccion;
+	_color_seleccion[0] = 1;
+	_color_seleccion[1] = 1;
+	_color_seleccion[2] = 0;
 	_muneco_b1_ang = 0;
 	_muneco_b2_ang = 0;
 	_muneco_p1_esc = 0;

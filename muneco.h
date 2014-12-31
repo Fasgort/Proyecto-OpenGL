@@ -10,7 +10,7 @@ class Muneco {
 	friend class igvEscena3D;
 protected:
 	int _seleccionado;
-	GLfloat* _color_seleccion;
+	GLfloat _color_seleccion[3];
 
 	// grados de libertad
 	float _muneco_b1_ang;

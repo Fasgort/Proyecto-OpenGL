@@ -34,6 +34,10 @@ protected:
 	bool boton_retenido; // indica si el botón está pulsado (true) o se ha soltado (false)
 
 	bool ampliado; // Indica si hay un objeto en zoom
+	bool up; // Indica si vemos el objeto desde arriba
+	bool down; // Indica si vemos el objeto desde abajo
+	bool left; // Indica si vemos el objeto desde izquierda
+	bool right; // Indica si vemos el objeto desde derecha
 
 public:
 	// Constructores por defecto y destructor

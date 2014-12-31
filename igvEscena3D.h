@@ -37,6 +37,7 @@ public:
 	void set_seleccionado(int _seleccionado){
 		if(_seleccionado == PUERTA) {
 			salaPrincipal = salaPrincipal?false:true;
+			museo._salaPrincipal = salaPrincipal;
 			seleccionado = -1;
 		}
 		else {
