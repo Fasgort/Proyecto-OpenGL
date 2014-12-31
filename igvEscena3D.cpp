@@ -49,87 +49,47 @@ void pintar_ejes(void) {
 
 void igvEscena3D::creaMuseo(GLfloat* color_seleccion){
 
+	// Definición de variables y materiales
+
 	GLfloat posLuz[4] = {0.0, 0.0, 6.0, 1.0};
 	igvColor colAmb1(0.8, 0.8, 0.775, 1.0);
 	igvColor colAmb2(0.8, 0.775, 0.8, 1.0);
 	igvColor colAmb;
 	if(salaPrincipal) colAmb = colAmb1;
 	else colAmb = colAmb2;
-	igvColor colDif(0.7, 0.7, 0.7, 1.0);
-	igvColor colSpe(0.7, 0.7, 0.7, 1.0);
-	double atenAmbLuz = 0.0;
-	double atenDifLuz = 0.05;
-	double atenSpeLuz = 0.008;
-	igvFuenteLuz luz1(GL_LIGHT0, posLuz, colAmb, colDif, colSpe, atenAmbLuz, atenDifLuz, atenSpeLuz);
-	luz1.aplicar();
 
-	igvColor KaMat(0.9, 0.9, 0.9);
-	igvColor KdMat(0.7, 0.7, 0.7);
-	igvColor KsMat(0.7, 0.7, 0.7);
-	double NsMat = 120;
-	igvMaterial material1(KaMat, KdMat, KsMat, NsMat);
-	material1.aplicar();
+	igvFuenteLuz luzMuseo(GL_LIGHT0, posLuz, colAmb, igvColor(0.7, 0.7, 0.7, 1.0), igvColor(0.7, 0.7, 0.7, 1.0), 0.0, 0.05, 0.008);
+	igvMaterial matParedFrontal(igvColor(0.9, 0.9, 0.9), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+	igvMaterial matParedLateral(igvColor(0.875, 0.875, 0.875), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+	igvMaterial matSupInf(igvColor(0.85, 0.85, 0.85), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+	igvMaterial matPuerta(igvColor(0.3, 0.15, 0.08), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 
-	GLfloat pfpunto1[3] = {-6,4,1};
-	GLfloat pfpunto2[3] = {-6,-3,1};
-	GLfloat pfpunto3[3] = {6,-3,1};
-	GLfloat pfnormal1[3] = {0,0,1};
-	creaRectangulo(pfpunto1, pfpunto2, pfpunto3, pfnormal1); // pared frontal museo
+	luzMuseo.aplicar();
 
-	igvColor KaMat2(0.875, 0.875, 0.875);
-	igvColor KdMat2(0.7, 0.7, 0.7);
-	igvColor KsMat2(0.7, 0.7, 0.7);
-	double NsMat2 = 120;
-	igvMaterial material2(KaMat2, KdMat2, KsMat2, NsMat2);
-	material2.aplicar();
+	glPushMatrix();
+	matParedFrontal.aplicar();
+	creaRectangulo(bFloat(-6,4,1), bFloat(-6,-3,1), bFloat(6,-3,1), bFloat(0,0,1)); // pared frontal museo
+	glPopMatrix();
 
-	GLfloat pipunto1[3] = {-6,4,1};
-	GLfloat pipunto2[3] = {-6,-3,1};
-	GLfloat pipunto3[3] = {-6,-3,11};
-	GLfloat pinormal1[3] = {1,0,0};
-	creaRectangulo(pipunto1, pipunto2, pipunto3, pinormal1); // pared izquierda museo
+	glPushMatrix();
+	matParedLateral.aplicar();
+	creaRectangulo(bFloat(-6,4,1), bFloat(-6,-3,1), bFloat(-6,-3,11), bFloat(1,0,0)); // pared izquierda museo
+	creaRectangulo(bFloat(6,-3,1), bFloat(6,-3,11), bFloat(6,4,11), bFloat(-1,0,0)); // pared derecha museo
+	glPopMatrix();
 
-	GLfloat pdpunto1[3] = {6,-3,1};
-	GLfloat pdpunto2[3] = {6,-3,11};
-	GLfloat pdpunto3[3] = {6,4,11};
-	GLfloat pdnormal1[3] = {-1,0,0};
-	creaRectangulo(pdpunto1, pdpunto2, pdpunto3, pdnormal1); // pared derecha museo
+	glPushMatrix();
+	matSupInf.aplicar();
+	creaRectangulo(bFloat(-6,4,1), bFloat(6,4,1), bFloat(6,4,11), bFloat(0,-1,0)); // pared techo museo
+	creaRectangulo(bFloat(-6,-3,11), bFloat(6,-3,11), bFloat(6,-3,1), bFloat(0,1,0)); // pared suelo museo
+	glPopMatrix();
 
-	igvColor KaMat3(0.85, 0.85, 0.85);
-	igvColor KdMat3(0.7, 0.7, 0.7);
-	igvColor KsMat3(0.7, 0.7, 0.7);
-	double NsMat3 = 120;
-	igvMaterial material3(KaMat3, KdMat3, KsMat3, NsMat3);
-	material3.aplicar();
-
-	GLfloat ptpunto1[3] = {-6,4,1};
-	GLfloat ptpunto2[3] = {6,4,1};
-	GLfloat ptpunto3[3] = {6,4,11};
-	GLfloat ptnormal1[3] = {0,-1,0};
-	creaRectangulo(ptpunto1, ptpunto2, ptpunto3, ptnormal1); // pared techo museo
-
-	GLfloat pbpunto1[3] = {-6,-3,11};
-	GLfloat pbpunto2[3] = {6,-3,11};
-	GLfloat pbpunto3[3] = {6,-3,1};
-	GLfloat pbnormal1[3] = {0,1,0};
-	creaRectangulo(pbpunto1, pbpunto2, pbpunto3, pbnormal1); // pared suelo museo
-
-	igvColor KaMat4(0.3, 0.15, 0.08);
-	igvColor KdMat4(0.7, 0.7, 0.7);
-	igvColor KsMat4(0.7, 0.7, 0.7);
-	double NsMat4 = 120;
-	igvMaterial material4(KaMat4, KdMat4, KsMat4, NsMat4);
-	material4.aplicar();
-
-	GLfloat puertapunto1[3] = {-1,-3,1.05};
-	GLfloat puertapunto2[3] = {1,-3,1.05};
-	GLfloat puertapunto3[3] = {1,1.5,1.05};
-	GLfloat puertanormal1[3] = {0,0,1};
-
+	glPushMatrix();
+	matPuerta.aplicar();
 	if(seleccionado == PUERTA) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
 	glPushName(PUERTA);
-	creaRectangulo(puertapunto1, puertapunto2, puertapunto3, puertanormal1); // puerta
+	creaRectangulo(bFloat(-1,-3, 1.05), bFloat(1,-3, 1.05), bFloat(1, 1.5, 1.05), bFloat(0, 0, 1)); // puerta
 	glPopName();
+	glPopMatrix();
 
 }
 
@@ -217,8 +177,6 @@ void igvEscena3D::creaMuneco(GLfloat* color_seleccion) {
 	glutSolidSphere(1.0,20,20);
 	glPopName();
 
-	glPopMatrix();
-
 }
 
 void igvEscena3D::visualizar(void) {
@@ -228,24 +186,19 @@ void igvEscena3D::visualizar(void) {
 	// se pintan los ejes
 	if (ejes) pintar_ejes();
 
-	// Dibujando objetos
+	// Inicializamos pila de nombres
 	glInitNames();
 
 	// Color de selección
 	GLfloat color_seleccion[]={1,1,0};
 
-	creaMuseo(color_seleccion);
+	creaMuseo(color_seleccion); // creamos el museo
 	
-	igvColor nlKaMat(0, 0, 0);
-	igvColor nlKdMat(0, 0, 0);
-	igvColor nlKsMat(0, 0, 0);
-	double nlNsMat = 120;
-	igvMaterial nlmaterial(nlKaMat, nlKdMat, nlKsMat, nlNsMat);
-	nlmaterial.aplicar();
+	igvMaterial matObjetos(igvColor(0.2, 0.2, 0.2), igvColor(0.2, 0.2, 0.2), igvColor(0.2, 0.2, 0.2), 120);
+	matObjetos.aplicar(); // material empleado en los objetos del museo
 
 	// Emplazamiento inicial
 	glTranslatef(0, 0, 2);
-	glPushMatrix();
 
 	if(salaPrincipal){
 		// Primera sala
@@ -253,6 +206,13 @@ void igvEscena3D::visualizar(void) {
 		// PRIMERA FIGURA (inferior izquierda)
 		glPushMatrix();
 		glTranslatef(-3, -1.5, 0);
+		glScalef(0.33, 0.33, 0.33);
+		creaMuneco(color_seleccion);
+		glPopMatrix();
+
+		// FIGURA TEMPORAL (SE SUSTITUYE POR OTRA FIGURA)
+		glPushMatrix();
+		glTranslatef(3, -1.5, 0);
 		glScalef(0.33, 0.33, 0.33);
 		creaMuneco(color_seleccion);
 		glPopMatrix();

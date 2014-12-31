@@ -5,7 +5,7 @@
 
 #include "igvFuenteLuz.h"
 #include "igvMallaTriangulos.h"
-#include <iostream>
+#include "bFloat.h"
 
 using namespace std;
 
@@ -47,7 +47,10 @@ public:
 	bool get_ejes() {return ejes;};
 	void set_ejes(bool _ejes){ejes = _ejes;};
 	void set_seleccionado(int _seleccionado){
-		if(_seleccionado == PUERTA) salaPrincipal = salaPrincipal?false:true;
+		if(_seleccionado == PUERTA) {
+			salaPrincipal = salaPrincipal?false:true;
+			seleccionado = -1;
+		}
 		else seleccionado = _seleccionado;
 	};
 	int get_seleccionado(){return seleccionado;};

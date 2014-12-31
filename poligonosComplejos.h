@@ -3,9 +3,7 @@
 
 #include <GL/glut.h>
 
-#include "igvPunto3D.h"
-
-void creaRectangulo(GLfloat* si, GLfloat* ii, GLfloat* id, GLfloat* dirNormal){
+void creaRectangulo(bFloat si, bFloat ii, bFloat id, bFloat dirNormal){
 
 	const int complejidad = 5;
 	const int tam = 4*complejidad*complejidad;
