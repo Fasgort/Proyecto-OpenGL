@@ -3,18 +3,9 @@
 
 #include <GL/glut.h>
 #include "igvMallaTriangulos.h"
-#include "museo.h"
-#include "muneco.h"
+#include "objetos.h"
 
 using namespace std;
-
-enum {
-	PUERTA,
-	BRAZO_1,
-	BRAZO_2,
-	PUÑO_1,
-	PUÑO_2,
-};
 
 class igvEscena3D {
 protected:

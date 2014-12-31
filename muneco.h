@@ -2,7 +2,7 @@
 #define __MUNECO
 
 #include <GL/glut.h>
-#include "igvEscena3D.h"
+#include "objetos.h"
 
 class igvEscena3D;
 
