@@ -8,10 +8,10 @@ class poligonoComplejo {
 	protected:
 		// Atributos
 	const unsigned int complejidad;
-	float* puntos;
-	float* normales;
-	float* puntosTex;
-	unsigned int* indice;
+	GLfloat** puntos;
+	GLfloat** normales;
+	GLfloat** puntosTex;
+	GLubyte* indice;
 
 	public:
 		// Constructor y destructor

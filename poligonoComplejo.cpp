@@ -4,61 +4,57 @@ poligonoComplejo::poligonoComplejo(bFloat si, bFloat ii, bFloat id, bFloat dirNo
 
 	const int tam = 4*complejidad*complejidad;
 
-	puntos = new float[3*tam];
-	normales = new float[3*tam];
-	puntosTex = new float[2*tam];
-	indice = new unsigned int[tam];
+	puntos = new GLfloat*[tam];
+	normales = new GLfloat*[tam];
+	puntosTex = new GLfloat*[tam];
+	indice = new GLubyte[tam];
+
+	for(int i=0; i<tam; ++i) {
+		puntos[i] = new GLfloat[3];
+		normales[i] = new GLfloat[3];
+		puntosTex[i] = new GLfloat[2];
+	}
 
 	unsigned int cont = 0;
-	unsigned int cont2 = 0;
-	unsigned int cont3 = 0;
 
 	for(unsigned int x=0; x<complejidad; ++x){
 		for(unsigned int y=0; y<complejidad; ++y) {
 
-			puntos[cont3] = ii[0] + (id[0]-ii[0])*((x)/complejidad);
-			puntos[cont3+1] = ii[1] + (id[1]-ii[1])*((x)/complejidad);
-			puntos[cont3+2] = ii[2] + (id[2]-ii[2])*((x)/complejidad);
-			normales[cont3] = dirNormal[0];
-			normales[cont3+1] = dirNormal[1];
-			normales[cont3+2] = dirNormal[2];
-			cont3 += 3;
-			puntosTex[cont2] = x/complejidad;
-			puntosTex[cont2+1] = y/complejidad;
-			cont2 += 2;
+			puntos[cont][0] = ii[0] + (id[0]-ii[0])*((x)/complejidad);
+			puntos[cont][1] = ii[1] + (id[1]-ii[1])*((x)/complejidad);
+			puntos[cont][2] = ii[2] + (id[2]-ii[2])*((x)/complejidad);
+			normales[cont][0] = dirNormal[0];
+			normales[cont][1] = dirNormal[1];
+			normales[cont][2] = dirNormal[2];
+			puntosTex[cont][0] = x/complejidad;
+			puntosTex[cont][1] = y/complejidad;
 			indice[cont] = cont++;
-			puntos[cont3] = ii[0] + (id[0]-ii[0])*((x+1)/complejidad);
-			puntos[cont3+1] = ii[1] + (id[1]-ii[1])*((x+1)/complejidad);
-			puntos[cont3+2] = ii[2] + (id[2]-ii[2])*((x+1)/complejidad);
-			normales[cont3] = dirNormal[0];
-			normales[cont3+1] = dirNormal[1];
-			normales[cont3+2] = dirNormal[2];
-			cont3 += 3;
-			puntosTex[cont2] = x+1/complejidad;
-			puntosTex[cont2+1] = y/complejidad;
-			cont2 += 2;
+			puntos[cont][0] = ii[0] + (id[0]-ii[0])*((x+1)/complejidad);
+			puntos[cont][1] = ii[1] + (id[1]-ii[1])*((x+1)/complejidad);
+			puntos[cont][2] = ii[2] + (id[2]-ii[2])*((x+1)/complejidad);
+			normales[cont][0] = dirNormal[0];
+			normales[cont][1] = dirNormal[1];
+			normales[cont][2] = dirNormal[2];
+			puntosTex[cont][0] = x+1/complejidad;
+			puntosTex[cont][1] = y/complejidad;
 			indice[cont] = cont++;
-			puntos[cont3] = ii[0] + (id[0]-ii[0])*((x+1)/complejidad) + (si[0]-ii[0])*((y+1)/complejidad);
-			puntos[cont3+1] = ii[1] + (id[1]-ii[1])*((x+1)/complejidad) + (si[1]-ii[1])*((y+1)/complejidad);
-			puntos[cont3+2+1] = ii[2] + (id[2]-ii[2])*((x+1)/complejidad) + (si[2]-ii[2])*((y+1)/complejidad);
-			normales[cont3] = dirNormal[0];
-			normales[cont3+1] = dirNormal[1];
-			normales[cont3+2] = dirNormal[2];
-			cont3 += 3;
-			puntosTex[cont2] = x+1/complejidad;
-			puntosTex[cont2+1] = y+1/complejidad;
-			cont2 += 2;
+			puntos[cont][0] = ii[0] + (id[0]-ii[0])*((x+1)/complejidad) + (si[0]-ii[0])*((y+1)/complejidad);
+			puntos[cont][1] = ii[1] + (id[1]-ii[1])*((x+1)/complejidad) + (si[1]-ii[1])*((y+1)/complejidad);
+			puntos[cont][2] = ii[2] + (id[2]-ii[2])*((x+1)/complejidad) + (si[2]-ii[2])*((y+1)/complejidad);
+			normales[cont][0] = dirNormal[0];
+			normales[cont][1] = dirNormal[1];
+			normales[cont][2] = dirNormal[2];
+			puntosTex[cont][0] = x+1/complejidad;
+			puntosTex[cont][1] = y+1/complejidad;
 			indice[cont] = cont++;
-			puntos[cont3] = ii[0] + (si[0]-ii[0])*((y+1)/complejidad);
-			puntos[cont3+1] = ii[1] + (si[1]-ii[1])*((y+1)/complejidad);
-			puntos[cont3+2] = ii[2] + (si[2]-ii[2])*((y+1)/complejidad);
-			normales[cont3] = dirNormal[0];
-			normales[cont3+1] = dirNormal[1];
-			normales[cont3+2] = dirNormal[2];
-			cont3 += 3;
-			puntosTex[cont2] = x/complejidad;
-			puntosTex[cont2+1] = y+1/complejidad;
-			cont2 += 2;
+			puntos[cont][0] = ii[0] + (si[0]-ii[0])*((y+1)/complejidad);
+			puntos[cont][1] = ii[1] + (si[1]-ii[1])*((y+1)/complejidad);
+			puntos[cont][2] = ii[2] + (si[2]-ii[2])*((y+1)/complejidad);
+			normales[cont][0] = dirNormal[0];
+			normales[cont][1] = dirNormal[1];
+			normales[cont][2] = dirNormal[2];
+			puntosTex[cont][0] = x/complejidad;
+			puntosTex[cont][1] = y+1/complejidad;
 			indice[cont] = cont++;
 
 		}
@@ -67,9 +63,18 @@ poligonoComplejo::poligonoComplejo(bFloat si, bFloat ii, bFloat id, bFloat dirNo
 }
 
 poligonoComplejo::~poligonoComplejo(){
-	if(puntos) delete [] puntos;
-	if(normales) delete [] normales;
-	if(puntosTex) delete [] puntosTex;
+	if(puntos) {
+		for(int i = 0; i<=2; ++i) delete puntos[i];
+		delete [] puntos;
+	}
+	if(normales) {
+		for(int i = 0; i<=2; ++i) delete normales[i];
+		delete [] normales;
+	}
+	if(puntosTex) {
+		for(int i = 0; i<=1; ++i) delete puntosTex[i];
+		delete [] puntosTex;
+	}
 	if(indice) delete [] indice;
 }
 
