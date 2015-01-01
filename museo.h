@@ -2,12 +2,12 @@
 #define __MUSEO
 
 #include <GL/glut.h>
-#include "objetos.h"
+#include "nombres.h"
 
-class igvEscena3D;
+class Objeto;
 
 class Museo {
-	friend class igvEscena3D;
+	friend class Objeto;
 protected:
 	bool _salaPrincipal;
 public:

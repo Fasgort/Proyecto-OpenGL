@@ -2,12 +2,12 @@
 #define __MUNECO
 
 #include <GL/glut.h>
-#include "objetos.h"
+#include "nombres.h"
 
-class igvEscena3D;
+class Objeto;
 
 class Muneco {
-	friend class igvEscena3D;
+	friend class Objeto;
 protected:
 	int _seleccionado;
 	GLfloat _color_seleccion[3];

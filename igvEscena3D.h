@@ -13,10 +13,7 @@ protected:
 	bool ejes;
 	bool salaPrincipal;
 	int seleccionado;
-
-	// Objetos
-	Museo museo;
-	Muneco muneco;
+	Objeto objetos;
 
 public:
 	// atributos públicos
@@ -37,12 +34,12 @@ public:
 	void set_seleccionado(int _seleccionado){
 		if(_seleccionado == PUERTA) {
 			salaPrincipal = salaPrincipal?false:true;
-			museo._salaPrincipal = salaPrincipal;
+			objetos.set_salaPrincipal(salaPrincipal);
 			seleccionado = -1;
 		}
 		else {
 			seleccionado = _seleccionado;
-			muneco._seleccionado = _seleccionado;
+			objetos.set_seleccionado(_seleccionado);
 		}
 	};
 	int get_seleccionado(){return seleccionado;};
@@ -52,16 +49,16 @@ public:
 	void motionMouse(float mov_x, float mov_y) {
 		switch(seleccionado) {
 		case BRAZO_1:
-			muneco.set_muneco_b1_ang(mov_y);
+			objetos.muneco.set_muneco_b1_ang(mov_y);
 			break;
 		case BRAZO_2:
-			muneco.set_muneco_b2_ang(mov_y);
+			objetos.muneco.set_muneco_b2_ang(mov_y);
 			break;
 		case PUÑO_1:
-			muneco.set_muneco_p1_esc(mov_x);
+			objetos.muneco.set_muneco_p1_esc(mov_x);
 			break;
 		case PUÑO_2:
-			muneco.set_muneco_p2_esc(mov_x);
+			objetos.muneco.set_muneco_p2_esc(mov_x);
 			break;
 		}
 	}

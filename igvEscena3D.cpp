@@ -48,7 +48,7 @@ void igvEscena3D::visualizar(void) {
 	// Inicializamos pila de nombres
 	glInitNames();
 
-	museo.visualizar(); // visualizamos el museo
+	objetos.visualizaMuseo(); // visualizamos el museo
 	
 	igvMaterial matObjetos(igvColor(0.2, 0.2, 0.2), igvColor(0.1, 0.1, 0.1), igvColor(0.1, 0.1, 0.1), 120);
 	matObjetos.aplicar(); // material empleado en los objetos del museo
@@ -63,7 +63,7 @@ void igvEscena3D::visualizar(void) {
 		glPushMatrix();
 		glTranslatef(-3, -1.5, 0);
 		glScalef(0.33, 0.33, 0.33);
-		muneco.visualizar();
+		objetos.visualizaMuneco();
 		glPopMatrix();
 
 	} else {
