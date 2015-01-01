@@ -2,7 +2,6 @@
 #define __IGVESCENA3D
 
 #include <GL/glut.h>
-#include "igvMallaTriangulos.h"
 #include "objetos.h"
 
 using namespace std;
@@ -14,9 +13,6 @@ protected:
 	Objeto objetos;
 
 public:
-	// atributos públicos
-	igvMallaTriangulos *malla; // malla de triángulos asociada a la escena
-
 	// Constructores por defecto y destructor
 	igvEscena3D();
 	~igvEscena3D();

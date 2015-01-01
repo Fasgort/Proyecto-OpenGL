@@ -40,6 +40,9 @@ class bFloat {
 		// Operador de multiplicacion
 		bFloat& operator * (const float& p);
 
+		// Operador de multiplicacion
+		bFloat& operator * (const bFloat& p);
+
 		// Destructor
 		~bFloat();
 

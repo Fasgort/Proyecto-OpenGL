@@ -3,6 +3,7 @@
 
 #include "igvEscena3D.h"
 #include "igvMaterial.h"
+#include "igvTextura.h"
 
 // Metodos constructores 
 

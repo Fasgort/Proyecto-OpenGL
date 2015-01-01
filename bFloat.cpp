@@ -53,6 +53,14 @@ bFloat& bFloat::operator * (const float& p) {
 	return(*this);
 }
 
+// Operador de multiplicacion
+bFloat& bFloat::operator * (const bFloat& p) {
+	c[X] *= p[X];
+	c[Y] *= p[X];
+	c[Z] *= p[X];
+	return(*this);
+}
+
 int bFloat::operator == (const bFloat& p) {
 	return ((fabs(c[X]-p[X])<IGV_EPSILON) && (fabs(c[Y]-p[Y])<IGV_EPSILON) && (fabs(c[Z]-p[Z])<IGV_EPSILON));
 }
