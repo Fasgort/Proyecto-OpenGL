@@ -11,7 +11,6 @@ protected:
 	// Atributos
 	bool ejes;
 	Objeto* objetos;
-
 public:
 	// Constructores por defecto y destructor
 	igvEscena3D();

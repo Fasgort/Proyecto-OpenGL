@@ -5,24 +5,21 @@
 #include "bFloat.h"
 
 class poligonoComplejo {
-	protected:
-		// Atributos
+protected:
+	// Atributos
 	const unsigned int complejidad;
-	GLfloat** puntos;
-	GLfloat** normales;
-	GLfloat** puntosTex;
+	float* puntos;
+	float* normales;
+	float* puntosTex;
 	GLubyte* indice;
 
-	public:
-		// Constructor y destructor
-		poligonoComplejo(bFloat si, bFloat ii, bFloat id, bFloat dirNormal, unsigned int complejidad);
-		~poligonoComplejo();
+public:
+	// Constructor y destructor
+	poligonoComplejo(bFloat si, bFloat ii, bFloat id, bFloat dirNormal, unsigned int complejidad);
+	~poligonoComplejo();
 
-		// Métodos
-    void visualizar();
-
-	//test
-	poligonoComplejo(bFloat si, bFloat ii, bFloat id, bFloat dirNormal);
+	// Métodos
+	void visualizar();
 };
 
 #endif

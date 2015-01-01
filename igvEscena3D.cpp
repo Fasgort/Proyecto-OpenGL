@@ -14,6 +14,7 @@ igvEscena3D::igvEscena3D() {
 }
 
 igvEscena3D::~igvEscena3D() {
+	delete objetos;
 }
 
 // Metodos publicos 
@@ -49,7 +50,7 @@ void igvEscena3D::visualizar(void) {
 	glInitNames();
 
 	objetos->visualizaMuseo(); // visualizamos el museo
-	
+
 	igvMaterial matObjetos(igvColor(0.2, 0.2, 0.2), igvColor(0.1, 0.1, 0.1), igvColor(0.1, 0.1, 0.1), 120);
 	matObjetos.aplicar(); // material empleado en los objetos del museo
 
