@@ -59,8 +59,8 @@ void igvEscena3D::visualizar(void) {
 
 		// PRIMERA FIGURA (inferior izquierda)
 		glPushMatrix();
-		glTranslatef(-3, -1.5, 0);
-		glScalef(0.33, 0.33, 0.33);
+		glTranslatef(-3.5, -1.5, 0);
+		glScalef(0.3, 0.3, 0.3);
 		objetos.visualizaMuneco();
 		glPopMatrix();
 

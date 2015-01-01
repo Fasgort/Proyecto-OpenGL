@@ -27,6 +27,7 @@ void Museo::visualizar() {
 	igvMaterial matParedLateral(igvColor(0.875, 0.875, 0.875), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial matSupInf(igvColor(0.85, 0.85, 0.85), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial matPuerta(igvColor(0.3, 0.15, 0.08), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+	igvMaterial matMarco(igvColor(0.15, 0.15, 0.08), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 
 	luzMuseo.aplicar();
 
@@ -52,6 +53,12 @@ void Museo::visualizar() {
 	glPushName(PUERTA);
 	creaRectangulo(bFloat(-1,-3, 1.05), bFloat(1,-3, 1.05), bFloat(1, 1.5, 1.05), bFloat(0, 0, 1)); // puerta
 	glPopName();
+	glPopMatrix();
+
+	glPushMatrix();
+	matMarco.aplicar();
+	creaRectangulo(bFloat(-4.7, 2.175, 1.05), bFloat(-4.7, 0.825, 1.05), bFloat(-2.3, 0.825, 1.05), bFloat(0, 0, 1)); // marco 1
+	creaRectangulo(bFloat(4.7, 2.175, 1.05), bFloat(4.7, 0.825, 1.05), bFloat(2.3, 0.825, 1.05), bFloat(0, 0, 1)); // marco 2
 	glPopMatrix();
 
 }

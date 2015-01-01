@@ -87,9 +87,9 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 		}
 		break;
 	case GLUT_KEY_LEFT:
-		if(interfaz.camara.P0[0] > -3 && interfaz.ampliado == false) {
-			interfaz.camara.P0[0] -= 3;
-			interfaz.camara.r[0] -= 3;
+		if(interfaz.camara.P0[0] > -3.5 && interfaz.ampliado == false) {
+			interfaz.camara.P0[0] -= 3.5;
+			interfaz.camara.r[0] -= 3.5;
 			interfaz.camara.P0[1] = 0;
 			interfaz.camara.r[1] = 0;
 		} else if(!interfaz.left && interfaz.ampliado == true) {
@@ -99,9 +99,9 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 		}
 		break;
 	case GLUT_KEY_RIGHT:
-		if(interfaz.camara.P0[0] < 3 && interfaz.ampliado == false) {
-			interfaz.camara.P0[0] += 3;
-			interfaz.camara.r[0] += 3;
+		if(interfaz.camara.P0[0] < 3.5 && interfaz.ampliado == false) {
+			interfaz.camara.P0[0] += 3.5;
+			interfaz.camara.r[0] += 3.5;
 			interfaz.camara.P0[1] = 0;
 			interfaz.camara.r[1] = 0;
 		} else if(!interfaz.right && interfaz.ampliado == true) {
