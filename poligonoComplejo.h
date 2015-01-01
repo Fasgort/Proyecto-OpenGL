@@ -20,6 +20,9 @@ class poligonoComplejo {
 
 		// Métodos
     void visualizar();
+
+	//test
+	poligonoComplejo(bFloat si, bFloat ii, bFloat id, bFloat dirNormal);
 };
 
 #endif

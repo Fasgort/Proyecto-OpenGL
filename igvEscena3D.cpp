@@ -10,6 +10,7 @@
 igvEscena3D::igvEscena3D() {
 	// atributos
 	ejes = true;
+	objetos = new Objeto();
 }
 
 igvEscena3D::~igvEscena3D() {
@@ -47,7 +48,7 @@ void igvEscena3D::visualizar(void) {
 	// Inicializamos pila de nombres
 	glInitNames();
 
-	objetos.visualizaMuseo(); // visualizamos el museo
+	objetos->visualizaMuseo(); // visualizamos el museo
 	
 	igvMaterial matObjetos(igvColor(0.2, 0.2, 0.2), igvColor(0.1, 0.1, 0.1), igvColor(0.1, 0.1, 0.1), 120);
 	matObjetos.aplicar(); // material empleado en los objetos del museo
@@ -55,14 +56,14 @@ void igvEscena3D::visualizar(void) {
 	// Emplazamiento inicial
 	glTranslatef(0, 0, 2);
 
-	if(objetos.getSalaPrincipal()){
+	if(objetos->getSalaPrincipal()){
 		// Primera sala
 
 		// PRIMERA FIGURA (inferior izquierda)
 		glPushMatrix();
 		glTranslatef(-3.5, -1.5, 0);
 		glScalef(0.3, 0.3, 0.3);
-		objetos.visualizaMuneco();
+		objetos->visualizaMuneco();
 		glPopMatrix();
 
 	} else {

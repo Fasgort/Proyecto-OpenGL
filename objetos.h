@@ -13,8 +13,8 @@ protected:
 	int _seleccionado;
 
 	// Objetos
-	Museo museo;
-	Muneco muneco;
+	Museo* museo;
+	Muneco* muneco;
 public:
 
 	Objeto();
