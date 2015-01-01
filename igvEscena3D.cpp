@@ -54,7 +54,7 @@ void igvEscena3D::visualizar(void) {
 	// Emplazamiento inicial
 	glTranslatef(0, 0, 2);
 
-	if(objetos.museo.getSalaPrincipal()){
+	if(objetos.getSalaPrincipal()){
 		// Primera sala
 
 		// PRIMERA FIGURA (inferior izquierda)
