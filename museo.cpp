@@ -76,8 +76,8 @@ void Museo::visualizar() {
 
 	glPushMatrix();
 	matMarco.aplicar();
-	//igvTextura textura("imagenes/test.bmp");
-	//textura.aplicar();
+	igvTextura textura;
+	textura.aplicar();
 	cuadro1->visualizar(); // cuadro 1
 	cuadro2->visualizar(); // cuadro 2
 	glPopMatrix();
