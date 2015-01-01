@@ -70,7 +70,7 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 		if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] < 1.5 && interfaz.ampliado == false) {
 			interfaz.camara.P0[1] += 1.5;
 			interfaz.camara.r[1] += 1.5;
-		} else if(!interfaz.up && interfaz.ampliado == true) {
+		} else if(!interfaz.up && interfaz.ampliado == true && interfaz.camara.P0[1] < 0) {
 			interfaz.camara.P0[1] += 1;
 			if(interfaz.down) interfaz.down = false;
 			else interfaz.up = true;
@@ -80,7 +80,7 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 		if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] > -1.5 && interfaz.ampliado == false) {
 			interfaz.camara.P0[1] -= 1.5;
 			interfaz.camara.r[1] -= 1.5;
-		} else if(!interfaz.down && interfaz.ampliado == true) {
+		} else if(!interfaz.down && interfaz.ampliado == true && interfaz.camara.P0[1] < 0) {
 			interfaz.camara.P0[1] -= 1;
 			if(interfaz.up) interfaz.up = false;
 			else interfaz.down = true;
@@ -92,7 +92,7 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 			interfaz.camara.r[0] -= 3.5;
 			interfaz.camara.P0[1] = 0;
 			interfaz.camara.r[1] = 0;
-		} else if(!interfaz.left && interfaz.ampliado == true) {
+		} else if(!interfaz.left && interfaz.ampliado == true && interfaz.camara.P0[1] < 0) {
 			interfaz.camara.P0[0] -= 1;
 			if(interfaz.right) interfaz.right = false;
 			else interfaz.left = true;
@@ -104,7 +104,7 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 			interfaz.camara.r[0] += 3.5;
 			interfaz.camara.P0[1] = 0;
 			interfaz.camara.r[1] = 0;
-		} else if(!interfaz.right && interfaz.ampliado == true) {
+		} else if(!interfaz.right && interfaz.ampliado == true && interfaz.camara.P0[1] < 0) {
 			interfaz.camara.P0[0] += 1;
 			if(interfaz.left) interfaz.left = false;
 			else interfaz.right = true;
@@ -119,13 +119,14 @@ void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 	switch (key) {
 	case ' ':
 		if(interfaz.ampliado == false && interfaz.camara.P0[1] != 0){
-			interfaz.camara.P0[2] -= 2;
+			if(interfaz.camara.P0[1] > 0) interfaz.camara.P0[2] -= 3.25;
+			else interfaz.camara.P0[2] -= 2;
 			interfaz.camara.r[2] = 2;
 			interfaz.ampliado = true;
 		}
 		else if (interfaz.ampliado == true) {
-			interfaz.camara.P0[2] += 2;
-			interfaz.camara.r[2] = 0;
+			interfaz.camara.P0[2] = 5.5;
+			interfaz.camara.r[2] = 1;
 			interfaz.ampliado = false;
 			if(interfaz.up) {
 				interfaz.camara.P0[1] -= 1;
