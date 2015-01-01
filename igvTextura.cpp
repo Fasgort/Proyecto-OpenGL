@@ -3,8 +3,8 @@
 // Metodos constructores y destructor
 
 igvTextura::igvTextura() {
-	ancho = 64;
-	alto = 64;
+	unsigned int ancho = 64;
+	unsigned int alto = 64;
 
 	GLubyte textura[64][64][4];
 
@@ -52,8 +52,8 @@ igvTextura::igvTextura(char *fichero) {
 	// carga en memoria el BMP almacenado en el fichero
 	imagen=LoadDIBitmap(fichero,&BitmapInfo);
 
-	alto=(*BitmapInfo).bmiHeader.biHeight;
-	ancho=(*BitmapInfo).bmiHeader.biWidth;
+	unsigned int alto=(*BitmapInfo).bmiHeader.biHeight;
+	unsigned int ancho=(*BitmapInfo).bmiHeader.biWidth;
 
 	/* Apartado H: Añadir aquí el código para cargar como textura OpenGL el BMP imagen */
 	/*
@@ -83,7 +83,7 @@ igvTextura::igvTextura(char *fichero) {
 	delete imagen;
 }
 
-void igvTextura::aplicar(void) {
+void igvTextura::aplicar() {
 	glBindTexture(GL_TEXTURE_2D, idTextura);
 }
 

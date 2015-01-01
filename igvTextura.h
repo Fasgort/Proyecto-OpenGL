@@ -11,8 +11,6 @@ class igvTextura {
 protected:
 	// Atributos
 	unsigned int idTextura; // identificador de la textura
-	unsigned int alto,  // alto de la textura
-		ancho; // ancho de la textura
 
 	// Metodos
 
@@ -23,7 +21,7 @@ public:
 	~igvTextura();
 
 	// Metodos
-	void aplicar(void); // establece la textura como la textura activa
+	void aplicar(); // establece la textura como la textura activa
 };
 
 #endif

@@ -4,6 +4,7 @@
 #include <GL/glut.h>
 #include "nombres.h"
 #include "poligonoComplejo.h"
+#include "igvTextura.h"
 
 class Objeto;
 
@@ -19,6 +20,8 @@ class Museo {
 	poligonoComplejo* puerta;
 	poligonoComplejo* cuadro1;
 	poligonoComplejo* cuadro2;
+
+	igvTextura textura;
 protected:
 	bool _salaPrincipal;
 public:

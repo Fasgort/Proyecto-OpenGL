@@ -3,7 +3,6 @@
 #include "igvMaterial.h"
 #include "bFloat.h"
 #include "igvFuenteLuz.h"
-#include "igvTextura.h"
 
 Museo::Museo() {
 	_salaPrincipal = true;
@@ -76,7 +75,6 @@ void Museo::visualizar() {
 
 	glPushMatrix();
 	matMarco.aplicar();
-	igvTextura textura;
 	textura.aplicar();
 	cuadro1->visualizar(); // cuadro 1
 	cuadro2->visualizar(); // cuadro 2
