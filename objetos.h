@@ -5,8 +5,6 @@
 #include "muneco.h"
 
 class igvEscena3D;
-class Museo;
-class Muneco;
 
 class Objeto {
 	friend class igvEscena3D;
