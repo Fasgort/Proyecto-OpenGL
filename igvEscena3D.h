@@ -11,8 +11,6 @@ class igvEscena3D {
 protected:
 	// Atributos
 	bool ejes;
-	bool salaPrincipal;
-	int seleccionado;
 	Objeto objetos;
 
 public:
@@ -33,21 +31,16 @@ public:
 	void set_ejes(bool _ejes){ejes = _ejes;};
 	void set_seleccionado(int _seleccionado){
 		if(_seleccionado == PUERTA) {
-			salaPrincipal = salaPrincipal?false:true;
-			objetos.set_salaPrincipal(salaPrincipal);
-			seleccionado = -1;
+			objetos.setSalaPrincipal(objetos.getSalaPrincipal()?false:true);
+			objetos.setSeleccionado(-1);
 		}
-		else {
-			seleccionado = _seleccionado;
-			objetos.set_seleccionado(_seleccionado);
-		}
+		else objetos.setSeleccionado(_seleccionado);
 	};
-	int get_seleccionado(){return seleccionado;};
 
 	// Métodos para variar grados de libertad
 
 	void motionMouse(float mov_x, float mov_y) {
-		switch(seleccionado) {
+		switch(objetos._seleccionado) {
 		case BRAZO_1:
 			objetos.muneco.set_muneco_b1_ang(mov_y);
 			break;

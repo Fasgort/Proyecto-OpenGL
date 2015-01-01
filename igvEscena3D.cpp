@@ -9,8 +9,6 @@
 igvEscena3D::igvEscena3D() {
 	// atributos
 	ejes = true;
-	salaPrincipal = true;
-	seleccionado = -1;
 }
 
 igvEscena3D::~igvEscena3D() {
@@ -56,7 +54,7 @@ void igvEscena3D::visualizar(void) {
 	// Emplazamiento inicial
 	glTranslatef(0, 0, 2);
 
-	if(salaPrincipal){
+	if(objetos.museo.getSalaPrincipal()){
 		// Primera sala
 
 		// PRIMERA FIGURA (inferior izquierda)

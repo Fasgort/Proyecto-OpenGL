@@ -9,7 +9,7 @@ class igvEscena3D;
 class Objeto {
 	friend class igvEscena3D;
 protected:
-	//Atributos
+	// Atributos
 	int _seleccionado;
 
 	// Objetos
@@ -20,8 +20,9 @@ public:
 	Objeto();
 	~Objeto();
 
-	void set_seleccionado(int seleccionado);
-	void set_salaPrincipal(bool salaPrincipal);
+	void setSeleccionado(int seleccionado);
+	void setSalaPrincipal(bool salaPrincipal);
+	bool getSalaPrincipal();
 
 	void visualizaMuseo();
 	void visualizaMuneco();
