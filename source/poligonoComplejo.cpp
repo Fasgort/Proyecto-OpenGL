@@ -13,54 +13,63 @@ poligonoComplejo::poligonoComplejo(bFloat si, bFloat ii, bFloat id, bFloat dirNo
 	unsigned int cont2 = 0;
 	unsigned int cont3 = 0;
 
+	float distancia_hor[3];
+	float distancia_ver[3];
+
+	for(unsigned int i = 0; i<3; ++i){
+		distancia_hor[i] = id[i] - ii[i];
+		distancia_ver[i] = si[i] - ii[i];
+	}
+
 	for(unsigned int x=0; x<complejidad; ++x){
+
 		for(unsigned int y=0; y<complejidad; ++y) {
 
-			puntos[cont3] = ii[0] + (id[0]-ii[0])*((x)/complejidad);
-			puntos[cont3+1] = ii[1] + (id[1]-ii[1])*((x)/complejidad);
-			puntos[cont3+2] = ii[2] + (id[2]-ii[2])*((x)/complejidad);
+			puntos[cont3] = ii[0] + distancia_hor[0] * (float(x)/float(complejidad)) + distancia_ver[0] * (float(y)/float(complejidad));
+			puntos[cont3+1] = ii[1] + distancia_hor[1] * (float(x)/float(complejidad)) + distancia_ver[1] * (float(y)/float(complejidad));
+			puntos[cont3+2] = ii[2] + distancia_hor[2] * (float(x)/float(complejidad)) + distancia_ver[2] * (float(y)/float(complejidad));
 			normales[cont3] = dirNormal[0];
 			normales[cont3+1] = dirNormal[1];
 			normales[cont3+2] = dirNormal[2];
 			cont3 += 3;
-			puntosTex[cont2] = x/complejidad;
-			puntosTex[cont2+1] = y/complejidad;
+			puntosTex[cont2] = float(x)/float(complejidad);
+			puntosTex[cont2+1] = float(y)/float(complejidad);
 			cont2 += 2;
 			indice[cont] = cont++;
 
-			puntos[cont3] = ii[0] + (id[0]-ii[0])*((x+1)/complejidad);
-			puntos[cont3+1] = ii[1] + (id[1]-ii[1])*((x+1)/complejidad);
-			puntos[cont3+2] = ii[2] + (id[2]-ii[2])*((x+1)/complejidad);
+			puntos[cont3] = ii[0] + distancia_hor[0] * ((float(x)+1)/float(complejidad)) + distancia_ver[0] * (float(y)/float(complejidad));
+			puntos[cont3+1] = ii[1] + distancia_hor[1] * ((float(x)+1)/float(complejidad)) + distancia_ver[1] * (float(y)/float(complejidad));
+			puntos[cont3+2] = ii[2] + distancia_hor[2] * ((float(x)+1)/float(complejidad)) + distancia_ver[2] * (float(y)/float(complejidad));
 			normales[cont3] = dirNormal[0];
 			normales[cont3+1] = dirNormal[1];
 			normales[cont3+2] = dirNormal[2];
 			cont3 += 3;
-			puntosTex[cont2] = x+1/complejidad;
-			puntosTex[cont2+1] = y/complejidad;
+			puntosTex[cont2] = (float(x)+1)/float(complejidad);
+			puntosTex[cont2+1] = float(y)/float(complejidad);
 			cont2 += 2;
 			indice[cont] = cont++;
 
-			puntos[cont3] = ii[0] + (id[0]-ii[0])*((x+1)/complejidad) + (si[0]-ii[0])*((y+1)/complejidad);
-			puntos[cont3+1] = ii[1] + (id[1]-ii[1])*((x+1)/complejidad) + (si[1]-ii[1])*((y+1)/complejidad);
-			puntos[cont3+2] = ii[2] + (id[2]-ii[2])*((x+1)/complejidad) + (si[2]-ii[2])*((y+1)/complejidad);
+			puntos[cont3] = ii[0] + distancia_hor[0] * ((float(x)+1)/float(complejidad)) + distancia_ver[0] * ((float(y)+1)/float(complejidad));
+			puntos[cont3+1] = ii[1] + distancia_hor[1] * ((float(x)+1)/float(complejidad)) + distancia_ver[1] * ((float(y)+1)/float(complejidad));
+			puntos[cont3+2] = ii[2] + distancia_hor[2] * ((float(x)+1)/float(complejidad)) + distancia_ver[2] * ((float(y)+1)/float(complejidad));
 			normales[cont3] = dirNormal[0];
 			normales[cont3+1] = dirNormal[1];
 			normales[cont3+2] = dirNormal[2];
 			cont3 += 3;
-			puntosTex[cont2] = x+1/complejidad;
-			puntosTex[cont2+1] = y+1/complejidad;
+			puntosTex[cont2] = (float(x)+1)/float(complejidad);
+			puntosTex[cont2+1] = (float(y)+1)/float(complejidad);
 			cont2 += 2;
 			indice[cont] = cont++;
 
-			puntos[cont3] = ii[0] + (si[0]-ii[0])*((y+1)/complejidad);
-			puntos[cont3+1] = ii[1] + (si[1]-ii[1])*((y+1)/complejidad);
-			puntos[cont3+2] = ii[2] + (si[2]-ii[2])*((y+1)/complejidad);
+			puntos[cont3] = ii[0] + distancia_hor[0] * (float(x)/float(complejidad)) + distancia_ver[0] * ((float(y)+1)/float(complejidad));
+			puntos[cont3+1] = ii[1] + distancia_hor[1] * (float(x)/float(complejidad)) + distancia_ver[1] * ((float(y)+1)/float(complejidad));
+			puntos[cont3+2] = ii[2] + distancia_hor[2] * (float(x)/float(complejidad)) + distancia_ver[2] * ((float(y)+1)/float(complejidad));
 			normales[cont3] = dirNormal[0];
 			normales[cont3+1] = dirNormal[1];
 			normales[cont3+2] = dirNormal[2];
 			cont3 += 3;
-			puntosTex[cont2] = x/complejidad;
-			puntosTex[cont2+1] = y+1/complejidad;
+			puntosTex[cont2] = float(x)/float(complejidad);
+			puntosTex[cont2+1] = (float(y)+1)/float(complejidad);
 			cont2 += 2;
 			indice[cont] = cont++;
 
