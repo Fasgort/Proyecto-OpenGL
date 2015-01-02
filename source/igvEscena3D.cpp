@@ -9,7 +9,6 @@
 
 igvEscena3D::igvEscena3D() {
 	// atributos
-	ejes = true;
 	objetos = new Objeto();
 }
 
@@ -19,32 +18,9 @@ igvEscena3D::~igvEscena3D() {
 
 // Metodos publicos 
 
-void pintar_ejes(void) {
-	GLfloat rojo[]={1,0,0,1.0};
-	GLfloat verde[]={0,1,0,1.0};
-	GLfloat azul[]={0,0,1,1.0};
-
-	glBegin(GL_LINES);
-	glMaterialfv(GL_FRONT,GL_EMISSION,rojo);
-	glVertex3f(1000,0,0);
-	glVertex3f(-1000,0,0);
-
-	glMaterialfv(GL_FRONT,GL_EMISSION,verde);
-	glVertex3f(0,1000,0);
-	glVertex3f(0,-1000,0);
-
-	glMaterialfv(GL_FRONT,GL_EMISSION,azul);
-	glVertex3f(0,0,1000);
-	glVertex3f(0,0,-1000);
-	glEnd();
-}
-
 void igvEscena3D::visualizar(void) {
 	// crear el modelo
 	glPushMatrix(); // guarda la matriz de modelado
-
-	// se pintan los ejes
-	if (ejes) pintar_ejes();
 
 	// Inicializamos pila de nombres
 	glInitNames();

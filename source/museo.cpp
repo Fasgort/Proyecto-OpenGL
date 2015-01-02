@@ -63,9 +63,7 @@ void Museo::visualizar() {
 
 	glPushMatrix();
 	matPuerta.aplicar();
-	glPushName(PUERTA);
 	puerta->visualizar(); // puerta
-	glPopName();
 	glPopMatrix();
 
 }

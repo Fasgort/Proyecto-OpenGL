@@ -118,16 +118,18 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 	switch (key) {
 	case ' ':
-		if(interfaz.ampliado == false && interfaz.camara.P0[1] != 0){
-			if(interfaz.camara.P0[1] > 0) interfaz.camara.P0[2] -= 3.45;
-			else interfaz.camara.P0[2] -= 1.5;
-			interfaz.camara.r[2] = 2;
-			interfaz.ampliado = true;
-		}
-		else if (interfaz.ampliado == true) {
+		if(interfaz.ampliado == false) {
+			if (interfaz.camara.P0[1] != 0){
+				if(interfaz.camara.P0[1] > 0) interfaz.camara.P0[2] -= 3.45;
+				else interfaz.camara.P0[2] -= 1.5;
+				interfaz.camara.r[2] = 2;
+				interfaz.ampliado = true;
+			} else if(interfaz.camara.P0[0] == 0) interfaz.escena.cambiarSalaPrincipal();
+		} else {
 			interfaz.camara.P0[2] = 5.5;
 			interfaz.camara.r[2] = 1;
 			interfaz.ampliado = false;
+			interfaz.escena.set_seleccionado(-1);
 			if(interfaz.up) {
 				interfaz.camara.P0[1] -= 1;
 				interfaz.up = false;
@@ -145,9 +147,6 @@ void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 				interfaz.right = false;
 			}
 		}
-		break;
-	case 'e': // activa/desactiva la visualizacion de los ejes
-		interfaz.escena.set_ejes(interfaz.escena.get_ejes()?false:true);
 		break;
 	case 27: // tecla de escape para SALIR
 		exit(1);
@@ -202,7 +201,7 @@ void igvInterfaz::set_glutMouseFunc(GLint boton,GLint estado,GLint x,GLint y) {
 
 		// Apartado D: guardar que el boton se ha presionado o se ha soltado, si se ha pulsado hay que
 		// pasar a modo IGV_SELECCIONAR
-		if(estado == GLUT_DOWN) {
+		if(estado == GLUT_DOWN && interfaz.ampliado) {
 			interfaz.modo = IGV_SELECCIONAR;
 			interfaz.boton_retenido = true;
 
@@ -283,6 +282,8 @@ int procesar_impactos(int numero_impactos,GLuint *lista_impactos) {
 }
 
 void igvInterfaz::finaliza_seleccion(int TAMANO_LISTA_IMPACTOS, GLuint *lista_impactos) {
+
+	int objeto_seleccionado;
 
 	// Apartado D: volver a modo visualizacion OpenGL y obtener el número de impactos 
 	int numImpactos = glRenderMode(GL_RENDER);

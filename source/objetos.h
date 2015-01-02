@@ -5,6 +5,7 @@
 #include "cuadro.h"
 #include "boxeador.h"
 #include "helice.h"
+#include "esferasFlotantes.h"
 
 class igvEscena3D;
 
@@ -19,7 +20,7 @@ protected:
 	Cuadro* cuadro;
 	Boxeador* figura1;
 	Helice* figura2;
-	Boxeador* figura3;
+	esferasFlotantes* figura3;
 	Boxeador* figura4;
 public:
 

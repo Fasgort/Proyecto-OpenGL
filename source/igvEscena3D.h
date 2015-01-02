@@ -9,7 +9,6 @@ using namespace std;
 class igvEscena3D {
 protected:
 	// Atributos
-	bool ejes;
 	Objeto* objetos;
 public:
 	// Constructores por defecto y destructor
@@ -22,15 +21,8 @@ public:
 	// método con las llamadas OpenGL para visualizar la escena
 	void visualizar();
 
-	bool get_ejes() {return ejes;};
-	void set_ejes(bool _ejes){ejes = _ejes;};
-	void set_seleccionado(int _seleccionado){
-		if(_seleccionado == PUERTA) {
-			objetos->setSalaPrincipal(objetos->getSalaPrincipal()?false:true);
-			objetos->setSeleccionado(-1);
-		}
-		else objetos->setSeleccionado(_seleccionado);
-	};
+	void set_seleccionado(int _seleccionado){objetos->setSeleccionado(_seleccionado);};
+	void cambiarSalaPrincipal(){objetos->setSalaPrincipal(objetos->getSalaPrincipal()?false:true);};
 
 	// Métodos para variar grados de libertad
 
@@ -50,6 +42,14 @@ public:
 			break;
 		case PALANCA:
 			objetos->figura2->setRotAng(-mov_y);
+			break;
+		case ESFERAR:
+			objetos->figura3->setEsferaX(-mov_x);
+			objetos->figura3->setEsferaY(mov_y);
+			break;
+		case ESFERAB:
+			objetos->figura3->setEsferaX(mov_x);
+			objetos->figura3->setEsferaY(-mov_y);
 			break;
 		}
 	}

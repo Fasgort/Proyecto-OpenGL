@@ -6,7 +6,7 @@ Objeto::Objeto() {
 	cuadro = new Cuadro();
 	figura1 = new Boxeador();
 	figura2 = new Helice();
-	figura3 = new Boxeador();
+	figura3 = new esferasFlotantes();
 	figura4 = new Boxeador();
 }
 
