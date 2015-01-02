@@ -14,8 +14,8 @@ Museo::Museo() {
 	techo = new poligonoComplejo(bFloat(-6,4,1), bFloat(6,4,1), bFloat(6,4,11), bFloat(0,-1,0), 5); // pared techo museo
 	suelo = new poligonoComplejo(bFloat(-6,-3,11), bFloat(6,-3,11), bFloat(6,-3,1), bFloat(0,1,0), 5); // pared suelo museo
 	puerta = new poligonoComplejo(bFloat(-1,-3, 1.05), bFloat(1,-3, 1.05), bFloat(1, 1.5, 1.05), bFloat(0, 0, 1), 5); // puerta
-	cuadro1 = new poligonoComplejo(bFloat(-4.7, 2.175, 1.05), bFloat(-4.7, 0.825, 1.05), bFloat(-2.3, 0.825, 1.05), bFloat(0, 0, 1), 1); // cuadro 1
-	cuadro2 = new poligonoComplejo(bFloat(2.3, 2.175, 1.05), bFloat(2.3, 0.825, 1.05), bFloat(4.7, 0.825, 1.05), bFloat(0, 0, 1), 1); // cuadro 2
+	cuadro1 = new poligonoComplejo(bFloat(-4.7, 2.175, 1.05), bFloat(-4.7, 0.825, 1.05), bFloat(-2.3, 0.825, 1.05), bFloat(0, 0, 1), 5); // cuadro 1
+	cuadro2 = new poligonoComplejo(bFloat(2.3, 2.175, 1.05), bFloat(2.3, 0.825, 1.05), bFloat(4.7, 0.825, 1.05), bFloat(0, 0, 1), 5); // cuadro 2
 
 	pintura1 = new igvTextura("texturas/estrellas.bmp");
 	pintura2 = new igvTextura("texturas/mirada.bmp");
