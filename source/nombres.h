@@ -2,6 +2,7 @@
 #define __NOMBRES
 
 enum {
+	NO_SELECCIONABLE,
 	PUERTA,
 	BRAZO_1,
 	BRAZO_2,

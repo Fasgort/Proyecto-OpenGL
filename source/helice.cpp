@@ -44,12 +44,14 @@ void Helice::visualizar() {
 
 	// Cuerpo
 	mat_cubo.aplicar();
+	glPushName(NO_SELECCIONABLE);
 	top->visualizar();
 	bottom->visualizar();
 	front->visualizar();
 	back->visualizar();
 	left->visualizar();
 	right->visualizar();
+	glPopName();
 
 	// Palanca control
 	glPushMatrix();

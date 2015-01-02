@@ -28,7 +28,7 @@ igvInterfaz::~igvInterfaz () {}
 void igvInterfaz::crear_mundo(void) {
 	// crear cámaras
 	interfaz.camara.set(IGV_PERSPECTIVA, igvPunto3D(0, 0, 5.5),igvPunto3D(0, 0, 1),igvPunto3D(0, 1, 0),
-		120,1,0.001,15);
+		90,1,0.001,15);
 }
 
 void igvInterfaz::configura_entorno(int argc, char** argv,
@@ -120,7 +120,7 @@ void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 	case ' ':
 		if(interfaz.ampliado == false && interfaz.camara.P0[1] != 0){
 			if(interfaz.camara.P0[1] > 0) interfaz.camara.P0[2] -= 3.45;
-			else interfaz.camara.P0[2] -= 2;
+			else interfaz.camara.P0[2] -= 1.5;
 			interfaz.camara.r[2] = 2;
 			interfaz.ampliado = true;
 		}
@@ -144,7 +144,6 @@ void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 				interfaz.camara.P0[0] -= 1;
 				interfaz.right = false;
 			}
-
 		}
 		break;
 	case 'e': // activa/desactiva la visualizacion de los ejes
@@ -239,7 +238,6 @@ void igvInterfaz::set_glutMotionFunc(GLint x,GLint y) {
 
 	// Apartado E: renovar el contenido de la ventana de vision 
 	glutPostRedisplay(); 
-
 
 }
 
