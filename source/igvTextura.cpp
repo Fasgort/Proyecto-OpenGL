@@ -37,7 +37,7 @@ void igvTextura::load() {
 	glBindTexture(GL_TEXTURE_2D, idTextura);
 
 	// Modo de aplicación
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_BLEND);
 
 	// Parámetros de la textura
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);

@@ -2,7 +2,7 @@
 #define __OBJETOS
 
 #include "museo.h"
-#include "muneco.h"
+#include "muñeco.h"
 #include "cuadro.h"
 
 class igvEscena3D;
@@ -15,7 +15,7 @@ protected:
 
 	// Objetos
 	Museo* museo;
-	Muneco* muneco;
+	Muñeco* muñeco;
 	Cuadro* cuadro;
 public:
 
@@ -27,7 +27,7 @@ public:
 	bool getSalaPrincipal();
 
 	void visualizaMuseo();
-	void visualizaMuneco();
+	void visualizaMuñeco();
 	void visualizaCuadro();
 
 };

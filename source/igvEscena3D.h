@@ -37,16 +37,16 @@ public:
 	void motionMouse(float mov_x, float mov_y) {
 		switch(objetos->_seleccionado) {
 		case BRAZO_1:
-			objetos->muneco->set_muneco_b1_ang(mov_y);
+			objetos->muñeco->set_muñeco_b1_ang(mov_y);
 			break;
 		case BRAZO_2:
-			objetos->muneco->set_muneco_b2_ang(mov_y);
+			objetos->muñeco->set_muñeco_b2_ang(mov_y);
 			break;
 		case PUÑO_1:
-			objetos->muneco->set_muneco_p1_esc(mov_x);
+			objetos->muñeco->set_muñeco_p1_esc(mov_x);
 			break;
 		case PUÑO_2:
-			objetos->muneco->set_muneco_p2_esc(mov_x);
+			objetos->muñeco->set_muñeco_p2_esc(mov_x);
 			break;
 		}
 	}
