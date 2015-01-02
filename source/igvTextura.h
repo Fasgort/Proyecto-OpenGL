@@ -11,16 +11,19 @@ class igvTextura {
 protected:
 	// Atributos
 	unsigned int idTextura; // identificador de la textura
-
-	// Metodos
+	bool isLoaded; // Indica si la textura ha sido cargada
+	char* _fichero; // Nombre del fichero
 
 public:
 	// Constructores por defecto y destructor
-	igvTextura(); // Textura ajedrez de 64 x 64 texeles
-	igvTextura(char *fichero); // Textura cargada desde un fichero BMP
+	igvTextura();
+	igvTextura(char *fichero);
 	~igvTextura();
 
 	// Metodos
+	void load(); // Textura ajedrez
+	void load(char *fichero); // Textura cargada desde un fichero BMP
+
 	void aplicar(); // establece la textura como la textura activa
 };
 
