@@ -62,11 +62,32 @@ void igvEscena3D::visualizar(void) {
 		glPushMatrix();
 		glTranslatef(-3.5, -1.5, 0);
 		glScalef(0.3, 0.3, 0.3);
-		objetos->visualizaMuñeco();
+		objetos->visualizaFigura1();
+		glPopMatrix();
+
+		// SEGUNDA FIGURA (inferior derecha)
+		glPushMatrix();
+		glTranslatef(3.5, -1.5, 0);
+		glScalef(0.3, 0.3, 0.3);
+		objetos->visualizaFigura2();
 		glPopMatrix();
 
 	} else {
 		// Segunda sala
+
+		// TERCERA FIGURA (inferior izquierda)
+		glPushMatrix();
+		glTranslatef(-3.5, -1.5, 0);
+		glScalef(0.3, 0.3, 0.3);
+		objetos->visualizaFigura3();
+		glPopMatrix();
+
+		// CUARTA FIGURA (inferior derecha)
+		glPushMatrix();
+		glTranslatef(3.5, -1.5, 0);
+		glScalef(0.3, 0.3, 0.3);
+		objetos->visualizaFigura4();
+		glPopMatrix();
 
 	}
 

@@ -2,8 +2,9 @@
 #define __OBJETOS
 
 #include "museo.h"
-#include "muñeco.h"
 #include "cuadro.h"
+#include "boxeador.h"
+#include "helice.h"
 
 class igvEscena3D;
 
@@ -15,8 +16,11 @@ protected:
 
 	// Objetos
 	Museo* museo;
-	Muñeco* muñeco;
 	Cuadro* cuadro;
+	Boxeador* figura1;
+	Helice* figura2;
+	Boxeador* figura3;
+	Boxeador* figura4;
 public:
 
 	Objeto();
@@ -27,8 +31,11 @@ public:
 	bool getSalaPrincipal();
 
 	void visualizaMuseo();
-	void visualizaMuñeco();
 	void visualizaCuadro();
+	void visualizaFigura1();
+	void visualizaFigura2();
+	void visualizaFigura3();
+	void visualizaFigura4();
 
 };
 

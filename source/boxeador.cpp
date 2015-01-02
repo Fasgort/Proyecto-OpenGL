@@ -1,21 +1,18 @@
-#include "muñeco.h"
+#include "boxeador.h"
 #include "igvMaterial.h"
 
-Muñeco::Muñeco() {
-	isBuilt = false;
-
+Boxeador::Boxeador() {
+	_isBuilt = false;
 	_seleccionado = -1;
-	_color_seleccion[0] = 1;
-	_color_seleccion[1] = 1;
-	_color_seleccion[2] = 0;
+
 	_muñeco_b1_ang = 0;
 	_muñeco_b2_ang = 0;
 	_muñeco_p1_esc = 0;
 	_muñeco_p2_esc = 0;
 };
 
-Muñeco::~Muñeco() {
-	if(isBuilt) {
+Boxeador::~Boxeador() {
+	if(_isBuilt) {
 	delete top;
 	delete bottom;
 	delete front;
@@ -25,19 +22,19 @@ Muñeco::~Muñeco() {
 	}
 };
 
-void Muñeco::construir() {
-	if(!isBuilt){
+void Boxeador::construir() {
+	if(!_isBuilt){
 	top = new poligonoComplejo(bFloat(-1.5, 1.5, -1.5), bFloat(-1.5, 1.5, 1.5), bFloat(1.5, 1.5, 1.5), bFloat(0, 1, 0), 20);
 	bottom = new poligonoComplejo(bFloat(-1.5, -1.5, -1.5), bFloat(-1.5, -1.5, 1.5), bFloat(1.5, -1.5, 1.5), bFloat(0, -1, 0), 20);
 	front = new poligonoComplejo(bFloat(-1.5, 1.5, 1.5), bFloat(-1.5, -1.5, 1.5), bFloat(1.5, -1.5, 1.5), bFloat(0, 0, 1), 20);
 	back = new poligonoComplejo(bFloat(-1.5, 1.5, -1.5), bFloat(-1.5, -1.5, -1.5), bFloat(1.5, -1.5, -1.5), bFloat(0, 0, -1), 20);
 	left = new poligonoComplejo(bFloat(-1.5, 1.5, -1.5), bFloat(-1.5, -1.5, -1.5), bFloat(-1.5, -1.5, 1.5), bFloat(-1, 0, 0), 20);
 	right = new poligonoComplejo(bFloat(1.5, 1.5, -1.5), bFloat(1.5, -1.5, -1.5), bFloat(1.5, -1.5, 1.5), bFloat(1, 0, 0), 20);
-	isBuilt = true;
+	_isBuilt = true;
 	}
 }
 
-void Muñeco::visualizar() {
+void Boxeador::visualizar() {
 
 	construir();
 
@@ -45,6 +42,7 @@ void Muñeco::visualizar() {
 	igvMaterial mat_brazo(igvColor(0.0, 0.1, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial mat_musculo(igvColor(0.2, 0.1, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial mat_puño(igvColor(0.5, 0.0, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+	GLfloat _color_seleccion[] = {1, 1, 0};
 
 	// Cuerpo
 	mat_cubo.aplicar();
@@ -64,7 +62,6 @@ void Muñeco::visualizar() {
 	gluQuadricDrawStyle(brazo1, GLU_FILL);
 
 	glTranslatef(1, 0, 0);
-	glRotatef(0, 0, 1, 0);
 	glRotatef(_muñeco_b1_ang, 0, 0, 1);
 	glScalef(1-_muñeco_p1_esc, 1, 1);
 	glPushMatrix();
@@ -98,11 +95,10 @@ void Muñeco::visualizar() {
 	gluQuadricDrawStyle(brazo2, GLU_FILL);
 
 	glTranslatef(-1, 0, 0);
-	glRotatef(0,0, 1, 0);
 	glRotatef(-_muñeco_b2_ang, 0, 0, 1);
 	glScalef(1+_muñeco_p2_esc, 1, 1);
 	glPushMatrix();
-	glRotatef(-90, 0,1, 0);
+	glRotatef(-90, 0, 1, 0);
 	glPushName(BRAZO_2);
 	gluCylinder(brazo2, 0.5, 0.5, 3.5, 100, 100);
 	glPopName();
@@ -127,28 +123,28 @@ void Muñeco::visualizar() {
 
 }
 
-void Muñeco::set_muñeco_b1_ang(float inc){
+void Boxeador::set_muñeco_b1_ang(float inc){
 	float _inc = _muñeco_b1_ang + inc/3;
 	if (_inc > 25) _inc = 25;
 	if (_inc < -25) _inc = -25;
 	_muñeco_b1_ang = _inc;
 }
 
-void Muñeco::set_muñeco_b2_ang(float inc){
+void Boxeador::set_muñeco_b2_ang(float inc){
 	float _inc = _muñeco_b2_ang + inc/3;
 	if (_inc > 25) _inc = 25;
 	if (_inc < -25) _inc = -25;
 	_muñeco_b2_ang = _inc;
 }
 
-void Muñeco::set_muñeco_p1_esc(float inc){
+void Boxeador::set_muñeco_p1_esc(float inc){
 	float _inc = _muñeco_p1_esc + inc/100;
 	if (_inc > 0.25) _inc = 0.25;
 	if (_inc < -0.25) _inc = -0.25;
 	_muñeco_p1_esc = _inc;
 }
 
-void Muñeco::set_muñeco_p2_esc(float inc){
+void Boxeador::set_muñeco_p2_esc(float inc){
 	float _inc = _muñeco_p2_esc + inc/100;
 	if (_inc > 0.25) _inc = 0.25;
 	if (_inc < -0.25) _inc = -0.25;

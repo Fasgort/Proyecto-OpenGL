@@ -1,5 +1,5 @@
-#ifndef __MUÑECO
-#define __MUÑECO
+#ifndef __HELICE
+#define __HELICE
 
 #include <GL/glut.h>
 #include "nombres.h"
@@ -7,10 +7,10 @@
 
 class Objeto;
 
-class Muñeco {
+class Helice {
 	friend class Objeto;
 
-	bool isBuilt; // Indica si el objeto ha sido creado
+	bool _isBuilt; // Indica si el objeto ha sido creado
 
 	// polígono
 	poligonoComplejo* top;
@@ -22,28 +22,21 @@ class Muñeco {
 
 	// Metodo propio del objeto
 	void construir();
-
 protected:
+	// Atributos
 	int _seleccionado;
-	GLfloat _color_seleccion[3];
 
 	// grados de libertad
-	float _muñeco_b1_ang;
-	float _muñeco_b2_ang;
-	float _muñeco_p1_esc;
-	float _muñeco_p2_esc;
+	float _palanca_inc;
+	float _helice_ang;
 
 public:
 
-	Muñeco();
-	~Muñeco();
+	Helice();
+	~Helice();
 
 	void visualizar();
-
-	void set_muñeco_b1_ang(float inc);
-	void set_muñeco_b2_ang(float inc);
-	void set_muñeco_p1_esc(float inc);
-	void set_muñeco_p2_esc(float inc);
+	void setRotAng(float inc);
 
 };
 
