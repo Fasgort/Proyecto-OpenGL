@@ -3,6 +3,7 @@
 
 #include "museo.h"
 #include "muneco.h"
+#include "cuadro.h"
 
 class igvEscena3D;
 
@@ -15,6 +16,7 @@ protected:
 	// Objetos
 	Museo* museo;
 	Muneco* muneco;
+	Cuadro* cuadro;
 public:
 
 	Objeto();
@@ -26,6 +28,7 @@ public:
 
 	void visualizaMuseo();
 	void visualizaMuneco();
+	void visualizaCuadro();
 
 };
 

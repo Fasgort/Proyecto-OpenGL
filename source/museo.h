@@ -18,13 +18,6 @@ class Museo {
 	poligonoComplejo* techo;
 	poligonoComplejo* suelo;
 	poligonoComplejo* puerta;
-	poligonoComplejo* cuadro1;
-	poligonoComplejo* cuadro2;
-
-	igvTextura* pintura1;
-	igvTextura* pintura2;
-	igvTextura* pintura3;
-	igvTextura* pintura4;
 protected:
 	bool _salaPrincipal;
 public:

@@ -51,6 +51,8 @@ void igvEscena3D::visualizar(void) {
 
 	objetos->visualizaMuseo(); // visualizamos el museo
 
+	objetos->visualizaCuadro(); // visualizamos los cuadros
+
 	igvMaterial matObjetos(igvColor(0.2, 0.2, 0.2), igvColor(0.1, 0.1, 0.1), igvColor(0.1, 0.1, 0.1), 120);
 	matObjetos.aplicar(); // material empleado en los objetos del museo
 

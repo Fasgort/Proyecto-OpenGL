@@ -102,5 +102,5 @@ void igvTextura::aplicar() {
 }
 
 igvTextura::~igvTextura() {
-	glDeleteTextures(1, &idTextura); 
+	if(isLoaded) glDeleteTextures(1, &idTextura); 
 }

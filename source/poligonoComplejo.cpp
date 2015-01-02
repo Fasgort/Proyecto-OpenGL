@@ -7,7 +7,7 @@ poligonoComplejo::poligonoComplejo(bFloat si, bFloat ii, bFloat id, bFloat dirNo
 	puntos = new float[3*tam];
 	normales = new float[3*tam];
 	puntosTex = new float[2*tam];
-	indice = new GLubyte[tam];
+	indice = new unsigned short int[tam];
 
 	unsigned int cont = 0;
 	unsigned int cont2 = 0;
@@ -97,7 +97,7 @@ void poligonoComplejo::visualizar(){
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glTexCoordPointer(2, GL_FLOAT, 0, puntosTex);
 
-	glDrawElements(GL_QUADS, 4*complejidad*complejidad, GL_UNSIGNED_BYTE, indice);
+	glDrawElements(GL_QUADS, 4*complejidad*complejidad, GL_UNSIGNED_SHORT, indice);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);

@@ -11,7 +11,7 @@ protected:
 	float* puntos;
 	float* normales;
 	float* puntosTex;
-	GLubyte* indice;
+	unsigned short int* indice;
 
 public:
 	// Constructor y destructor
