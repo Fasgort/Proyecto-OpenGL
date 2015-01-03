@@ -7,8 +7,8 @@ Cuadro::Cuadro() {
 	_salaPrincipal = true;
 
 	// Asignación de los polígonos
-	cuadro1 = new poligonoComplejo(bFloat(-4.7, 2.1, 1.05), bFloat(-4.7, 0.75, 1.05), bFloat(-2.3, 0.75, 1.05), bFloat(0, 0, 1), 100); // cuadro 1
-	cuadro2 = new poligonoComplejo(bFloat(2.3, 2.1, 1.05), bFloat(2.3, 0.75, 1.05), bFloat(4.7, 0.75, 1.05), bFloat(0, 0, 1), 100); // cuadro 2
+	cuadro1 = new poligonoComplejo(bFloat(-4.7, 2.1, 1.05), bFloat(-4.7, 0.9, 1.05), bFloat(-2.3, 0.9, 1.05), bFloat(0, 0, 1), 100); // cuadro 1
+	cuadro2 = new poligonoComplejo(bFloat(2.3, 2.1, 1.05), bFloat(2.3, 0.9, 1.05), bFloat(4.7, 0.9, 1.05), bFloat(0, 0, 1), 100); // cuadro 2
 
 	pintura1 = new igvTextura("texturas/estrellas.bmp");
 	pintura2 = new igvTextura("texturas/mirada.bmp");
