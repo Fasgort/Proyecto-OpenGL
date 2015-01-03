@@ -85,7 +85,7 @@ void igvTextura::load(char *fichero) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 	// Carga la textura
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, ancho, alto, 0, GL_RGB, GL_UNSIGNED_BYTE, imagen);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, ancho, alto, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, imagen);
 
 	delete BitmapInfo;
 	delete imagen;

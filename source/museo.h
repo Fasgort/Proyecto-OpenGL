@@ -13,6 +13,7 @@ class Museo {
 
 	// poligonos asociados a museo
 	poligonoComplejo* paredFrontal;
+	poligonoComplejo* paredTrasera;
 	poligonoComplejo* paredIzq;
 	poligonoComplejo* paredDer;
 	poligonoComplejo* techo;

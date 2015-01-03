@@ -9,15 +9,17 @@ Museo::Museo() {
 
 	// Asignación de los polígonos
 	paredFrontal = new poligonoComplejo(bFloat(-6,4,1), bFloat(-6,-3,1), bFloat(6,-3,1), bFloat(0,0,1), 100); // pared frontal museo
+	paredTrasera = new poligonoComplejo(bFloat(-6,4,10), bFloat(-6,-3,10), bFloat(6,-3,10), bFloat(0,0,-1), 100); // pared trasera museo
 	paredIzq = new poligonoComplejo(bFloat(-6,4,1), bFloat(-6,-3,1), bFloat(-6,-3,11), bFloat(1,0,0), 100); // pared izquierda museo
-	paredDer = new poligonoComplejo(bFloat(6,-3,1), bFloat(6,-3,11), bFloat(6,4,11), bFloat(-1,0,0), 100); // pared derecha museo
-	techo = new poligonoComplejo(bFloat(-6,4,1), bFloat(6,4,1), bFloat(6,4,11), bFloat(0,-1,0), 100); // pared techo museo
-	suelo = new poligonoComplejo(bFloat(-6,-3,11), bFloat(6,-3,11), bFloat(6,-3,1), bFloat(0,1,0), 100); // pared suelo museo
+	paredDer = new poligonoComplejo(bFloat(6,-3,1), bFloat(6,-3,10), bFloat(6,4,10), bFloat(-1,0,0), 100); // pared derecha museo
+	techo = new poligonoComplejo(bFloat(-6,4,1), bFloat(6,4,1), bFloat(6,4,10), bFloat(0,-1,0), 100); // pared techo museo
+	suelo = new poligonoComplejo(bFloat(-6,-3,10), bFloat(6,-3,10), bFloat(6,-3,1), bFloat(0,1,0), 100); // pared suelo museo
 	puerta = new poligonoComplejo(bFloat(-1,-3, 1.05), bFloat(1,-3, 1.05), bFloat(1, 1.5, 1.05), bFloat(0, 0, 1), 100); // puerta
 }
 
 Museo::~Museo() {
 	delete paredFrontal;
+	delete paredTrasera;
 	delete paredIzq;
 	delete paredDer;
 	delete techo;
@@ -29,7 +31,7 @@ void Museo::visualizar() {
 
 	// Definición de variables y materiales
 
-	GLfloat posLuz[4] = {0.0, 3.5, 6.0, 1.0};
+	GLfloat posLuz[4] = {0.0, 3.5, 5.5, 1.0};
 	igvColor colAmb1(0.8, 0.8, 0.775, 1.0);
 	igvColor colAmb2(0.8, 0.775, 0.8, 1.0);
 	igvColor colAmb;
@@ -47,6 +49,7 @@ void Museo::visualizar() {
 	glPushMatrix();
 	matParedFrontal.aplicar();
 	paredFrontal->visualizar(); // pared frontal museo
+	paredTrasera->visualizar(); // pared trasera museo
 	glPopMatrix();
 
 	glPushMatrix();
