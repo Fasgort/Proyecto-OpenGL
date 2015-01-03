@@ -120,7 +120,7 @@ void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 	case ' ':
 		if(interfaz.ampliado == false) {
 			if (interfaz.camara.P0[1] != 0){
-				if(interfaz.camara.P0[1] > 0) interfaz.camara.P0[2] -= 3.45;
+				if(interfaz.camara.P0[1] > 0) interfaz.camara.P0[2] -= 3.25;
 				else interfaz.camara.P0[2] -= 1.5;
 				interfaz.camara.r[2] = 2;
 				interfaz.ampliado = true;

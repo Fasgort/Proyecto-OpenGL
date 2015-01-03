@@ -1,4 +1,4 @@
-#include "igvTextura.h"
+Ôªø#include "igvTextura.h"
 
 // Metodos constructores y destructor
 igvTextura::igvTextura() {isLoaded = false; _fichero = 0;}
@@ -22,12 +22,12 @@ void igvTextura::load() {
 		}
 	}
 
-	/* Apartado G: AÒadir aquÌ el cÛdigo para cargar la textura de ajedrez */
+	/* Apartado G: A√±adir aqu√≠ el c√≥digo para cargar la textura de ajedrez */
 	/*
 	- Generar el identificador de textura y asignarlo al atributo idTextura
 	- Especificar la textura
-	- Modo de aplicaciÛn de la textura
-	- Par·metros de la textura: repeticiÛn y filtros
+	- Modo de aplicaci√≥n de la textura
+	- Par√°metros de la textura: repetici√≥n y filtros
 	*/
 
 	// Genera identificador
@@ -36,17 +36,17 @@ void igvTextura::load() {
 	// Especifica textura
 	glBindTexture(GL_TEXTURE_2D, idTextura);
 
-	// Modo de aplicaciÛn
+	// Modo de aplicaci√≥n
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-	// Par·metros de la textura
+	// Par√°metros de la textura
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
 	// Carga la textura
-	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, ancho, alto, GL_BGR_EXT, GL_UNSIGNED_BYTE, textura);
+	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA8, ancho, alto, GL_BGR_EXT, GL_UNSIGNED_BYTE, textura); // Ineficiente, pero no disponemos de acceso a extensiones para hacer glGenerateMipmap();
 
 	isLoaded = true;
 }
@@ -61,12 +61,12 @@ void igvTextura::load(char *fichero) {
 	unsigned int alto=(*BitmapInfo).bmiHeader.biHeight;
 	unsigned int ancho=(*BitmapInfo).bmiHeader.biWidth;
 
-	/* Apartado H: AÒadir aquÌ el cÛdigo para cargar como textura OpenGL el BMP imagen */
+	/* Apartado H: A√±adir aqu√≠ el c√≥digo para cargar como textura OpenGL el BMP imagen */
 	/*
 	- Generar el identificador de textura y asignarlo al atributo idTextura
-	- Especificar la textura, asign·dole como textura el array imagen
-	- Modo de aplicaciÛn de la textura
-	- Par·metros de la textura: repeticiÛn y filtros
+	- Especificar la textura, asign√°dole como textura el array imagen
+	- Modo de aplicaci√≥n de la textura
+	- Par√°metros de la textura: repetici√≥n y filtros
 	*/
 
 	// Genera identificador
@@ -75,17 +75,17 @@ void igvTextura::load(char *fichero) {
 	// Especifica textura
 	glBindTexture(GL_TEXTURE_2D, idTextura);
 
-	// Modo de aplicaciÛn
+	// Modo de aplicaci√≥n
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-	// Par·metros de la textura
+	// Par√°metros de la textura
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
 	// Carga la textura
-	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, ancho, alto, GL_BGR_EXT, GL_UNSIGNED_BYTE, imagen);
+	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA8, ancho, alto, GL_BGR_EXT, GL_UNSIGNED_BYTE, imagen); // Ineficiente, pero no disponemos de acceso a extensiones para hacer glGenerateMipmap();
 
 	delete BitmapInfo;
 	delete imagen;
