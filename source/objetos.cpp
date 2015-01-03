@@ -7,7 +7,7 @@ Objeto::Objeto() {
 	figura1 = new Boxeador();
 	figura2 = new Helice();
 	figura3 = new esferasFlotantes();
-	figura4 = new Boxeador();
+	figura4 = new cajaCombinacion();
 }
 
 Objeto::~Objeto() {
@@ -19,7 +19,12 @@ Objeto::~Objeto() {
 	delete figura4;
 }
 
-void Objeto::setSeleccionado(int seleccionado) {figura1->_seleccionado = figura2->_seleccionado = figura3->_seleccionado = figura4->_seleccionado = _seleccionado = seleccionado;}
+void Objeto::setSeleccionado(int seleccionado) {
+	figura1->_seleccionado = figura2->_seleccionado = figura3->_seleccionado = _seleccionado = seleccionado;
+	figura4->pulsaBoton(seleccionado);
+	if(seleccionado == PUERTA_CAJA) figura4->cerrarCaja();
+}
+
 void Objeto::setSalaPrincipal(bool salaPrincipal){cuadro->_salaPrincipal = museo->_salaPrincipal = salaPrincipal;}
 bool Objeto::getSalaPrincipal(){return museo->_salaPrincipal;}
 

@@ -42,7 +42,7 @@ void Boxeador::visualizar() {
 	igvMaterial mat_brazo(igvColor(0.0, 0.1, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial mat_musculo(igvColor(0.2, 0.1, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial mat_puño(igvColor(0.5, 0.0, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	GLfloat _color_seleccion[] = {1, 1, 0};
+	GLfloat color_seleccion[] = {1, 1, 0};
 
 	// Cuerpo
 	mat_cubo.aplicar();
@@ -59,7 +59,7 @@ void Boxeador::visualizar() {
 
 	// Brazo 1
 	mat_brazo.aplicar();
-	if(_seleccionado == BRAZO_1) glMaterialfv(GL_FRONT, GL_EMISSION, _color_seleccion);
+	if(_seleccionado == BRAZO_1) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
 	GLUquadricObj *brazo1 = gluNewQuadric();
 	gluQuadricDrawStyle(brazo1, GLU_FILL);
 
@@ -83,7 +83,7 @@ void Boxeador::visualizar() {
 
 	// Puño 1
 	mat_puño.aplicar();
-	if(_seleccionado == PUÑO_1) glMaterialfv(GL_FRONT, GL_EMISSION, _color_seleccion);
+	if(_seleccionado == PUÑO_1) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
 	glTranslatef(3.5, 0, 0);
 	glPushName(PUÑO_1);
 	glutSolidSphere(1.0, 100, 100);
@@ -92,7 +92,7 @@ void Boxeador::visualizar() {
 
 	// Brazo 2
 	mat_brazo.aplicar();
-	if(_seleccionado == BRAZO_2) glMaterialfv(GL_FRONT, GL_EMISSION, _color_seleccion);
+	if(_seleccionado == BRAZO_2) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
 	GLUquadricObj *brazo2 = gluNewQuadric();
 	gluQuadricDrawStyle(brazo2, GLU_FILL);
 
@@ -117,7 +117,7 @@ void Boxeador::visualizar() {
 
 	// Puño 2
 	mat_puño.aplicar();
-	if(_seleccionado == PUÑO_2) glMaterialfv(GL_FRONT, GL_EMISSION, _color_seleccion);
+	if(_seleccionado == PUÑO_2) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
 	glTranslatef(-3.5, 0, 0);
 	glPushName(PUÑO_2);
 	glutSolidSphere(1.0, 100, 100);

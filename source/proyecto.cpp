@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <time.h>
 
 #include "igvInterfaz.h"
 
@@ -7,6 +8,9 @@
 igvInterfaz interfaz;
 
 int main (int argc, char** argv) {
+
+	srand (time(NULL));
+
 	// inicializa la ventana de visualización
 	interfaz.configura_entorno(argc,argv,
 		                         900,900, // tamaño de la ventana
