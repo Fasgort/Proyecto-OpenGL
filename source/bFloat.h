@@ -17,43 +17,43 @@ typedef enum {
 
 class bFloat {
 
-	public:
-		GLfloat c[3]; // componentes x, y, z del punto o vector
+public:
+	GLfloat c[3]; // componentes x, y, z del punto o vector
 
-	public:
-		// Constructores
-		bFloat();
-		bFloat(const GLfloat& x, const GLfloat& y, const GLfloat& z );
-		
-		// Constructor de copia
-		bFloat(const bFloat& p );
+public:
+	// Constructores
+	bFloat();
+	bFloat(const GLfloat& x, const GLfloat& y, const GLfloat& z );
 
-		// Operador de asignación
-		bFloat& operator = (const bFloat& p);
+	// Constructor de copia
+	bFloat(const bFloat& p );
 
-		// Operador de suma
-		bFloat& operator + (const bFloat& p);
+	// Operador de asignación
+	bFloat& operator = (const bFloat& p);
 
-		// Operador de resta
-		bFloat& operator - (const bFloat& p);
+	// Operador de suma
+	bFloat& operator + (const bFloat& p);
 
-		// Operador de multiplicacion
-		bFloat& operator * (const float& p);
+	// Operador de resta
+	bFloat& operator - (const bFloat& p);
 
-		// Operador de multiplicacion
-		bFloat& operator * (const bFloat& p);
+	// Operador de multiplicacion
+	bFloat& operator * (const float& p);
 
-		// Destructor
-		~bFloat();
+	// Operador de multiplicacion
+	bFloat& operator * (const bFloat& p);
 
-		// Operadores
-		inline GLfloat& operator[] ( const unsigned char idx ) {return c[idx];};
-		inline GLfloat operator[] (const unsigned char idx) const {return c[idx];};
+	// Destructor
+	~bFloat();
 
-		int operator == (const bFloat& p);
-		int operator != (const bFloat& p);
+	// Operadores
+	inline GLfloat& operator[] ( const unsigned char idx ) {return c[idx];};
+	inline GLfloat operator[] (const unsigned char idx) const {return c[idx];};
 
-		void set(const GLfloat& x, const GLfloat& y, const GLfloat& z);
+	int operator == (const bFloat& p);
+	int operator != (const bFloat& p);
+
+	void set(const GLfloat& x, const GLfloat& y, const GLfloat& z);
 };
 #endif
 

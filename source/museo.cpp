@@ -32,11 +32,9 @@ void Museo::visualizar() {
 	// Definición de variables y materiales
 
 	GLfloat posLuz[4] = {0.0, 3.5, 5.5, 1.0};
-	igvColor colAmb1(0.8, 0.8, 0.775, 1.0);
-	igvColor colAmb2(0.8, 0.775, 0.8, 1.0);
-	igvColor colAmb;
-	if(_salaPrincipal) colAmb = colAmb1;
-	else colAmb = colAmb2;
+	igvColor colAmb(0.8, 0.8, 0.8, 1.0);
+	if(_salaPrincipal) colAmb[2] -= 0.05;
+	else colAmb[1] -= 0.05;
 
 	igvFuenteLuz luzMuseo(GL_LIGHT0, posLuz, colAmb, igvColor(0.7, 0.7, 0.7, 1.0), igvColor(0.7, 0.7, 0.7, 1.0), 0.75, 0.05, 0.008);
 	igvMaterial matParedFrontal(igvColor(0.9, 0.9, 0.9), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);

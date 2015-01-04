@@ -1,5 +1,7 @@
 #include "esferasFlotantes.h"
+
 #include "igvMaterial.h"
+#include "bFloat.h"
 
 esferasFlotantes::esferasFlotantes() {
 	_isBuilt = false;

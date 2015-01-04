@@ -69,11 +69,10 @@ GLfloat* igvFuenteLuz::getPosicion(void) {
 
 void igvFuenteLuz::setPosicion(GLfloat* pos) {
 	posicion[0] = pos[0];
-							   posicion[1] = pos[1];
-							   posicion[2] = pos[2];
-							   posicion[3] = pos[3];
+	posicion[1] = pos[1];
+	posicion[2] = pos[2];
+	posicion[3] = pos[3];
 }
-
 
 void igvFuenteLuz::set(const igvColor & cAmb, const igvColor & cDif, const igvColor & cEsp) {
 	colorAmbiente = cAmb;
@@ -131,7 +130,6 @@ unsigned int igvFuenteLuz::esta_encendida(void) {
 
 void igvFuenteLuz::aplicar(void) {
 
-	// APARTADO A
 	// si la luz está encendida
 	if(esta_encendida()) {
 		//	activar la luz
@@ -166,6 +164,4 @@ void igvFuenteLuz::aplicar(void) {
 		glDisable(idLuz);
 	}
 
-
 }
-

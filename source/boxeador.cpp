@@ -1,5 +1,7 @@
 #include "boxeador.h"
+
 #include "igvMaterial.h"
+#include "bFloat.h"
 
 Boxeador::Boxeador() {
 	_isBuilt = false;
@@ -14,36 +16,36 @@ Boxeador::Boxeador() {
 
 Boxeador::~Boxeador() {
 	if(_isBuilt) {
-	delete top;
-	delete bottom;
-	delete front;
-	delete back;
-	delete left;
-	delete right;
+		delete top;
+		delete bottom;
+		delete front;
+		delete back;
+		delete left;
+		delete right;
 	}
 };
 
 void Boxeador::deconstruir() {
 	if(_isBuilt){
-	delete top;
-	delete bottom;
-	delete front;
-	delete back;
-	delete left;
-	delete right;
-	_isBuilt = false;
+		delete top;
+		delete bottom;
+		delete front;
+		delete back;
+		delete left;
+		delete right;
+		_isBuilt = false;
 	}
 }
 
 void Boxeador::construir() {
 	if(!_isBuilt){
-	top = new poligonoComplejo(bFloat(-1.5, 1.5, -1.5), bFloat(-1.5, 1.5, 1.5), bFloat(1.5, 1.5, 1.5), bFloat(0, 1, 0), 20);
-	bottom = new poligonoComplejo(bFloat(-1.5, -1.5, -1.5), bFloat(-1.5, -1.5, 1.5), bFloat(1.5, -1.5, 1.5), bFloat(0, -1, 0), 20);
-	front = new poligonoComplejo(bFloat(-1.5, 1.5, 1.5), bFloat(-1.5, -1.5, 1.5), bFloat(1.5, -1.5, 1.5), bFloat(0, 0, 1), 20);
-	back = new poligonoComplejo(bFloat(-1.5, 1.5, -1.5), bFloat(-1.5, -1.5, -1.5), bFloat(1.5, -1.5, -1.5), bFloat(0, 0, -1), 20);
-	left = new poligonoComplejo(bFloat(-1.5, 1.5, -1.5), bFloat(-1.5, -1.5, -1.5), bFloat(-1.5, -1.5, 1.5), bFloat(-1, 0, 0), 20);
-	right = new poligonoComplejo(bFloat(1.5, 1.5, -1.5), bFloat(1.5, -1.5, -1.5), bFloat(1.5, -1.5, 1.5), bFloat(1, 0, 0), 20);
-	_isBuilt = true;
+		top = new poligonoComplejo(bFloat(-1.5, 1.5, -1.5), bFloat(-1.5, 1.5, 1.5), bFloat(1.5, 1.5, 1.5), bFloat(0, 1, 0), 20);
+		bottom = new poligonoComplejo(bFloat(-1.5, -1.5, -1.5), bFloat(-1.5, -1.5, 1.5), bFloat(1.5, -1.5, 1.5), bFloat(0, -1, 0), 20);
+		front = new poligonoComplejo(bFloat(-1.5, 1.5, 1.5), bFloat(-1.5, -1.5, 1.5), bFloat(1.5, -1.5, 1.5), bFloat(0, 0, 1), 20);
+		back = new poligonoComplejo(bFloat(-1.5, 1.5, -1.5), bFloat(-1.5, -1.5, -1.5), bFloat(1.5, -1.5, -1.5), bFloat(0, 0, -1), 20);
+		left = new poligonoComplejo(bFloat(-1.5, 1.5, -1.5), bFloat(-1.5, -1.5, -1.5), bFloat(-1.5, -1.5, 1.5), bFloat(-1, 0, 0), 20);
+		right = new poligonoComplejo(bFloat(1.5, 1.5, -1.5), bFloat(1.5, -1.5, -1.5), bFloat(1.5, -1.5, 1.5), bFloat(1, 0, 0), 20);
+		_isBuilt = true;
 	}
 }
 

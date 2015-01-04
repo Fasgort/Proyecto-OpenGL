@@ -66,6 +66,7 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 	// manejo de las teclas especiales del teclado
 
 	switch(key)	{
+
 	case GLUT_KEY_UP:
 		if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] < 1.5 && interfaz.ampliado == false) {
 			interfaz.camara.P0[1] += 1.5;
@@ -77,6 +78,7 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 			else interfaz.up = true;
 		}
 		break;
+
 	case GLUT_KEY_DOWN:
 		if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] > -1.5 && interfaz.ampliado == false) {
 			interfaz.camara.P0[1] -= 1.5;
@@ -88,6 +90,7 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 			else interfaz.down = true;
 		}
 		break;
+
 	case GLUT_KEY_LEFT:
 		if(interfaz.camara.P0[0] > -3.5 && interfaz.ampliado == false) {
 			interfaz.camara.P0[0] -= 3.5;
@@ -100,6 +103,7 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 			else interfaz.left = true;
 		}
 		break;
+
 	case GLUT_KEY_RIGHT:
 		if(interfaz.camara.P0[0] < 3.5 && interfaz.ampliado == false) {
 			interfaz.camara.P0[0] += 3.5;
@@ -112,13 +116,16 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 			else interfaz.right = true;
 		}
 		break;
+
 	}
 
 	glutPostRedisplay(); // renueva el contenido de la ventana de vision
 }
 
 void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
+
 	switch (key) {
+
 	case ' ':
 		if(interfaz.ampliado == false) {
 			if (interfaz.camara.P0[1] != 0){
@@ -150,9 +157,11 @@ void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 			}
 		}
 		break;
+
 	case 27: // tecla de escape para SALIR
 		exit(1);
 		break;
+
 	}
 	glutPostRedisplay(); // renueva el contenido de la ventana de vision
 }
@@ -198,10 +207,10 @@ void igvInterfaz::set_glutDisplayFunc() {
 
 void igvInterfaz::set_glutMouseFunc(GLint boton,GLint estado,GLint x,GLint y) {
 
-	// Apartado D: comprobar que se ha pulsado el botón izquierdo 
+	// comprobar que se ha pulsado el botón izquierdo 
 	if(boton == GLUT_LEFT_BUTTON){
 
-		// Apartado D: guardar que el boton se ha presionado o se ha soltado, si se ha pulsado hay que
+		// guardar que el boton se ha presionado o se ha soltado, si se ha pulsado hay que
 		// pasar a modo IGV_SELECCIONAR
 		if(estado == GLUT_DOWN && interfaz.ampliado) {
 			interfaz.modo = IGV_SELECCIONAR;
@@ -215,14 +224,14 @@ void igvInterfaz::set_glutMouseFunc(GLint boton,GLint estado,GLint x,GLint y) {
 
 	}
 
-	// Apartado D: renovar el contenido de la ventana de vision
+	// renovar el contenido de la ventana de vision
 	glutPostRedisplay();
 
 }
 
 void igvInterfaz::set_glutMotionFunc(GLint x,GLint y) {
 
-	// Apartado E: si el botón está retenido y hay algún objeto seleccionado,
+	// si el botón está retenido y hay algún objeto seleccionado,
 	// comprobar el objeto seleccionado y la posición del ratón y actualizar
 	// convenientemente el grado de libertad del objeto correspondiente 
 	float mov_x;
@@ -233,29 +242,29 @@ void igvInterfaz::set_glutMotionFunc(GLint x,GLint y) {
 
 	interfaz.escena.motionMouse(mov_x, mov_y);
 
-	// Apartado E: guardar la nueva posición del ratón 	
+	// guardar la nueva posición del ratón 	
 	interfaz.cursorX = x;
 	interfaz.cursorY = y;
 
-	// Apartado E: renovar el contenido de la ventana de vision 
+	// renovar el contenido de la ventana de vision 
 	glutPostRedisplay(); 
 
 }
 
 void igvInterfaz::inicia_seleccion(int TAMANO_LISTA_IMPACTOS, GLuint *lista_impactos) {
-	// Apartado D: establecer dónde se van a almacenar los impactos
+	// establecer dónde se van a almacenar los impactos
 	glSelectBuffer(TAMANO_LISTA_IMPACTOS, lista_impactos);
 
-	// Apartado D: pasar a modo de seleccion de OpenGL
+	// pasar a modo de seleccion de OpenGL
 	glRenderMode(GL_SELECT);
 
-	// Apartado D: establecer la camara en modo seleccion con los parámetros necesarios para realizar la selección
+	// establecer la camara en modo seleccion con los parámetros necesarios para realizar la selección
 	// para el alto y el ancho de la ventana de selección probar diferentes tamaños y comprobar la amplitud de la selección
 	interfaz.camara.establecerSeleccion(10, 10 ,cursorX,cursorY);
 }
 
 int procesar_impactos(int numero_impactos,GLuint *lista_impactos) {
-	/* Apartado D: esta función debe devolver el código del objeto seleccionado, que no tiene porque coincidir con el nombre
+	/* esta función debe devolver el código del objeto seleccionado, que no tiene porque coincidir con el nombre
 	asignado con la pila de nombres, y si se han utilizado nombres jerárquicos hay que tener en cuenta que
 	esta función sólo devolver un único código */
 
@@ -263,7 +272,7 @@ int procesar_impactos(int numero_impactos,GLuint *lista_impactos) {
 	unsigned int posArray = 0;
 	int codigo = -1;
 
-	// Apartado D: recorrer la lista de impactos con numero_impactos impactos,
+	// recorrer la lista de impactos con numero_impactos impactos,
 	// guardar el más próximo al observador (minima Z)
 	// para empezar, considerar que la mínima Z tiene un valor de 0xffffffff (el tope del tipo GLuint)
 
@@ -277,7 +286,7 @@ int procesar_impactos(int numero_impactos,GLuint *lista_impactos) {
 		} else posArray += numNombres+2;
 	}
 
-	// Apartado D: a partir de la información del impacto con la mínima Z, devolver el código del objeto que le
+	// a partir de la información del impacto con la mínima Z, devolver el código del objeto que le
 	// corresponde: como la escena no se almacena en ninguna estructura de datos, para devolver el objeto seleccionado
 	// utilizar aquí directamente los nombres asignados a los objetos de la escena
 	return codigo;
@@ -287,10 +296,10 @@ void igvInterfaz::finaliza_seleccion(int TAMANO_LISTA_IMPACTOS, GLuint *lista_im
 
 	int objeto_seleccionado;
 
-	// Apartado D: volver a modo visualizacion OpenGL y obtener el número de impactos 
+	// volver a modo visualizacion OpenGL y obtener el número de impactos 
 	int numImpactos = glRenderMode(GL_RENDER);
 
-	// Apartado D: si hay impactos pasar a procesarlos con la funcion int procesar_impactos(numero_impactos,lista_impactos);
+	// si hay impactos pasar a procesarlos con la funcion int procesar_impactos(numero_impactos,lista_impactos);
 	// obteniendo el objeto seleccionado, si lo hay
 	if(numImpactos != 0) {
 		objeto_seleccionado = procesar_impactos(numImpactos, lista_impactos);
@@ -298,10 +307,10 @@ void igvInterfaz::finaliza_seleccion(int TAMANO_LISTA_IMPACTOS, GLuint *lista_im
 
 	interfaz.escena.set_seleccionado(objeto_seleccionado);
 
-	// Apartado D: seleccion terminada, pasar a visualización normal
+	// seleccion terminada, pasar a visualización normal
 	interfaz.modo = IGV_VISUALIZAR;
 
-	// Apartado D: establecer la camara en modo visualización
+	// establecer la camara en modo visualización
 	interfaz.camara.establecerVisualizacion();
 }
 

@@ -30,7 +30,7 @@ void Cuadro::visualizar() {
 
 	// Definición de variables y materiales
 	igvMaterial matMarco(igvColor(1.0, 1.0, 1.0), igvColor(0.0, 0.0, 0.0), igvColor(0.0, 0.0, 0.0), 120);
-	
+
 	glPushMatrix();
 	matMarco.aplicar();
 	if(_salaPrincipal) pintura1->aplicar();

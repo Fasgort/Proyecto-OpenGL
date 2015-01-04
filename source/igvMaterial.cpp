@@ -28,7 +28,6 @@ igvMaterial::igvMaterial(igvColor _Ka, igvColor _Kd, igvColor _Ks, double _Ns) {
 
 void igvMaterial::aplicar(void) {
 
-	// APARTADO C
 	// Aplicar los valores de los atributos del objeto igvMaterial:
 	// - coeficiente de reflexión de la luz ambiental
 	GLfloat KaGL[] = {Ka[0], Ka[1], Ka[2], Ka[3]};

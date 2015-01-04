@@ -2,6 +2,7 @@
 #define __CAJACOMBINACION
 
 #include <GL/glut.h>
+
 #include "nombres.h"
 #include "poligonoComplejo.h"
 #include "igvTextura.h"
@@ -48,6 +49,7 @@ class cajaCombinacion {
 	poligonoComplejo* botonEnter;
 	poligonoComplejo* botonSorpresa;
 
+	// texturas botones
 	igvTextura* tboton1;
 	igvTextura* tboton2;
 	igvTextura* tboton3;

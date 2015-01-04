@@ -2,9 +2,9 @@
 #define __MUSEO
 
 #include <GL/glut.h>
+
 #include "nombres.h"
 #include "poligonoComplejo.h"
-#include "igvTextura.h"
 
 class Objeto;
 

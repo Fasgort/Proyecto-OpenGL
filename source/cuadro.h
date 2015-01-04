@@ -2,6 +2,7 @@
 #define __CUADRO
 
 #include <GL/glut.h>
+
 #include "poligonoComplejo.h"
 #include "igvTextura.h"
 

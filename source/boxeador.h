@@ -2,6 +2,7 @@
 #define __BOXEADOR
 
 #include <GL/glut.h>
+
 #include "nombres.h"
 #include "poligonoComplejo.h"
 

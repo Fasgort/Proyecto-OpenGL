@@ -8,7 +8,6 @@
 // Metodos constructores 
 
 igvEscena3D::igvEscena3D() {
-	// atributos
 	objetos = new Objeto();
 }
 

@@ -1,5 +1,7 @@
 #include "cajaCombinacion.h"
+
 #include "igvMaterial.h"
+#include "bFloat.h"
 
 cajaCombinacion::cajaCombinacion() {
 	_isBuilt = false;
@@ -98,7 +100,7 @@ void cajaCombinacion::construir() {
 void cajaCombinacion::visualizar() {
 
 	construir();
-	
+
 	igvMaterial mat_pedestal(igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial mat_cuboExt(igvColor(0.13, 0.08, 0.05), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial mat_cuboInt(igvColor(0.1, 0.1, 0.1), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);

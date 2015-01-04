@@ -41,7 +41,7 @@ public:
 	// vector arriba	
 	igvPunto3D V;
 
-	////// Apartado D: atributos necesarios para generar el volumen alrededor del pixel seleccionado
+	////// atributos necesarios para generar el volumen alrededor del pixel seleccionado
 	modoCamara modo; // camara se utiliza para visualizar (IGV_VISUALIZACION) o para seleccionar (IGV_SELECCION)
 	int cursorX, cursorY; // posición del viewport seleccionada a partir de la cual hay que generar el volumen
 	// de visión para la selección por lista de impactos
@@ -71,17 +71,16 @@ public:
 
 	void aplicar(void); // aplica a los objetos de la escena la transformación de visión y la transformación de proyección
 	// asociadas a los parámetros de la cámara
-	void zoom(double factor); // realiza un zoom sobre la cámara
 
-	////// Apartado D: métodos para cambiar el modo de la camara
+	////// métodos para cambiar el modo de la camara
 	void establecerSeleccion(int _ancho_seleccion, int _alto_seleccion, int _cursorX, int _cursorY) {
 		modo = IGV_SELECCION;
-	// ancho y alto de la ventana de selección
-	ancho_seleccion = _ancho_seleccion;
-	alto_seleccion = _alto_seleccion;
-	// pixel pulsado
-	cursorX = _cursorX;
-	cursorY = _cursorY;
+		// ancho y alto de la ventana de selección
+		ancho_seleccion = _ancho_seleccion;
+		alto_seleccion = _alto_seleccion;
+		// pixel pulsado
+		cursorX = _cursorX;
+		cursorY = _cursorY;
 	};
 
 	void establecerVisualizacion() {

@@ -2,6 +2,7 @@
 #define __ESFERASFLOTANTES
 
 #include <GL/glut.h>
+
 #include "nombres.h"
 #include "poligonoComplejo.h"
 

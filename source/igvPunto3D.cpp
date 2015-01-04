@@ -29,30 +29,6 @@ igvPunto3D& igvPunto3D::operator = (const igvPunto3D& p) {
 	return(*this);
 }
 
-// Operador de suma
-igvPunto3D& igvPunto3D::operator + (const igvPunto3D& p) {
-	c[X] += p.c[X];
-	c[Y] += p.c[Y];
-	c[Z] += p.c[Z];
-	return(*this);
-}
-
-// Operador de resta
-igvPunto3D& igvPunto3D::operator - (const igvPunto3D& p) {
-	c[X] -= p.c[X];
-	c[Y] -= p.c[Y];
-	c[Z] -= p.c[Z];
-	return(*this);
-}
-
-// Operador de multiplicacion
-igvPunto3D& igvPunto3D::operator * (const int& p) {
-	c[X] *= p;
-	c[Y] *= p;
-	c[Z] *= p;
-	return(*this);
-}
-
 int igvPunto3D::operator == (const igvPunto3D& p) {
 	return ((fabs(c[X]-p[X])<IGV_EPSILON) && (fabs(c[Y]-p[Y])<IGV_EPSILON) && (fabs(c[Z]-p[Z])<IGV_EPSILON));
 }

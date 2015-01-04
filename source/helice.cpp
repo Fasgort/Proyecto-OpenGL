@@ -1,5 +1,7 @@
 #include "helice.h"
+
 #include "igvMaterial.h"
+#include "bFloat.h"
 
 Helice::Helice() {
 	_isBuilt = false;

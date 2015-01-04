@@ -22,7 +22,6 @@ void igvTextura::load() {
 		}
 	}
 
-	/* Apartado G: Añadir aquí el código para cargar la textura de ajedrez */
 	/*
 	- Generar el identificador de textura y asignarlo al atributo idTextura
 	- Especificar la textura
@@ -61,7 +60,6 @@ void igvTextura::load(char *fichero) {
 	unsigned int alto=(*BitmapInfo).bmiHeader.biHeight;
 	unsigned int ancho=(*BitmapInfo).bmiHeader.biWidth;
 
-	/* Apartado H: Añadir aquí el código para cargar como textura OpenGL el BMP imagen */
 	/*
 	- Generar el identificador de textura y asignarlo al atributo idTextura
 	- Especificar la textura, asignádole como textura el array imagen

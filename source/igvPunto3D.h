@@ -21,40 +21,31 @@ typedef enum {
 
 class igvPunto3D {
 
-	public:
-		double c[3]; // componentes x, y, z del punto o vector
+public:
+	double c[3]; // componentes x, y, z del punto o vector
 
-	public:
-		// Constructores
-		igvPunto3D();
-		igvPunto3D( const double& x, const double& y, const double& z );
-		
-		// Constructor de copia
-		igvPunto3D( const igvPunto3D& p );
+public:
+	// Constructores
+	igvPunto3D();
+	igvPunto3D( const double& x, const double& y, const double& z );
 
-		// Operador de asignación
-		igvPunto3D& operator = (const igvPunto3D& p);
+	// Constructor de copia
+	igvPunto3D( const igvPunto3D& p );
 
-		// Operador de suma
-		igvPunto3D& operator + (const igvPunto3D& p);
+	// Operador de asignación
+	igvPunto3D& operator = (const igvPunto3D& p);
 
-		// Operador de resta
-		igvPunto3D& operator - (const igvPunto3D& p);
+	// Destructor
+	~igvPunto3D();
 
-		// Operador de multiplicacion
-		igvPunto3D& operator * (const int& p);
+	// Operadores
+	inline double& operator[] ( const unsigned char idx ) {return c[idx];};
+	inline double operator[] (const unsigned char idx) const {return c[idx];};
 
-		// Destructor
-		~igvPunto3D();
+	int operator == (const igvPunto3D& p);
+	int operator != (const igvPunto3D& p);
 
-		// Operadores
-		inline double& operator[] ( const unsigned char idx ) {return c[idx];};
-		inline double operator[] (const unsigned char idx) const {return c[idx];};
-
-		int operator == (const igvPunto3D& p);
-		int operator != (const igvPunto3D& p);
-
-		void set( const double& x, const double& y, const double& z);
+	void set( const double& x, const double& y, const double& z);
 };
 #endif
 

@@ -12,28 +12,28 @@ typedef enum {
 
 class igvColor {
 
-	protected:
-		// atributos
+protected:
+	// atributos
 
-		double color[4]; // componentes R, G, B, A del color
+	double color[4]; // componentes R, G, B, A del color
 
-		// Metodos
+	// Metodos
 
-	public:
-		// Constructores por defecto y destructor
-		igvColor();
-		~igvColor();
+public:
+	// Constructores por defecto y destructor
+	igvColor();
+	~igvColor();
 
-		// Otros constructores
-		igvColor(const double r, const double g, const double b);
-		igvColor(const double r, const double g, const double b, const double a);
-		igvColor(const igvColor& p);	//de copia
+	// Otros constructores
+	igvColor(const double r, const double g, const double b);
+	igvColor(const double r, const double g, const double b, const double a);
+	igvColor(const igvColor& p);	//de copia
 
-		// Metodos
-		double& operator[] ( const unsigned char idx );
-		double operator[] (const unsigned char idx) const;
+	// Metodos
+	double& operator[] ( const unsigned char idx );
+	double operator[] (const unsigned char idx) const;
 
-		void aplicar(void);
+	void aplicar(void);
 
 };
 

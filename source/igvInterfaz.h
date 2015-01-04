@@ -23,7 +23,7 @@ protected:
 	igvEscena3D escena; // escena que se visualiza en la ventana definida por igvInterfaz
 	igvCamara camara; // cámara que se utiliza para visualizar la escena
 
-	///// Apartado D: atributos para la selección mediante el ratón
+	///// atributos para la selección mediante el ratón
 	modoInterfaz modo; // IGV_VISUALIZAR: en la ventana se va a visualizar de manera normal la escena, 
 	// IGV_SELECCIONAR: se ha pulsado sobre la ventana de visualización, la escena se debe
 	// visualizar en modo selección para el cálculo de la lista de impactos
@@ -60,7 +60,7 @@ public:
 
 	// Metodos
 
-	///// Apartado D: métodos a implementar para realizar la seleccion mediante lista de impactos
+	///// métodos a implementar para realizar la seleccion mediante lista de impactos
 	void inicia_seleccion(int TAMANO_LISTA_IMPACTOS, GLuint *lista_impactos);
 	void finaliza_seleccion(int TAMANO_LISTA_IMPACTOS, GLuint *lista_impactos);
 
