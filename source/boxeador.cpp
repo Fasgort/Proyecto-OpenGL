@@ -5,6 +5,7 @@ Boxeador::Boxeador() {
 	_isBuilt = false;
 	_seleccionado = -1;
 
+	_rotacion = 0;
 	_muñeco_b1_ang = 0;
 	_muñeco_b2_ang = 0;
 	_muñeco_p1_esc = 0;
@@ -22,6 +23,18 @@ Boxeador::~Boxeador() {
 	}
 };
 
+void Boxeador::deconstruir() {
+	if(_isBuilt){
+	delete top;
+	delete bottom;
+	delete front;
+	delete back;
+	delete left;
+	delete right;
+	_isBuilt = false;
+	}
+}
+
 void Boxeador::construir() {
 	if(!_isBuilt){
 	top = new poligonoComplejo(bFloat(-1.5, 1.5, -1.5), bFloat(-1.5, 1.5, 1.5), bFloat(1.5, 1.5, 1.5), bFloat(0, 1, 0), 20);
@@ -36,13 +49,31 @@ void Boxeador::construir() {
 
 void Boxeador::visualizar() {
 
-	construir();
-
+	igvMaterial mat_pedestal(igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial mat_cubo(igvColor(0.0, 0.0, 0.5), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial mat_brazo(igvColor(0.0, 0.1, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial mat_musculo(igvColor(0.2, 0.1, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial mat_puño(igvColor(0.5, 0.0, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	GLfloat color_seleccion[] = {1, 1, 0};
+
+	GLUquadricObj *cilindro = gluNewQuadric();
+	gluQuadricDrawStyle(cilindro, GLU_FILL);
+
+	// Pedestal de rotación
+	glPushMatrix();
+	mat_pedestal.aplicar();
+	if(_seleccionado == P_BOXEADOR) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
+	glTranslatef(0.0, -1.5, 0.0);
+	glRotatef(90.0, 1.0, 0.0, 0.0);
+	glPushName(P_BOXEADOR);
+	gluCylinder(cilindro, 0.5, 0.5, 4.5, 100, 100);
+	glPopName();
+	glPopMatrix();
+
+	glPushMatrix();
+	glRotatef(_rotacion, 0.0, -1.0, 0.0);
+
+	construir();
 
 	// Cuerpo
 	mat_cubo.aplicar();
@@ -60,8 +91,6 @@ void Boxeador::visualizar() {
 	// Brazo 1
 	mat_brazo.aplicar();
 	if(_seleccionado == BRAZO_1) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
-	GLUquadricObj *brazo1 = gluNewQuadric();
-	gluQuadricDrawStyle(brazo1, GLU_FILL);
 
 	glTranslatef(1, 0, 0);
 	glRotatef(_muñeco_b1_ang, 0, 0, 1);
@@ -69,7 +98,7 @@ void Boxeador::visualizar() {
 	glPushMatrix();
 	glRotatef(90, 0, 1, 0);
 	glPushName(BRAZO_1);
-	gluCylinder(brazo1, 0.5, 0.5, 3.5, 100, 100);
+	gluCylinder(cilindro, 0.5, 0.5, 3.5, 100, 100);
 	glPopName();
 	glPopMatrix();
 
@@ -93,8 +122,6 @@ void Boxeador::visualizar() {
 	// Brazo 2
 	mat_brazo.aplicar();
 	if(_seleccionado == BRAZO_2) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
-	GLUquadricObj *brazo2 = gluNewQuadric();
-	gluQuadricDrawStyle(brazo2, GLU_FILL);
 
 	glTranslatef(-1, 0, 0);
 	glRotatef(-_muñeco_b2_ang, 0, 0, 1);
@@ -102,7 +129,7 @@ void Boxeador::visualizar() {
 	glPushMatrix();
 	glRotatef(-90, 0, 1, 0);
 	glPushName(BRAZO_2);
-	gluCylinder(brazo2, 0.5, 0.5, 3.5, 100, 100);
+	gluCylinder(cilindro, 0.5, 0.5, 3.5, 100, 100);
 	glPopName();
 	glPopMatrix();
 
@@ -123,6 +150,16 @@ void Boxeador::visualizar() {
 	glutSolidSphere(1.0, 100, 100);
 	glPopName();
 
+	glPopMatrix();
+
+}
+
+void Boxeador::set_rotacion(float inc){
+	float _inc = _rotacion + inc;
+	if (_inc > 30) _inc = 30;
+	if (_inc < -30) _inc = -30;
+	_rotacion = _inc;
+	deconstruir();
 }
 
 void Boxeador::set_muñeco_b1_ang(float inc){

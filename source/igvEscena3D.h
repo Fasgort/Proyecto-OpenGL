@@ -28,6 +28,9 @@ public:
 
 	void motionMouse(float mov_x, float mov_y) {
 		switch(objetos->_seleccionado) {
+		case P_BOXEADOR:
+			objetos->figura1->set_rotacion(mov_x);
+			break;
 		case BRAZO_1:
 			objetos->figura1->set_muñeco_b1_ang(mov_y);
 			break;
@@ -39,6 +42,9 @@ public:
 			break;
 		case PUÑO_2:
 			objetos->figura1->set_muñeco_p2_esc(mov_x);
+			break;
+		case P_HELICE:
+			objetos->figura2->set_rotacion(mov_x);
 			break;
 		case PALANCA:
 			objetos->figura2->setRotAng(-mov_y);

@@ -37,14 +37,14 @@ void igvEscena3D::visualizar(void) {
 		// PRIMERA FIGURA (inferior izquierda)
 		glPushMatrix();
 		glTranslatef(-3.5, -1.5, 0);
-		glScalef(0.3, 0.3, 0.3);
+		glScalef(0.33, 0.33, 0.33);
 		objetos->visualizaFigura1();
 		glPopMatrix();
 
 		// SEGUNDA FIGURA (inferior derecha)
 		glPushMatrix();
 		glTranslatef(3.5, -1.5, 0);
-		glScalef(0.3, 0.3, 0.3);
+		glScalef(0.33, 0.33, 0.33);
 		objetos->visualizaFigura2();
 		glPopMatrix();
 
@@ -54,14 +54,14 @@ void igvEscena3D::visualizar(void) {
 		// TERCERA FIGURA (inferior izquierda)
 		glPushMatrix();
 		glTranslatef(-3.5, -1.5, 0);
-		glScalef(0.3, 0.3, 0.3);
+		glScalef(0.33, 0.33, 0.33);
 		objetos->visualizaFigura3();
 		glPopMatrix();
 
 		// CUARTA FIGURA (inferior derecha)
 		glPushMatrix();
 		glTranslatef(3.5, -1.5, 0);
-		glScalef(0.3, 0.3, 0.3);
+		glScalef(0.33, 0.33, 0.33);
 		objetos->visualizaFigura4();
 		glPopMatrix();
 

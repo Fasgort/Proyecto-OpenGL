@@ -70,8 +70,9 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 		if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] < 1.5 && interfaz.ampliado == false) {
 			interfaz.camara.P0[1] += 1.5;
 			interfaz.camara.r[1] += 1.5;
-		} else if(!interfaz.up && interfaz.ampliado == true && interfaz.camara.P0[1] < 0) {
-			interfaz.camara.P0[1] += 1;
+		} else if(!interfaz.up && interfaz.ampliado == true && interfaz.camara.P0[1] != 1.5) {
+			if(interfaz.down) interfaz.camara.P0[1] -= 1.0;
+			interfaz.camara.P0[1] += 2.0;
 			if(interfaz.down) interfaz.down = false;
 			else interfaz.up = true;
 		}
@@ -80,8 +81,9 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 		if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] > -1.5 && interfaz.ampliado == false) {
 			interfaz.camara.P0[1] -= 1.5;
 			interfaz.camara.r[1] -= 1.5;
-		} else if(!interfaz.down && interfaz.ampliado == true && interfaz.camara.P0[1] < 0) {
-			interfaz.camara.P0[1] -= 1;
+		} else if(!interfaz.down && interfaz.ampliado == true && interfaz.camara.P0[1] != 1.5) {
+			if(interfaz.up) interfaz.camara.P0[1] -= 1.0;
+			interfaz.camara.P0[1] -= 1.0;
 			if(interfaz.up) interfaz.up = false;
 			else interfaz.down = true;
 		}
@@ -92,8 +94,8 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 			interfaz.camara.r[0] -= 3.5;
 			interfaz.camara.P0[1] = 0;
 			interfaz.camara.r[1] = 0;
-		} else if(!interfaz.left && interfaz.ampliado == true && interfaz.camara.P0[1] < 0) {
-			interfaz.camara.P0[0] -= 1;
+		} else if(!interfaz.left && interfaz.ampliado == true && interfaz.camara.P0[1] != 1.5) {
+			interfaz.camara.P0[0] -= 2.0;
 			if(interfaz.right) interfaz.right = false;
 			else interfaz.left = true;
 		}
@@ -104,8 +106,8 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 			interfaz.camara.r[0] += 3.5;
 			interfaz.camara.P0[1] = 0;
 			interfaz.camara.r[1] = 0;
-		} else if(!interfaz.right && interfaz.ampliado == true && interfaz.camara.P0[1] < 0) {
-			interfaz.camara.P0[0] += 1;
+		} else if(!interfaz.right && interfaz.ampliado == true && interfaz.camara.P0[1] != 1.5) {
+			interfaz.camara.P0[0] += 2.0;
 			if(interfaz.left) interfaz.left = false;
 			else interfaz.right = true;
 		}
@@ -131,19 +133,19 @@ void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 			interfaz.ampliado = false;
 			interfaz.escena.set_seleccionado(-1);
 			if(interfaz.up) {
-				interfaz.camara.P0[1] -= 1;
+				interfaz.camara.P0[1] -= 2.0;
 				interfaz.up = false;
 			}
 			if(interfaz.down) {
-				interfaz.camara.P0[1] += 1;
+				interfaz.camara.P0[1] += 1.0;
 				interfaz.down = false;
 			}
 			if(interfaz.left) {
-				interfaz.camara.P0[0] += 1;
+				interfaz.camara.P0[0] += 2.0;
 				interfaz.left = false;
 			}
 			if(interfaz.right) {
-				interfaz.camara.P0[0] -= 1;
+				interfaz.camara.P0[0] -= 2.0;
 				interfaz.right = false;
 			}
 		}

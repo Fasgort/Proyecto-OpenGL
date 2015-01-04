@@ -21,12 +21,14 @@ class Boxeador {
 	poligonoComplejo* right;
 
 	// Metodo propio del objeto
+	void deconstruir();
 	void construir();
 
 protected:
 	int _seleccionado;
 
 	// grados de libertad
+	float _rotacion;
 	float _muñeco_b1_ang;
 	float _muñeco_b2_ang;
 	float _muñeco_p1_esc;
@@ -39,6 +41,7 @@ public:
 
 	void visualizar();
 
+	void set_rotacion(float inc);
 	void set_muñeco_b1_ang(float inc);
 	void set_muñeco_b2_ang(float inc);
 	void set_muñeco_p1_esc(float inc);

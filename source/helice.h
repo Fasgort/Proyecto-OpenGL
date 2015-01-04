@@ -21,12 +21,14 @@ class Helice {
 	poligonoComplejo* right;
 
 	// Metodo propio del objeto
+	void deconstruir();
 	void construir();
 protected:
 	// Atributos
 	int _seleccionado;
 
 	// grados de libertad
+	float _rotacion;
 	float _palanca_inc;
 	float _helice_ang;
 
@@ -36,6 +38,8 @@ public:
 	~Helice();
 
 	void visualizar();
+
+	void set_rotacion(float inc);
 	void setRotAng(float inc);
 
 };

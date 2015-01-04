@@ -61,12 +61,24 @@ void esferasFlotantes::visualizar() {
 
 	construir();
 
+	igvMaterial mat_pedestal(igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial mat_rectangulo(igvColor(0.8, 0.8, 0.8), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial mat_cuboExt(igvColor(0.5, 0.5, 0.2), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial mat_cuboInt(igvColor(0.3, 0.0, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial mat_esferaR(igvColor(1.0, 0.0, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial mat_esferaB(igvColor(0.0, 0.0, 1.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	GLfloat _color_seleccion[] = {1, 1, 0};
+	GLfloat color_seleccion[] = {1, 1, 0};
+
+	GLUquadricObj *cilindro = gluNewQuadric();
+	gluQuadricDrawStyle(cilindro, GLU_FILL);
+
+	// Pedestal
+	glPushMatrix();
+	mat_pedestal.aplicar();
+	glTranslatef(0.0, -4.0, 0.0);
+	glRotatef(90.0, 1.0, 0.0, 0.0);
+	gluCylinder(cilindro, 0.5, 0.5, 5.0, 100, 100);
+	glPopMatrix();
 
 	// Cuerpo
 	mat_rectangulo.aplicar();
@@ -98,7 +110,7 @@ void esferasFlotantes::visualizar() {
 	glPushMatrix();
 	glTranslatef(_esfera_x, _esfera_y, -0.75);
 	mat_esferaR.aplicar();
-	if(_seleccionado == ESFERAR) glMaterialfv(GL_FRONT, GL_EMISSION, _color_seleccion);
+	if(_seleccionado == ESFERAR) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
 	glPushName(ESFERAR);
 	glutSolidSphere(0.75, 100, 100);
 	glPopName();
@@ -109,7 +121,7 @@ void esferasFlotantes::visualizar() {
 	glPushMatrix();
 	glTranslatef(-_esfera_x, -_esfera_y, 0.75);
 	mat_esferaB.aplicar();
-	if(_seleccionado == ESFERAB) glMaterialfv(GL_FRONT, GL_EMISSION, _color_seleccion);
+	if(_seleccionado == ESFERAB) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
 	glPushName(ESFERAB);
 	glutSolidSphere(0.75, 100, 100);
 	glPopName();

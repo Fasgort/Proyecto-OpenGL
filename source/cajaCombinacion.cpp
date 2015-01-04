@@ -98,8 +98,9 @@ void cajaCombinacion::construir() {
 void cajaCombinacion::visualizar() {
 
 	construir();
-
-	igvMaterial mat_cuboExt(igvColor(1.0, 0.84, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+	
+	igvMaterial mat_pedestal(igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+	igvMaterial mat_cuboExt(igvColor(0.13, 0.08, 0.05), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial mat_cuboInt(igvColor(0.1, 0.1, 0.1), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial mat_botonCaja(igvColor(0.0, 0.3, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	igvMaterial mat_botonSorpresa(igvColor(0.5, 0.0, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
@@ -107,6 +108,17 @@ void cajaCombinacion::visualizar() {
 	GLfloat color_activado[] = {0.0, 0.3, 0.0};
 	GLfloat color_activado2[] = {0.5, 0.0, 0.0};
 	GLfloat color_desactivado[] = {0.0, 0.0, 0.0};
+
+	GLUquadricObj *cilindro = gluNewQuadric();
+	gluQuadricDrawStyle(cilindro, GLU_FILL);
+
+	// Pedestal
+	glPushMatrix();
+	mat_pedestal.aplicar();
+	glTranslatef(0.0, -4.0, 0.0);
+	glRotatef(90.0, 1.0, 0.0, 0.0);
+	gluCylinder(cilindro, 0.5, 0.5, 5.0, 100, 100);
+	glPopMatrix();
 
 	glPushName(NO_SELECCIONABLE);
 
