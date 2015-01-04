@@ -46,7 +46,7 @@ public:
 		figura4->setSeleccionado(seleccionado);
 	};
 
-	void cambiarSalaPrincipal(){museo->set_salaPrincipal(_salaPrincipal?false:true);};
+	void cambiarSalaPrincipal(){museo->set_salaPrincipal(_salaPrincipal = _salaPrincipal?false:true);};
 
 	// Métodos para variar grados de libertad
 

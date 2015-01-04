@@ -254,8 +254,8 @@ void cajaCombinacion::visualizar() {
 
 }
 
-void cajaCombinacion::pulsaBoton(int boton) {
-	switch(boton){
+void cajaCombinacion::setSeleccionado(int seleccionado) {
+	switch(seleccionado){
 	case BOTON_1:
 		_combinacion[0].flip();
 		break;
@@ -301,8 +301,8 @@ void cajaCombinacion::pulsaBoton(int boton) {
 			_sorpresa = false;
 		}
 		break;
+	case PUERTA_CAJA:
+		_abierto = false;
+		break;
 	}
-
 }
-
-void cajaCombinacion::cerrarCaja(){_abierto = false;};

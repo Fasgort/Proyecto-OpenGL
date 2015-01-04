@@ -5,6 +5,7 @@
 
 Helice::Helice() {
 	_isBuilt = false;
+	_wasMoved = false;
 	_seleccionado = -1;
 
 	_rotacion = 0;
@@ -49,6 +50,21 @@ void Helice::construir() {
 		left = new poligonoComplejo(bFloat(-1.5, 1.5, -1.5), bFloat(-1.5, -1.5, -1.5), bFloat(-1.5, -1.5, 1.5), bFloat(-1, 0, 0), 20);
 		right = new poligonoComplejo(bFloat(1.5, 1.5, -1.5), bFloat(1.5, -1.5, -1.5), bFloat(1.5, -1.5, 1.5), bFloat(1, 0, 0), 20);
 		_isBuilt = true;
+	} else if(_wasMoved) {
+		delete top;
+		delete bottom;
+		delete front;
+		delete back;
+		delete left;
+		delete right;
+
+		top = new poligonoComplejo(bFloat(-1.5, 1.5, -1.5), bFloat(-1.5, 1.5, 1.5), bFloat(1.5, 1.5, 1.5), bFloat(0, 1, 0), 20);
+		bottom = new poligonoComplejo(bFloat(-1.5, -1.5, -1.5), bFloat(-1.5, -1.5, 1.5), bFloat(1.5, -1.5, 1.5), bFloat(0, -1, 0), 20);
+		front = new poligonoComplejo(bFloat(-1.5, 1.5, 1.5), bFloat(-1.5, -1.5, 1.5), bFloat(1.5, -1.5, 1.5), bFloat(0, 0, 1), 20);
+		back = new poligonoComplejo(bFloat(-1.5, 1.5, -1.5), bFloat(-1.5, -1.5, -1.5), bFloat(1.5, -1.5, -1.5), bFloat(0, 0, -1), 20);
+		left = new poligonoComplejo(bFloat(-1.5, 1.5, -1.5), bFloat(-1.5, -1.5, -1.5), bFloat(-1.5, -1.5, 1.5), bFloat(-1, 0, 0), 20);
+		right = new poligonoComplejo(bFloat(1.5, 1.5, -1.5), bFloat(1.5, -1.5, -1.5), bFloat(1.5, -1.5, 1.5), bFloat(1, 0, 0), 20);
+		_wasMoved = false;
 	}
 }
 
@@ -164,7 +180,7 @@ void Helice::set_rotacion(float inc){
 	if (_inc > 360) _inc -= 360;
 	if (_inc < -360) _inc += 360;
 	_rotacion = _inc;
-	deconstruir();
+	_wasMoved = true;
 }
 
 void Helice::setRotAng(float inc){

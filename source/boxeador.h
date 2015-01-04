@@ -26,6 +26,9 @@ class Boxeador: public Objeto {
 	poligonoComplejo* left;
 	poligonoComplejo* right;
 
+	// variables
+	bool _wasMoved;
+
 	// grados de libertad
 	float _rotacion;
 	float _muñeco_b1_ang;

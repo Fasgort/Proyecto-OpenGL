@@ -77,8 +77,7 @@ public:
 	cajaCombinacion();
 	~cajaCombinacion();
 
-	void pulsaBoton(int boton);
-	void cerrarCaja();
+	void setSeleccionado(int seleccionado);
 
 	void visualizar();
 
