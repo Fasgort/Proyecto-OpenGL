@@ -38,15 +38,16 @@ public:
 	// Métodos que comunican con los objetos de la escena
 
 	void set_seleccionado(int seleccionado){
-	museo->setSeleccionado(seleccionado);
-	figura1->setSeleccionado(seleccionado);
-	figura2->setSeleccionado(seleccionado);
-	figura3->setSeleccionado(seleccionado);
-	figura4->setSeleccionado(seleccionado);
+		_seleccionado = seleccionado;
+		museo->setSeleccionado(seleccionado);
+		figura1->setSeleccionado(seleccionado);
+		figura2->setSeleccionado(seleccionado);
+		figura3->setSeleccionado(seleccionado);
+		figura4->setSeleccionado(seleccionado);
 	};
 
 	void cambiarSalaPrincipal(){museo->set_salaPrincipal(_salaPrincipal?false:true);};
-	
+
 	// Métodos para variar grados de libertad
 
 	void motionMouse(float mov_x, float mov_y) {

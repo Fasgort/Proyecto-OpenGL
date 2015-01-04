@@ -79,9 +79,9 @@ void esferasFlotantes::construir() {
 
 void esferasFlotantes::visualizar() {
 
-	construir();
-
 	GLfloat color_seleccion[] = {1, 1, 0};
+
+	construir();
 
 	GLUquadricObj *cilindro = gluNewQuadric();
 	gluQuadricDrawStyle(cilindro, GLU_FILL);

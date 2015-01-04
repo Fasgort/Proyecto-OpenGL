@@ -117,11 +117,11 @@ void cajaCombinacion::construir() {
 
 void cajaCombinacion::visualizar() {
 
-	construir();
-
 	GLfloat color_activado[] = {0.0, 0.3, 0.0};
 	GLfloat color_activado2[] = {0.5, 0.0, 0.0};
 	GLfloat color_desactivado[] = {0.0, 0.0, 0.0};
+
+	construir();
 
 	GLUquadricObj *cilindro = gluNewQuadric();
 	gluQuadricDrawStyle(cilindro, GLU_FILL);

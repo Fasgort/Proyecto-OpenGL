@@ -5,6 +5,7 @@
 
 Museo::Museo() {
 	_salaPrincipal = true;
+	_isBuilt = false;
 }
 
 Museo::~Museo() {

@@ -58,6 +58,8 @@ void Boxeador::visualizar() {
 
 	GLfloat color_seleccion[] = {1, 1, 0};
 
+	construir();
+
 	GLUquadricObj *cilindro = gluNewQuadric();
 	gluQuadricDrawStyle(cilindro, GLU_FILL);
 
@@ -75,7 +77,6 @@ void Boxeador::visualizar() {
 	glPushMatrix();
 	glRotatef(_rotacion, 0.0, -1.0, 0.0);
 
-	construir();
 
 	// Cuerpo
 	mat_cubo->aplicar();
