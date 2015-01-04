@@ -8,11 +8,22 @@
 // Metodos constructores 
 
 igvEscena3D::igvEscena3D() {
-	objetos = new Objeto();
+	_seleccionado = -1;
+	_salaPrincipal = true;
+
+	museo = new Museo();
+	figura1 = new Boxeador();
+	figura2 = new Helice();
+	figura3 = new esferasFlotantes();
+	figura4 = new cajaCombinacion();
 }
 
 igvEscena3D::~igvEscena3D() {
-	delete objetos;
+	delete museo;
+	delete figura1;
+	delete figura2;
+	delete figura3;
+	delete figura4;
 }
 
 // Metodos publicos 
@@ -24,27 +35,26 @@ void igvEscena3D::visualizar(void) {
 	// Inicializamos pila de nombres
 	glInitNames();
 
-	objetos->visualizaMuseo(); // visualizamos el museo
-	objetos->visualizaCuadro(); // visualizamos los cuadros
+	museo->visualizar(); // visualizamos el museo
 
 	// Emplazamiento inicial
 	glTranslatef(0, 0, 2);
 
-	if(objetos->getSalaPrincipal()){
+	if(_salaPrincipal){
 		// Primera sala
 
 		// PRIMERA FIGURA (inferior izquierda)
 		glPushMatrix();
 		glTranslatef(-3.5, -1.5, 0);
 		glScalef(0.33, 0.33, 0.33);
-		objetos->visualizaFigura1();
+		figura1->visualizar();
 		glPopMatrix();
 
 		// SEGUNDA FIGURA (inferior derecha)
 		glPushMatrix();
 		glTranslatef(3.5, -1.5, 0);
 		glScalef(0.33, 0.33, 0.33);
-		objetos->visualizaFigura2();
+		figura2->visualizar();
 		glPopMatrix();
 
 	} else {
@@ -54,14 +64,14 @@ void igvEscena3D::visualizar(void) {
 		glPushMatrix();
 		glTranslatef(-3.5, -1.5, 0);
 		glScalef(0.33, 0.33, 0.33);
-		objetos->visualizaFigura3();
+		figura3->visualizar();
 		glPopMatrix();
 
 		// CUARTA FIGURA (inferior derecha)
 		glPushMatrix();
 		glTranslatef(3.5, -1.5, 0);
 		glScalef(0.33, 0.33, 0.33);
-		objetos->visualizaFigura4();
+		figura4->visualizar();
 		glPopMatrix();
 
 	}

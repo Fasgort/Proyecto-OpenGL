@@ -1,16 +1,27 @@
 #include "cajaCombinacion.h"
 
-#include "igvMaterial.h"
+#include "igvColor.h"
 #include "bFloat.h"
 
 cajaCombinacion::cajaCombinacion() {
 	_isBuilt = false;
 	_abierto = false;
 	_sorpresa = false;
-};
+}
 
 cajaCombinacion::~cajaCombinacion() {
+	deconstruir();
+}
+
+void cajaCombinacion::deconstruir() {
 	if(_isBuilt) {
+		delete mat_pedestal;
+		delete mat_cuboExt;
+		delete mat_cuboInt;
+		delete mat_botonCaja;
+		delete mat_botonSorpresa;
+		delete mat_reset;
+
 		delete top;
 		delete bottom;
 		delete doorClosed;
@@ -50,10 +61,17 @@ cajaCombinacion::~cajaCombinacion() {
 		delete tboton9;
 		delete tbotonEnter;
 	}
-};
+}
 
 void cajaCombinacion::construir() {
 	if(!_isBuilt){
+		mat_pedestal = new igvMaterial(igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+		mat_cuboExt = new igvMaterial(igvColor(0.13, 0.08, 0.05), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+		mat_cuboInt = new igvMaterial(igvColor(0.1, 0.1, 0.1), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+		mat_botonCaja = new igvMaterial(igvColor(0.0, 0.3, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+		mat_botonSorpresa = new igvMaterial(igvColor(0.5, 0.0, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+		mat_reset = new igvMaterial(igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+
 		top = new poligonoComplejo(bFloat(-4.0, 4.0, -1.5), bFloat(-4.0, 4.0, 1.5), bFloat(4.0, 4.0, 1.5), bFloat(0, 1, 0), 20);
 		bottom = new poligonoComplejo(bFloat(-4.0, -4.0, -1.5), bFloat(-4.0, -4.0, 1.5), bFloat(4.0, -4.0, 1.5), bFloat(0, -1, 0), 20);
 		doorClosed = new poligonoComplejo(bFloat(-4.0, 4.0, 1.5), bFloat(-4.0, -4.0, 1.5), bFloat(4.0, -4.0, 1.5), bFloat(0, 0, 1), 20);
@@ -101,12 +119,6 @@ void cajaCombinacion::visualizar() {
 
 	construir();
 
-	igvMaterial mat_pedestal(igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	igvMaterial mat_cuboExt(igvColor(0.13, 0.08, 0.05), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	igvMaterial mat_cuboInt(igvColor(0.1, 0.1, 0.1), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	igvMaterial mat_botonCaja(igvColor(0.0, 0.3, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	igvMaterial mat_botonSorpresa(igvColor(0.5, 0.0, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	igvMaterial mat_reset(igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	GLfloat color_activado[] = {0.0, 0.3, 0.0};
 	GLfloat color_activado2[] = {0.5, 0.0, 0.0};
 	GLfloat color_desactivado[] = {0.0, 0.0, 0.0};
@@ -116,7 +128,7 @@ void cajaCombinacion::visualizar() {
 
 	// Pedestal
 	glPushMatrix();
-	mat_pedestal.aplicar();
+	mat_pedestal->aplicar();
 	glTranslatef(0.0, -4.0, 0.0);
 	glRotatef(90.0, 1.0, 0.0, 0.0);
 	gluCylinder(cilindro, 0.5, 0.5, 5.0, 100, 100);
@@ -125,7 +137,7 @@ void cajaCombinacion::visualizar() {
 	glPushName(NO_SELECCIONABLE);
 
 	// caja exterior
-	mat_cuboExt.aplicar();
+	mat_cuboExt->aplicar();
 	top->visualizar();
 	bottom->visualizar();
 	if (!_abierto) doorClosed->visualizar();
@@ -135,7 +147,7 @@ void cajaCombinacion::visualizar() {
 	right->visualizar();
 
 	// caja interior
-	mat_cuboInt.aplicar();
+	mat_cuboInt->aplicar();
 	top2->visualizar();
 	bottom2->visualizar();
 	if (!_abierto) doorClosed2->visualizar();
@@ -158,7 +170,7 @@ void cajaCombinacion::visualizar() {
 
 		GLUquadricObj *boton = gluNewQuadric();
 		gluQuadricDrawStyle(boton, GLU_FILL);
-		mat_botonCaja.aplicar();
+		mat_botonCaja->aplicar();
 
 		tboton1->aplicar();
 		if (_combinacion[0]) glMaterialfv(GL_FRONT, GL_EMISSION, color_activado);
@@ -233,7 +245,7 @@ void cajaCombinacion::visualizar() {
 
 	}
 
-	mat_botonSorpresa.aplicar();
+	mat_botonSorpresa->aplicar();
 	if (_sorpresa) glMaterialfv(GL_FRONT, GL_EMISSION, color_activado2);
 	else glMaterialfv(GL_FRONT, GL_EMISSION, color_desactivado);
 	glPushName(BOTON_SORPRESA);

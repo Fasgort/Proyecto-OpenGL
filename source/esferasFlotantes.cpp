@@ -1,6 +1,6 @@
 #include "esferasFlotantes.h"
 
-#include "igvMaterial.h"
+#include "igvColor.h"
 #include "bFloat.h"
 
 esferasFlotantes::esferasFlotantes() {
@@ -9,10 +9,21 @@ esferasFlotantes::esferasFlotantes() {
 
 	_esfera_x = -1.5;
 	_esfera_y = -1.5;
-};
+}
 
 esferasFlotantes::~esferasFlotantes() {
+	deconstruir();
+}
+
+void esferasFlotantes::deconstruir(){
 	if(_isBuilt) {
+		delete mat_pedestal;
+		delete mat_rectangulo;
+		delete mat_cuboExt;
+		delete mat_cuboInt;
+		delete mat_esferaR;
+		delete mat_esferaB;
+
 		delete top1;
 		delete bottom1;
 		delete front1;
@@ -32,10 +43,17 @@ esferasFlotantes::~esferasFlotantes() {
 		delete left3;
 		delete right3;
 	}
-};
+}
 
 void esferasFlotantes::construir() {
 	if(!_isBuilt){
+		mat_pedestal = new igvMaterial(igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+		mat_rectangulo = new igvMaterial(igvColor(0.8, 0.8, 0.8), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+		mat_cuboExt = new igvMaterial(igvColor(0.5, 0.5, 0.2), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+		mat_cuboInt = new igvMaterial(igvColor(0.3, 0.0, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+		mat_esferaR = new igvMaterial(igvColor(1.0, 0.0, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+		mat_esferaB = new igvMaterial(igvColor(0.0, 0.0, 1.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+
 		top1 = new poligonoComplejo(bFloat(-0.25, 0.25, -1.5), bFloat(-0.25, 0.25, 1.5), bFloat(0.25, 0.25, 1.5), bFloat(0, 1, 0), 20);
 		bottom1 = new poligonoComplejo(bFloat(-0.25, -0.25, -1.5), bFloat(-0.25, -0.25, 1.5), bFloat(0.25, -0.25, 1.5), bFloat(0, -1, 0), 20);
 		front1 = new poligonoComplejo(bFloat(-0.25, 0.25, 1.5), bFloat(-0.25, -0.25, 1.5), bFloat(0.25, -0.25, 1.5), bFloat(0, 0, 1), 20);
@@ -63,12 +81,6 @@ void esferasFlotantes::visualizar() {
 
 	construir();
 
-	igvMaterial mat_pedestal(igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	igvMaterial mat_rectangulo(igvColor(0.8, 0.8, 0.8), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	igvMaterial mat_cuboExt(igvColor(0.5, 0.5, 0.2), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	igvMaterial mat_cuboInt(igvColor(0.3, 0.0, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	igvMaterial mat_esferaR(igvColor(1.0, 0.0, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	igvMaterial mat_esferaB(igvColor(0.0, 0.0, 1.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	GLfloat color_seleccion[] = {1, 1, 0};
 
 	GLUquadricObj *cilindro = gluNewQuadric();
@@ -76,14 +88,14 @@ void esferasFlotantes::visualizar() {
 
 	// Pedestal
 	glPushMatrix();
-	mat_pedestal.aplicar();
+	mat_pedestal->aplicar();
 	glTranslatef(0.0, -4.0, 0.0);
 	glRotatef(90.0, 1.0, 0.0, 0.0);
 	gluCylinder(cilindro, 0.5, 0.5, 5.0, 100, 100);
 	glPopMatrix();
 
 	// Cuerpo
-	mat_rectangulo.aplicar();
+	mat_rectangulo->aplicar();
 	glPushName(NO_SELECCIONABLE);
 	top1->visualizar();
 	bottom1->visualizar();
@@ -92,14 +104,14 @@ void esferasFlotantes::visualizar() {
 	left1->visualizar();
 	right1->visualizar();
 
-	mat_cuboExt.aplicar();
+	mat_cuboExt->aplicar();
 	top2->visualizar();
 	bottom2->visualizar();
 	back2->visualizar();
 	left2->visualizar();
 	right2->visualizar();
 
-	mat_cuboInt.aplicar();
+	mat_cuboInt->aplicar();
 	top3->visualizar();
 	bottom3->visualizar();
 	back3->visualizar();
@@ -111,7 +123,7 @@ void esferasFlotantes::visualizar() {
 
 	glPushMatrix();
 	glTranslatef(_esfera_x, _esfera_y, -0.75);
-	mat_esferaR.aplicar();
+	mat_esferaR->aplicar();
 	if(_seleccionado == ESFERAR) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
 	glPushName(ESFERAR);
 	glutSolidSphere(0.75, 100, 100);
@@ -122,7 +134,7 @@ void esferasFlotantes::visualizar() {
 
 	glPushMatrix();
 	glTranslatef(-_esfera_x, -_esfera_y, 0.75);
-	mat_esferaB.aplicar();
+	mat_esferaB->aplicar();
 	if(_seleccionado == ESFERAB) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
 	glPushName(ESFERAB);
 	glutSolidSphere(0.75, 100, 100);

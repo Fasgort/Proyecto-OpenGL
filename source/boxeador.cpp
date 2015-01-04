@@ -1,6 +1,6 @@
 #include "boxeador.h"
 
-#include "igvMaterial.h"
+#include "igvColor.h"
 #include "bFloat.h"
 
 Boxeador::Boxeador() {
@@ -12,21 +12,20 @@ Boxeador::Boxeador() {
 	_muñeco_b2_ang = 0;
 	_muñeco_p1_esc = 0;
 	_muñeco_p2_esc = 0;
-};
+}
 
 Boxeador::~Boxeador() {
-	if(_isBuilt) {
-		delete top;
-		delete bottom;
-		delete front;
-		delete back;
-		delete left;
-		delete right;
-	}
-};
+	deconstruir();
+}
 
 void Boxeador::deconstruir() {
 	if(_isBuilt){
+		delete mat_pedestal;
+		delete mat_cubo;
+		delete mat_brazo;
+		delete mat_musculo;
+		delete mat_puño;
+
 		delete top;
 		delete bottom;
 		delete front;
@@ -39,6 +38,12 @@ void Boxeador::deconstruir() {
 
 void Boxeador::construir() {
 	if(!_isBuilt){
+		mat_pedestal = new igvMaterial(igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+		mat_cubo = new igvMaterial(igvColor(0.0, 0.0, 0.5), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+		mat_brazo = new igvMaterial(igvColor(0.0, 0.1, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+		mat_musculo = new igvMaterial(igvColor(0.2, 0.1, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+		mat_puño = new igvMaterial(igvColor(0.5, 0.0, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+
 		top = new poligonoComplejo(bFloat(-1.5, 1.5, -1.5), bFloat(-1.5, 1.5, 1.5), bFloat(1.5, 1.5, 1.5), bFloat(0, 1, 0), 20);
 		bottom = new poligonoComplejo(bFloat(-1.5, -1.5, -1.5), bFloat(-1.5, -1.5, 1.5), bFloat(1.5, -1.5, 1.5), bFloat(0, -1, 0), 20);
 		front = new poligonoComplejo(bFloat(-1.5, 1.5, 1.5), bFloat(-1.5, -1.5, 1.5), bFloat(1.5, -1.5, 1.5), bFloat(0, 0, 1), 20);
@@ -51,11 +56,6 @@ void Boxeador::construir() {
 
 void Boxeador::visualizar() {
 
-	igvMaterial mat_pedestal(igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	igvMaterial mat_cubo(igvColor(0.0, 0.0, 0.5), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	igvMaterial mat_brazo(igvColor(0.0, 0.1, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	igvMaterial mat_musculo(igvColor(0.2, 0.1, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	igvMaterial mat_puño(igvColor(0.5, 0.0, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	GLfloat color_seleccion[] = {1, 1, 0};
 
 	GLUquadricObj *cilindro = gluNewQuadric();
@@ -63,7 +63,7 @@ void Boxeador::visualizar() {
 
 	// Pedestal de rotación
 	glPushMatrix();
-	mat_pedestal.aplicar();
+	mat_pedestal->aplicar();
 	if(_seleccionado == P_BOXEADOR) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
 	glTranslatef(0.0, -1.5, 0.0);
 	glRotatef(90.0, 1.0, 0.0, 0.0);
@@ -78,7 +78,7 @@ void Boxeador::visualizar() {
 	construir();
 
 	// Cuerpo
-	mat_cubo.aplicar();
+	mat_cubo->aplicar();
 	glPushName(NO_SELECCIONABLE);
 	top->visualizar();
 	bottom->visualizar();
@@ -91,7 +91,7 @@ void Boxeador::visualizar() {
 	glPushMatrix();
 
 	// Brazo 1
-	mat_brazo.aplicar();
+	mat_brazo->aplicar();
 	if(_seleccionado == BRAZO_1) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
 
 	glTranslatef(1, 0, 0);
@@ -107,13 +107,13 @@ void Boxeador::visualizar() {
 	glPushMatrix();
 
 	// Músculo 1
-	mat_musculo.aplicar();
+	mat_musculo->aplicar();
 	glTranslatef(1.75, 0.2, 0);
 	glutSolidSphere(0.45, 100, 100);
 	glPopMatrix();
 
 	// Puño 1
-	mat_puño.aplicar();
+	mat_puño->aplicar();
 	if(_seleccionado == PUÑO_1) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
 	glTranslatef(3.5, 0, 0);
 	glPushName(PUÑO_1);
@@ -122,7 +122,7 @@ void Boxeador::visualizar() {
 	glPopMatrix();
 
 	// Brazo 2
-	mat_brazo.aplicar();
+	mat_brazo->aplicar();
 	if(_seleccionado == BRAZO_2) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
 
 	glTranslatef(-1, 0, 0);
@@ -138,14 +138,14 @@ void Boxeador::visualizar() {
 	glPushMatrix();
 
 	// Músculo 2
-	mat_musculo.aplicar();
+	mat_musculo->aplicar();
 
 	glTranslatef(-1.75, 0.2, 0);
 	glutSolidSphere(0.45, 100, 100);
 	glPopMatrix();
 
 	// Puño 2
-	mat_puño.aplicar();
+	mat_puño->aplicar();
 	if(_seleccionado == PUÑO_2) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
 	glTranslatef(-3.5, 0, 0);
 	glPushName(PUÑO_2);

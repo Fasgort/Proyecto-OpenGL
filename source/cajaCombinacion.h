@@ -3,20 +3,27 @@
 
 #include <GL/glut.h>
 
+#include "Objeto.h"
 #include "nombres.h"
+#include "igvMaterial.h"
 #include "poligonoComplejo.h"
 #include "igvTextura.h"
 #include <bitset>
 
-class Objeto;
+class cajaCombinacion: public Objeto {
+	friend class igvEscena3D;
 
-class cajaCombinacion {
-	friend class Objeto;
-
-	bool _isBuilt; // Indica si el objeto ha sido creado
 	std::bitset<9> _combinacion;
 	bool _abierto; // Indica si la caja ha sido abierta
 	bool _sorpresa; // Es sorpresa
+
+	// materiales
+	igvMaterial* mat_pedestal;
+	igvMaterial* mat_cuboExt;
+	igvMaterial* mat_cuboInt;
+	igvMaterial* mat_botonCaja;
+	igvMaterial* mat_botonSorpresa;
+	igvMaterial* mat_reset;
 
 	// cajetin figura exterior
 	poligonoComplejo* top;
@@ -61,7 +68,8 @@ class cajaCombinacion {
 	igvTextura* tboton9;
 	igvTextura* tbotonEnter;
 
-	// Metodo propio del objeto
+	// Métodos privados
+	void deconstruir();
 	void construir();
 
 public:

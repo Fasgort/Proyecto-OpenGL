@@ -3,15 +3,21 @@
 
 #include <GL/glut.h>
 
+#include "Objeto.h"
 #include "nombres.h"
+#include "igvMaterial.h"
 #include "poligonoComplejo.h"
 
-class Objeto;
+class esferasFlotantes: public Objeto {
+	friend class igvEscena3D;
 
-class esferasFlotantes {
-	friend class Objeto;
-
-	bool _isBuilt; // Indica si el objeto ha sido creado
+	// materiales
+	igvMaterial* mat_pedestal;
+	igvMaterial* mat_rectangulo;
+	igvMaterial* mat_cuboExt;
+	igvMaterial* mat_cuboInt;
+	igvMaterial* mat_esferaR;
+	igvMaterial* mat_esferaB;
 
 	// rectangulo central
 	poligonoComplejo* top1;
@@ -35,15 +41,13 @@ class esferasFlotantes {
 	poligonoComplejo* left3;
 	poligonoComplejo* right3;
 
-	// Metodo propio del objeto
-	void construir();
-protected:
-	// Atributos
-	int _seleccionado;
-
 	// grados de libertad
 	float _esfera_x;
 	float _esfera_y;
+
+	// Métodos privados
+	void deconstruir();
+	void construir();
 
 public:
 

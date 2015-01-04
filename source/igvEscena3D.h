@@ -2,14 +2,28 @@
 #define __IGVESCENA3D
 
 #include <GL/glut.h>
-#include "objetos.h"
+
+#include "Objeto.h"
+#include "museo.h"
+#include "boxeador.h"
+#include "helice.h"
+#include "esferasFlotantes.h"
+#include "cajaCombinacion.h"
 
 using namespace std;
 
 class igvEscena3D {
 protected:
 	// Atributos
-	Objeto* objetos;
+	int _seleccionado;
+	bool _salaPrincipal;
+
+	// Objetos
+	Museo* museo;
+	Boxeador* figura1;
+	Helice* figura2;
+	esferasFlotantes* figura3;
+	cajaCombinacion* figura4;
 public:
 	// Constructores por defecto y destructor
 	igvEscena3D();
@@ -21,41 +35,50 @@ public:
 	// método con las llamadas OpenGL para visualizar la escena
 	void visualizar();
 
-	void set_seleccionado(int _seleccionado){objetos->setSeleccionado(_seleccionado);};
-	void cambiarSalaPrincipal(){objetos->setSalaPrincipal(objetos->getSalaPrincipal()?false:true);};
+	// Métodos que comunican con los objetos de la escena
 
+	void set_seleccionado(int seleccionado){
+	museo->setSeleccionado(seleccionado);
+	figura1->setSeleccionado(seleccionado);
+	figura2->setSeleccionado(seleccionado);
+	figura3->setSeleccionado(seleccionado);
+	figura4->setSeleccionado(seleccionado);
+	};
+
+	void cambiarSalaPrincipal(){museo->set_salaPrincipal(_salaPrincipal?false:true);};
+	
 	// Métodos para variar grados de libertad
 
 	void motionMouse(float mov_x, float mov_y) {
-		switch(objetos->_seleccionado) {
+		switch(_seleccionado) {
 		case P_BOXEADOR:
-			objetos->figura1->set_rotacion(mov_x);
+			figura1->set_rotacion(mov_x);
 			break;
 		case BRAZO_1:
-			objetos->figura1->set_muñeco_b1_ang(mov_y);
+			figura1->set_muñeco_b1_ang(mov_y);
 			break;
 		case BRAZO_2:
-			objetos->figura1->set_muñeco_b2_ang(mov_y);
+			figura1->set_muñeco_b2_ang(mov_y);
 			break;
 		case PUÑO_1:
-			objetos->figura1->set_muñeco_p1_esc(mov_x);
+			figura1->set_muñeco_p1_esc(mov_x);
 			break;
 		case PUÑO_2:
-			objetos->figura1->set_muñeco_p2_esc(mov_x);
+			figura1->set_muñeco_p2_esc(mov_x);
 			break;
 		case P_HELICE:
-			objetos->figura2->set_rotacion(mov_x);
+			figura2->set_rotacion(mov_x);
 			break;
 		case PALANCA:
-			objetos->figura2->setRotAng(-mov_y);
+			figura2->setRotAng(-mov_y);
 			break;
 		case ESFERAR:
-			objetos->figura3->setEsferaX(-mov_x);
-			objetos->figura3->setEsferaY(mov_y);
+			figura3->setEsferaX(-mov_x);
+			figura3->setEsferaY(mov_y);
 			break;
 		case ESFERAB:
-			objetos->figura3->setEsferaX(mov_x);
-			objetos->figura3->setEsferaY(-mov_y);
+			figura3->setEsferaX(mov_x);
+			figura3->setEsferaY(-mov_y);
 			break;
 		}
 	}

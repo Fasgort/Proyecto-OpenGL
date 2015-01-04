@@ -1,6 +1,6 @@
 #include "helice.h"
 
-#include "igvMaterial.h"
+#include "igvColor.h"
 #include "bFloat.h"
 
 Helice::Helice() {
@@ -10,21 +10,20 @@ Helice::Helice() {
 	_rotacion = 0;
 	_palanca_inc = 0.0;
 	_helice_ang = 0;
-};
+}
 
 Helice::~Helice() {
-	if(_isBuilt) {
-		delete top;
-		delete bottom;
-		delete front;
-		delete back;
-		delete left;
-		delete right;
-	}
-};
+	deconstruir();
+}
 
 void Helice::deconstruir() {
 	if(_isBuilt) {
+		delete mat_pedestal;
+		delete mat_cubo;
+		delete mat_helice;
+		delete mat_esfera;
+		delete mat_palanca;
+
 		delete top;
 		delete bottom;
 		delete front;
@@ -37,6 +36,12 @@ void Helice::deconstruir() {
 
 void Helice::construir() {
 	if(!_isBuilt){
+		mat_pedestal = new igvMaterial(igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+		mat_cubo = new igvMaterial(igvColor(0.5, 0.0, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+		mat_helice = new igvMaterial(igvColor(0.0, 0.5, 0.3), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+		mat_esfera = new igvMaterial(igvColor(0.0, 0.0, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+		mat_palanca = new igvMaterial(igvColor(1.0, 0.65, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
+
 		top = new poligonoComplejo(bFloat(-1.5, 1.5, -1.5), bFloat(-1.5, 1.5, 1.5), bFloat(1.5, 1.5, 1.5), bFloat(0, 1, 0), 20);
 		bottom = new poligonoComplejo(bFloat(-1.5, -1.5, -1.5), bFloat(-1.5, -1.5, 1.5), bFloat(1.5, -1.5, 1.5), bFloat(0, -1, 0), 20);
 		front = new poligonoComplejo(bFloat(-1.5, 1.5, 1.5), bFloat(-1.5, -1.5, 1.5), bFloat(1.5, -1.5, 1.5), bFloat(0, 0, 1), 20);
@@ -49,11 +54,6 @@ void Helice::construir() {
 
 void Helice::visualizar() {
 
-	igvMaterial mat_pedestal(igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	igvMaterial mat_cubo(igvColor(0.5, 0.0, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	igvMaterial mat_helice(igvColor(0.0, 0.5, 0.3), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	igvMaterial mat_esfera(igvColor(0.0, 0.0, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-	igvMaterial mat_palanca(igvColor(1.0, 0.65, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 	GLfloat color_seleccion[] = {1, 1, 0};
 
 	GLUquadricObj *cilindro = gluNewQuadric();
@@ -61,7 +61,7 @@ void Helice::visualizar() {
 
 	// Pedestal de rotación
 	glPushMatrix();
-	mat_pedestal.aplicar();
+	mat_pedestal->aplicar();
 	if(_seleccionado == P_HELICE) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
 	glTranslatef(0.0, -1.5, 0.0);
 	glRotatef(90.0, 1.0, 0.0, 0.0);
@@ -76,7 +76,7 @@ void Helice::visualizar() {
 	construir();
 
 	// Cuerpo
-	mat_cubo.aplicar();
+	mat_cubo->aplicar();
 	glPushName(NO_SELECCIONABLE);
 	top->visualizar();
 	bottom->visualizar();
@@ -92,7 +92,7 @@ void Helice::visualizar() {
 	glRotatef(-90, 1, 0, 0);
 	glRotatef(90, 0, 0, 1);
 
-	mat_palanca.aplicar();
+	mat_palanca->aplicar();
 	if(_seleccionado == PALANCA) glMaterialfv(GL_FRONT, GL_EMISSION, color_seleccion);
 	glTranslatef(0.0, 0.0, 1.0 - _palanca_inc);
 	glPushName(PALANCA);
@@ -107,7 +107,7 @@ void Helice::visualizar() {
 	// Esfera helice
 	glPushMatrix();
 
-	mat_helice.aplicar();
+	mat_helice->aplicar();
 	glTranslatef(0.0, 0.0, 1.65);
 	glutSolidSphere(0.45, 100, 100);
 
@@ -119,37 +119,37 @@ void Helice::visualizar() {
 
 	glPushMatrix();
 	glRotatef(_helice_ang, 0, 1, 0);
-	mat_helice.aplicar();
+	mat_helice->aplicar();
 	gluCylinder(helice, 0.1, 0.1, 2.5, 100, 100);
 	glTranslatef(0.0, 0.0, 2.5);
-	mat_esfera.aplicar();
+	mat_esfera->aplicar();
 	glutSolidSphere(0.25, 100, 100);
 	glPopMatrix();
 
 	glPushMatrix();
 	glRotatef(90+_helice_ang, 0, 1, 0);
-	mat_helice.aplicar();
+	mat_helice->aplicar();
 	gluCylinder(helice, 0.1, 0.1, 2.5, 100, 100);
 	glTranslatef(0.0, 0.0, 2.5);
-	mat_esfera.aplicar();
+	mat_esfera->aplicar();
 	glutSolidSphere(0.25, 100, 100);
 	glPopMatrix();
 
 	glPushMatrix();
 	glRotatef(180+_helice_ang, 0, 1, 0);
-	mat_helice.aplicar();
+	mat_helice->aplicar();
 	gluCylinder(helice, 0.1, 0.1, 2.5, 100, 100);
 	glTranslatef(0.0, 0.0, 2.5);
-	mat_esfera.aplicar();
+	mat_esfera->aplicar();
 	glutSolidSphere(0.25, 100, 100);
 	glPopMatrix();
 
 	glPushMatrix();
 	glRotatef(270+_helice_ang, 0, 1, 0);
-	mat_helice.aplicar();
+	mat_helice->aplicar();
 	gluCylinder(helice, 0.1, 0.1, 2.5, 100, 100);
 	glTranslatef(0.0, 0.0, 2.5);
-	mat_esfera.aplicar();
+	mat_esfera->aplicar();
 	glutSolidSphere(0.25, 100, 100);
 	glPopMatrix();
 

@@ -3,13 +3,26 @@
 
 #include <GL/glut.h>
 
+#include "Objeto.h"
 #include "nombres.h"
+#include "igvFuenteLuz.h"
+#include "igvMaterial.h"
 #include "poligonoComplejo.h"
+#include "igvTextura.h"
 
-class Objeto;
+class Museo: public Objeto {
+	friend class igvEscena3D;
 
-class Museo {
-	friend class Objeto;
+	// fuentes de luz
+	igvFuenteLuz* luzMuseo;
+	igvFuenteLuz* luzMuseo2;
+
+	// materiales
+	igvMaterial* matParedFrontal;
+	igvMaterial* matParedLateral;
+	igvMaterial* matSupInf;
+	igvMaterial* matPuerta;
+	igvMaterial* matMarco;
 
 	// poligonos asociados a museo
 	poligonoComplejo* paredFrontal;
@@ -19,14 +32,32 @@ class Museo {
 	poligonoComplejo* techo;
 	poligonoComplejo* suelo;
 	poligonoComplejo* puerta;
-protected:
+
+	// poligonos asociados a cuadros
+	poligonoComplejo* cuadro1;
+	poligonoComplejo* cuadro2;
+
+	// texturas
+	igvTextura* pintura1;
+	igvTextura* pintura2;
+	igvTextura* pintura3;
+	igvTextura* pintura4;
+
+	// variables
 	bool _salaPrincipal;
+
+	// Métodos privados
+	void deconstruir();
+	void construir();
+
 public:
 
 	Museo();
 	~Museo();
 
 	void visualizar();
+
+	void set_salaPrincipal(bool salaPrincipal){_salaPrincipal = salaPrincipal;};
 
 };
 

@@ -3,15 +3,20 @@
 
 #include <GL/glut.h>
 
+#include "Objeto.h"
 #include "nombres.h"
+#include "igvMaterial.h"
 #include "poligonoComplejo.h"
 
-class Objeto;
+class Helice: public Objeto {
+	friend class igvEscena3D;
 
-class Helice {
-	friend class Objeto;
-
-	bool _isBuilt; // Indica si el objeto ha sido creado
+	// materiales
+	igvMaterial* mat_pedestal;
+	igvMaterial* mat_cubo;
+	igvMaterial* mat_helice;
+	igvMaterial* mat_esfera;
+	igvMaterial* mat_palanca;
 
 	// polígono
 	poligonoComplejo* top;
@@ -21,17 +26,14 @@ class Helice {
 	poligonoComplejo* left;
 	poligonoComplejo* right;
 
-	// Metodo propio del objeto
-	void deconstruir();
-	void construir();
-protected:
-	// Atributos
-	int _seleccionado;
-
 	// grados de libertad
 	float _rotacion;
 	float _palanca_inc;
 	float _helice_ang;
+
+	// Métodos privados
+	void deconstruir();
+	void construir();
 
 public:
 
