@@ -1,4 +1,4 @@
-#include "esferasFlotantes.h"
+#include "EsferasFlotantes.h"
 
 #include "igvColor.h"
 #include "bFloat.h"

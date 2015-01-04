@@ -4,11 +4,11 @@
 #include <GL/glut.h>
 
 #include "Objeto.h"
-#include "museo.h"
-#include "boxeador.h"
-#include "helice.h"
-#include "esferasFlotantes.h"
-#include "cajaCombinacion.h"
+#include "Museo.h"
+#include "Boxeador.h"
+#include "Helice.h"
+#include "EsferasFlotantes.h"
+#include "CajaCombinacion.h"
 
 using namespace std;
 

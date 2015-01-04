@@ -1,4 +1,4 @@
-#include "boxeador.h"
+#include "Boxeador.h"
 
 #include "igvColor.h"
 #include "bFloat.h"

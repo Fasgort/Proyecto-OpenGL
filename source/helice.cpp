@@ -1,4 +1,4 @@
-#include "helice.h"
+#include "Helice.h"
 
 #include "igvColor.h"
 #include "bFloat.h"

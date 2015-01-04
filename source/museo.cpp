@@ -1,4 +1,4 @@
-#include "museo.h"
+#include "Museo.h"
 
 #include "igvColor.h"
 #include "bFloat.h"

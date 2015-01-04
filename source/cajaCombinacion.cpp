@@ -1,4 +1,4 @@
-#include "cajaCombinacion.h"
+#include "CajaCombinacion.h"
 
 #include "igvColor.h"
 #include "bFloat.h"
