@@ -38,21 +38,21 @@ void igvEscena3D::visualizar(void) {
 	museo->visualizar(); // visualizamos el museo
 
 	// Emplazamiento inicial
-	glTranslatef(0, 0, 2);
+	glTranslatef(0, -1.5, 2);
 
 	if(_salaPrincipal){
 		// Primera sala
 
 		// PRIMERA FIGURA (inferior izquierda)
 		glPushMatrix();
-		glTranslatef(-3.5, -1.5, 0);
+		glTranslatef(-3.5, 0, 0);
 		glScalef(0.33, 0.33, 0.33);
 		figura1->visualizar();
 		glPopMatrix();
 
 		// SEGUNDA FIGURA (inferior derecha)
 		glPushMatrix();
-		glTranslatef(3.5, -1.5, 0);
+		glTranslatef(3.5, 0, 0);
 		glScalef(0.33, 0.33, 0.33);
 		figura2->visualizar();
 		glPopMatrix();
@@ -62,14 +62,14 @@ void igvEscena3D::visualizar(void) {
 
 		// TERCERA FIGURA (inferior izquierda)
 		glPushMatrix();
-		glTranslatef(-3.5, -1.5, 0);
+		glTranslatef(-3.5, 0, 0);
 		glScalef(0.33, 0.33, 0.33);
 		figura3->visualizar();
 		glPopMatrix();
 
 		// CUARTA FIGURA (inferior derecha)
 		glPushMatrix();
-		glTranslatef(3.5, -1.5, 0);
+		glTranslatef(3.5, 0, 0);
 		glScalef(0.33, 0.33, 0.33);
 		figura4->visualizar();
 		glPopMatrix();
