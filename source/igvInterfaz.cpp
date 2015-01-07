@@ -75,11 +75,14 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 		if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] < 1.5 && interfaz.ampliado == false) {
 			interfaz.camara.P0[1] += 1.5;
 			interfaz.camara.r[1] += 1.5;
-		} else if(!interfaz.up && interfaz.ampliado == true && interfaz.camara.P0[1] != 1.5) {
+		} else if(!interfaz.up && interfaz.ampliado == true && interfaz.camara.P0[1] < 0.9) {
 			if(interfaz.down) interfaz.camara.P0[1] -= 1.0;
 			interfaz.camara.P0[1] += 2.0;
 			if(interfaz.down) interfaz.down = false;
 			else interfaz.up = true;
+		} else if (interfaz.ampliado == true && interfaz.camara.P0[1] > 0.5 && interfaz.camara.P0[1] < 2.0) {
+			interfaz.camara.P0[1] += 0.1;
+			interfaz.camara.r[1] += 0.1;
 		}
 		break;
 
@@ -87,11 +90,14 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 		if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] > -1.5 && interfaz.ampliado == false) {
 			interfaz.camara.P0[1] -= 1.5;
 			interfaz.camara.r[1] -= 1.5;
-		} else if(!interfaz.down && interfaz.ampliado == true && interfaz.camara.P0[1] != 1.5) {
+		} else if(!interfaz.down && interfaz.ampliado == true && interfaz.camara.P0[1] < 0.9) {
 			if(interfaz.up) interfaz.camara.P0[1] -= 1.0;
 			interfaz.camara.P0[1] -= 1.0;
 			if(interfaz.up) interfaz.up = false;
 			else interfaz.down = true;
+		} else if (interfaz.ampliado == true && interfaz.camara.P0[1] > 0.5 && interfaz.camara.P0[1] > 1.0) {
+			interfaz.camara.P0[1] -= 0.1;
+			interfaz.camara.r[1] -= 0.1;
 		}
 		break;
 
@@ -101,10 +107,14 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 			interfaz.camara.r[0] -= 3.5;
 			interfaz.camara.P0[1] = 0;
 			interfaz.camara.r[1] = 0;
-		} else if(!interfaz.left && interfaz.ampliado == true && interfaz.camara.P0[1] != 1.5) {
+		} else if(!interfaz.left && interfaz.ampliado == true && interfaz.camara.P0[1] < 0.9) {
 			interfaz.camara.P0[0] -= 2.0;
 			if(interfaz.right) interfaz.right = false;
 			else interfaz.left = true;
+		} else if (interfaz.ampliado == true && interfaz.camara.P0[1] > 0.5 && 
+			(interfaz.camara.P0[0] > -4.6 && interfaz.camara.P0[0] <= -2.2) || (interfaz.camara.P0[0] > 2.3 && interfaz.camara.P0[0] <= 4.8) ) {
+				interfaz.camara.P0[0] -= 0.1;
+				interfaz.camara.r[0] -= 0.1;
 		}
 		break;
 
@@ -114,10 +124,14 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 			interfaz.camara.r[0] += 3.5;
 			interfaz.camara.P0[1] = 0;
 			interfaz.camara.r[1] = 0;
-		} else if(!interfaz.right && interfaz.ampliado == true && interfaz.camara.P0[1] != 1.5) {
+		} else if(!interfaz.right && interfaz.ampliado == true && interfaz.camara.P0[1] < 0.9) {
 			interfaz.camara.P0[0] += 2.0;
 			if(interfaz.left) interfaz.left = false;
 			else interfaz.right = true;
+		} else if (interfaz.ampliado == true && interfaz.camara.P0[1] > 0.5 && 
+			(interfaz.camara.P0[0] >= -4.7 && interfaz.camara.P0[0] < -2.3) || (interfaz.camara.P0[0] >= 2.2 && interfaz.camara.P0[0] < 4.6) ) {
+				interfaz.camara.P0[0] += 0.1;
+				interfaz.camara.r[0] += 0.1;
 		}
 		break;
 
@@ -143,6 +157,14 @@ void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 			interfaz.ampliado = false;
 			interfaz.escena.set_seleccionado(-1);
 		}
+		break;
+
+	case 'z':
+		if(interfaz.camara.angulo > 30 && interfaz.ampliado && interfaz.camara.P0[1] > 0.5) interfaz.camara.angulo -= 15;
+		break;
+
+	case 'x':
+		if(interfaz.camara.angulo < 90 && interfaz.ampliado && interfaz.camara.P0[1] > 0.5) interfaz.camara.angulo += 15;
 		break;
 
 	case 27: // tecla de escape para SALIR
