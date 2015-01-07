@@ -38,6 +38,7 @@ void Museo::deconstruir() {
 		delete cuadro1;
 		delete cuadro2;
 
+		delete alfombra;
 		delete pintura1;
 		delete pintura2;
 		delete pintura3;
@@ -78,6 +79,7 @@ void Museo::construir() {
 		cuadro1 = new poligonoComplejo(bFloat(-4.7, 2.1, 1.05), bFloat(-4.7, 0.9, 1.05), bFloat(-2.3, 0.9, 1.05), bFloat(0, 0, 1), 100);
 		cuadro2 = new poligonoComplejo(bFloat(2.3, 2.1, 1.05), bFloat(2.3, 0.9, 1.05), bFloat(4.7, 0.9, 1.05), bFloat(0, 0, 1), 100);
 
+		alfombra = new igvTextura();
 		pintura1 = new igvTextura("texturas/estrellas.bmp");
 		pintura2 = new igvTextura("texturas/mirada.bmp");
 		pintura3 = new igvTextura("texturas/playa.bmp");
@@ -113,7 +115,9 @@ void Museo::visualizar() {
 	glPushMatrix();
 	matSupInf->aplicar();
 	techo->visualizar(); // pared techo museo
+	alfombra->aplicar();
 	suelo->visualizar(); // pared suelo museo
+	glBindTexture(GL_TEXTURE_2D, 0);
 	glPopMatrix();
 
 	glPushMatrix();

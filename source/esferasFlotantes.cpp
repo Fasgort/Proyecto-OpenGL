@@ -54,12 +54,12 @@ void esferasFlotantes::construir() {
 		mat_esferaR = new igvMaterial(igvColor(1.0, 0.0, 0.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 		mat_esferaB = new igvMaterial(igvColor(0.0, 0.0, 1.0), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
 
-		top1 = new poligonoComplejo(bFloat(-0.25, 0.25, -1.5), bFloat(-0.25, 0.25, 1.5), bFloat(0.25, 0.25, 1.5), bFloat(0, 1, 0), 20);
-		bottom1 = new poligonoComplejo(bFloat(-0.25, -0.25, -1.5), bFloat(-0.25, -0.25, 1.5), bFloat(0.25, -0.25, 1.5), bFloat(0, -1, 0), 20);
+		top1 = new poligonoComplejo(bFloat(-0.25, 0.25, -1.40), bFloat(-0.25, 0.25, 1.5), bFloat(0.25, 0.25, 1.5), bFloat(0, 1, 0), 20);
+		bottom1 = new poligonoComplejo(bFloat(-0.25, -0.25, -1.40), bFloat(-0.25, -0.25, 1.5), bFloat(0.25, -0.25, 1.5), bFloat(0, -1, 0), 20);
 		front1 = new poligonoComplejo(bFloat(-0.25, 0.25, 1.5), bFloat(-0.25, -0.25, 1.5), bFloat(0.25, -0.25, 1.5), bFloat(0, 0, 1), 20);
-		back1 = new poligonoComplejo(bFloat(-0.25, 0.25, -1.5), bFloat(-0.25, -0.25, -1.5), bFloat(0.25, -0.25, -1.5), bFloat(0, 0, -1), 20);
-		left1 = new poligonoComplejo(bFloat(-0.25, 0.25, -1.5), bFloat(-0.25, -0.25, -1.5), bFloat(-0.25, -0.25, 1.5), bFloat(-1, 0, 0), 20);
-		right1 = new poligonoComplejo(bFloat(0.25, 0.25, -1.5), bFloat(0.25, -0.25, -1.5), bFloat(0.25, -0.25, 1.5), bFloat(1, 0, 0), 20);
+		back1 = new poligonoComplejo(bFloat(-0.25, 0.25, -1.40), bFloat(-0.25, -0.25, -1.40), bFloat(0.25, -0.25, -1.40), bFloat(0, 0, -1), 20);
+		left1 = new poligonoComplejo(bFloat(-0.25, 0.25, -1.40), bFloat(-0.25, -0.25, -1.40), bFloat(-0.25, -0.25, 1.5), bFloat(-1, 0, 0), 20);
+		right1 = new poligonoComplejo(bFloat(0.25, 0.25, -1.40), bFloat(0.25, -0.25, -1.40), bFloat(0.25, -0.25, 1.5), bFloat(1, 0, 0), 20);
 
 		top2 = new poligonoComplejo(bFloat(-4.0, 4.0, -1.5), bFloat(-4.0, 4.0, 1.5), bFloat(4.0, 4.0, 1.5), bFloat(0, 1, 0), 20);
 		bottom2 = new poligonoComplejo(bFloat(-4.0, -4.0, -1.5), bFloat(-4.0, -4.0, 1.5), bFloat(4.0, -4.0, 1.5), bFloat(0, -1, 0), 20);
@@ -67,11 +67,11 @@ void esferasFlotantes::construir() {
 		left2 = new poligonoComplejo(bFloat(-4.0, 4.0, -1.5), bFloat(-4.0, -4.0, -1.5), bFloat(-4.0, -4.0, 1.5), bFloat(-1, 0, 0), 20);
 		right2 = new poligonoComplejo(bFloat(4.0, 4.0, -1.5), bFloat(4.0, -4.0, -1.5), bFloat(4.0, -4.0, 1.5), bFloat(1, 0, 0), 20);
 
-		top3 = new poligonoComplejo(bFloat(-4.0, 3.99, -1.5), bFloat(-4.0, 3.99, 1.5), bFloat(4.0, 3.99, 1.5), bFloat(0, -1, 0), 20);
-		bottom3 = new poligonoComplejo(bFloat(-4.0, -3.99, -1.5), bFloat(-4.0, -3.99, 1.5), bFloat(4.0, -3.99, 1.5), bFloat(0, 1, 0), 20);
-		back3 = new poligonoComplejo(bFloat(-4.0, 4.0, -1.49), bFloat(-4.0, -4.0, -1.49), bFloat(4.0, -4.0, -1.49), bFloat(0, 0, 1), 20);
-		left3 = new poligonoComplejo(bFloat(-3.99, 4.0, -1.5), bFloat(-3.99, -4.0, -1.5), bFloat(-3.99, -4.0, 1.5), bFloat(1, 0, 0), 20);
-		right3 = new poligonoComplejo(bFloat(3.99, 4.0, -1.5), bFloat(3.99, -4.0, -1.5), bFloat(3.99, -4.0, 1.5), bFloat(-1, 0, 0), 20);
+		top3 = new poligonoComplejo(bFloat(-4.0, 3.95, -1.5), bFloat(-4.0, 3.95, 1.5), bFloat(4.0, 3.95, 1.5), bFloat(0, -1, 0), 20);
+		bottom3 = new poligonoComplejo(bFloat(-4.0, -3.95, -1.5), bFloat(-4.0, -3.95, 1.5), bFloat(4.0, -3.95, 1.5), bFloat(0, 1, 0), 20);
+		back3 = new poligonoComplejo(bFloat(-4.0, 4.0, -1.45), bFloat(-4.0, -4.0, -1.45), bFloat(4.0, -4.0, -1.45), bFloat(0, 0, 1), 20);
+		left3 = new poligonoComplejo(bFloat(-3.95, 4.0, -1.5), bFloat(-3.95, -4.0, -1.5), bFloat(-3.95, -4.0, 1.5), bFloat(1, 0, 0), 20);
+		right3 = new poligonoComplejo(bFloat(3.95, 4.0, -1.5), bFloat(3.95, -4.0, -1.5), bFloat(3.95, -4.0, 1.5), bFloat(-1, 0, 0), 20);
 
 		_isBuilt = true;
 	}
@@ -91,7 +91,7 @@ void esferasFlotantes::visualizar() {
 	mat_pedestal->aplicar();
 	glTranslatef(0.0, -4.0, 0.0);
 	glRotatef(90.0, 1.0, 0.0, 0.0);
-	gluCylinder(cilindro, 0.5, 0.5, 5.0, 100, 100);
+	gluCylinder(cilindro, 0.5, 0.5, 1.0, 100, 100);
 	glPopMatrix();
 
 	// Cuerpo

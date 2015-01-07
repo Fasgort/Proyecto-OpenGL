@@ -22,6 +22,7 @@ protected:
 
 	igvEscena3D escena; // escena que se visualiza en la ventana definida por igvInterfaz
 	igvCamara camara; // cámara que se utiliza para visualizar la escena
+	igvCamara camaraAparte; // cámara utilizada para visualizar figuras aparte
 
 	///// atributos para la selección mediante el ratón
 	modoInterfaz modo; // IGV_VISUALIZAR: en la ventana se va a visualizar de manera normal la escena, 
@@ -34,6 +35,7 @@ protected:
 	bool boton_retenido; // indica si el botón está pulsado (true) o se ha soltado (false)
 
 	bool ampliado; // Indica si hay un objeto en zoom
+	bool vistaDetallada; // Indica si hay una figura visualizada aparte
 	bool up; // Indica si vemos el objeto desde arriba
 	bool down; // Indica si vemos el objeto desde abajo
 	bool left; // Indica si vemos el objeto desde izquierda

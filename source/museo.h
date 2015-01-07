@@ -41,6 +41,7 @@ class Museo: public Objeto {
 	poligonoComplejo* cuadro2;
 
 	// texturas
+	igvTextura* alfombra;
 	igvTextura* pintura1;
 	igvTextura* pintura2;
 	igvTextura* pintura3;

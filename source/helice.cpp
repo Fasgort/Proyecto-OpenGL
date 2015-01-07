@@ -68,7 +68,7 @@ void Helice::visualizar() {
 	glTranslatef(0.0, -1.5, 0.0);
 	glRotatef(90.0, 1.0, 0.0, 0.0);
 	glPushName(P_HELICE);
-	gluCylinder(cilindro, 0.5, 0.5, 4.5, 100, 100);
+	gluCylinder(cilindro, 0.5, 0.5, 3.0, 100, 100);
 	glPopName();
 	glPopMatrix();
 

@@ -75,18 +75,18 @@ void cajaCombinacion::construir() {
 		top = new poligonoComplejo(bFloat(-4.0, 4.0, -1.5), bFloat(-4.0, 4.0, 1.5), bFloat(4.0, 4.0, 1.5), bFloat(0, 1, 0), 20);
 		bottom = new poligonoComplejo(bFloat(-4.0, -4.0, -1.5), bFloat(-4.0, -4.0, 1.5), bFloat(4.0, -4.0, 1.5), bFloat(0, -1, 0), 20);
 		doorClosed = new poligonoComplejo(bFloat(-4.0, 4.0, 1.5), bFloat(-4.0, -4.0, 1.5), bFloat(4.0, -4.0, 1.5), bFloat(0, 0, 1), 20);
-		doorOpened = new poligonoComplejo(bFloat(4.0, 4.0, 1.5), bFloat(4.0, -4.0, 1.5), bFloat(6.83, -4.0, 4.33), bFloat(1, 0, -1), 20);
+		doorOpened = new poligonoComplejo(bFloat(4.0, 4.0, 1.5), bFloat(4.0, -4.0, 1.5), bFloat(6.84, -4.0, 4.32), bFloat(1, 0, -1), 20);
 		back = new poligonoComplejo(bFloat(-4.0, 4.0, -1.5), bFloat(-4.0, -4.0, -1.5), bFloat(4.0, -4.0, -1.5), bFloat(0, 0, -1), 20);
 		left = new poligonoComplejo(bFloat(-4.0, 4.0, -1.5), bFloat(-4.0, -4.0, -1.5), bFloat(-4.0, -4.0, 1.5), bFloat(-1, 0, 0), 20);
 		right = new poligonoComplejo(bFloat(4.0, 4.0, -1.5), bFloat(4.0, -4.0, -1.5), bFloat(4.0, -4.0, 1.5), bFloat(1, 0, 0), 20);
 
-		top2 = new poligonoComplejo(bFloat(-4.0, 3.99, -1.5), bFloat(-4.0, 3.99, 1.5), bFloat(4.0, 3.99, 1.5), bFloat(0, -1, 0), 20);
-		bottom2 = new poligonoComplejo(bFloat(-4.0, -3.99, -1.5), bFloat(-4.0, -3.99, 1.5), bFloat(4.0, -3.99, 1.5), bFloat(0, 1, 0), 20);
-		doorClosed2 = new poligonoComplejo(bFloat(-4.0, 4.0, 1.49), bFloat(-4.0, -4.0, 1.49), bFloat(4.0, -4.0, 1.49), bFloat(0, 0, -1), 20);
-		doorOpened2 = new poligonoComplejo(bFloat(3.99, 4.0, 1.51), bFloat(3.99, -4.0, 1.51), bFloat(6.82, -4.0, 4.34), bFloat(-1, 0, 1), 20);
-		back2 = new poligonoComplejo(bFloat(-4.0, 4.0, -1.49), bFloat(-4.0, -4.0, -1.49), bFloat(4.0, -4.0, -1.49), bFloat(0, 0, 1), 20);
-		left2 = new poligonoComplejo(bFloat(-3.99, 4.0, -1.5), bFloat(-3.99, -4.0, -1.5), bFloat(-3.99, -4.0, 1.5), bFloat(1, 0, 0), 20);
-		right2 = new poligonoComplejo(bFloat(3.99, 4.0, -1.5), bFloat(3.99, -4.0, -1.5), bFloat(3.99, -4.0, 1.5), bFloat(-1, 0, 0), 20);
+		top2 = new poligonoComplejo(bFloat(-4.0, 3.95, -1.5), bFloat(-4.0, 3.95, 1.5), bFloat(4.0, 3.95, 1.5), bFloat(0, -1, 0), 20);
+		bottom2 = new poligonoComplejo(bFloat(-4.0, -3.95, -1.5), bFloat(-4.0, -3.95, 1.5), bFloat(4.0, -3.95, 1.5), bFloat(0, 1, 0), 20);
+		doorClosed2 = new poligonoComplejo(bFloat(-4.0, 4.0, 1.45), bFloat(-4.0, -4.0, 1.45), bFloat(4.0, -4.0, 1.45), bFloat(0, 0, -1), 20);
+		doorOpened2 = new poligonoComplejo(bFloat(3.95, 4.0, 1.55), bFloat(3.99, -4.0, 1.55), bFloat(6.81, -4.0, 4.35), bFloat(-1, 0, 1), 20);
+		back2 = new poligonoComplejo(bFloat(-4.0, 4.0, -1.45), bFloat(-4.0, -4.0, -1.45), bFloat(4.0, -4.0, -1.45), bFloat(0, 0, 1), 20);
+		left2 = new poligonoComplejo(bFloat(-3.95, 4.0, -1.5), bFloat(-3.95, -4.0, -1.5), bFloat(-3.95, -4.0, 1.5), bFloat(1, 0, 0), 20);
+		right2 = new poligonoComplejo(bFloat(3.95, 4.0, -1.5), bFloat(3.95, -4.0, -1.5), bFloat(3.95, -4.0, 1.5), bFloat(-1, 0, 0), 20);
 
 		boton1 = new poligonoComplejo(bFloat(-3.1125, 3.6, 1.51), bFloat(-3.1125, 2.25, 1.51), bFloat(-1.7625, 2.25, 1.51), bFloat(0, 0, 1), 10);
 		boton2 = new poligonoComplejo(bFloat(-0.675, 3.6, 1.51), bFloat(-0.675, 2.25, 1.51), bFloat(0.675, 2.25, 1.51), bFloat(0, 0, 1), 100);
@@ -98,7 +98,7 @@ void cajaCombinacion::construir() {
 		boton8 = new poligonoComplejo(bFloat(-0.675, -0.4, 1.51), bFloat(-0.675, -1.75, 1.51), bFloat(0.675, -1.75, 1.51), bFloat(0, 0, 1), 10);
 		boton9 = new poligonoComplejo(bFloat(1.7625, -0.4, 1.51), bFloat(1.7625, -1.75, 1.51), bFloat(3.1125, -1.75, 1.51), bFloat(0, 0, 1), 10);
 		botonEnter = new poligonoComplejo(bFloat(-3.0, -2.225, 1.51), bFloat(-3.0, -3.725, 1.51), bFloat(3.0, -3.725, 1.51), bFloat(0, 0, 1), 10);
-		botonSorpresa = new poligonoComplejo(bFloat(-2.0, 2.0, -1.48), bFloat(-2.0, -2.0, -1.48), bFloat(2.0, -2.0, -1.48), bFloat(0, 0, 1), 10);
+		botonSorpresa = new poligonoComplejo(bFloat(-2.0, 2.0, -1.4), bFloat(-2.0, -2.0, -1.4), bFloat(2.0, -2.0, -1.4), bFloat(0, 0, 1), 10);
 
 		tboton1 = new igvTextura("texturas/1.bmp");
 		tboton2 = new igvTextura("texturas/2.bmp");
@@ -131,7 +131,7 @@ void cajaCombinacion::visualizar() {
 	mat_pedestal->aplicar();
 	glTranslatef(0.0, -4.0, 0.0);
 	glRotatef(90.0, 1.0, 0.0, 0.0);
-	gluCylinder(cilindro, 0.5, 0.5, 5.0, 100, 100);
+	gluCylinder(cilindro, 0.5, 0.5, 1.0, 100, 100);
 	glPopMatrix();
 
 	glPushName(FIGURA2);

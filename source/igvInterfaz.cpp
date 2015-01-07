@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include "igvInterfaz.h"
+#include "Objeto.h"
 
 using namespace std;
 extern igvInterfaz interfaz; // los callbacks deben ser estaticos y se requiere este objeto para acceder desde
@@ -14,6 +15,7 @@ igvInterfaz::igvInterfaz () {
 	objeto_seleccionado = -1;
 	boton_retenido = false;
 	ampliado = false;
+	vistaDetallada = false;
 	up = false;
 	down = false;
 	left = false;
@@ -28,6 +30,7 @@ igvInterfaz::~igvInterfaz () {}
 void igvInterfaz::crear_mundo(void) {
 	// crear cámaras
 	interfaz.camara.set(IGV_PERSPECTIVA, igvPunto3D(0, 0, 5.5),igvPunto3D(0, 0, 1),igvPunto3D(0, 1, 0), 90, 1, 0.001, 15);
+	interfaz.camaraAparte.set(IGV_PERSPECTIVA, igvPunto3D(0, 0, 7),igvPunto3D(0, 0, 0),igvPunto3D(0, 1, 0), 90, 1, 0.001, 20);
 }
 
 void igvInterfaz::configura_entorno(int argc, char** argv,
@@ -72,66 +75,82 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 	switch(key)	{
 
 	case GLUT_KEY_UP:
-		if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] < 1.5 && interfaz.ampliado == false) {
-			interfaz.camara.P0[1] += 1.5;
-			interfaz.camara.r[1] += 1.5;
-		} else if(!interfaz.up && interfaz.ampliado == true && interfaz.camara.P0[1] < 0.9) {
-			if(interfaz.down) interfaz.camara.P0[1] -= 1.0;
-			interfaz.camara.P0[1] += 2.0;
-			if(interfaz.down) interfaz.down = false;
-			else interfaz.up = true;
-		} else if (interfaz.ampliado == true && interfaz.camara.P0[1] > 0.5 && interfaz.camara.P0[1] < 2.0) {
-			interfaz.camara.P0[1] += 0.1;
-			interfaz.camara.r[1] += 0.1;
+		if(interfaz.vistaDetallada) {
+			interfaz.escena.incRotX();
+		} else {
+			if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] < 1.5 && interfaz.ampliado == false) {
+				interfaz.camara.P0[1] += 1.5;
+				interfaz.camara.r[1] += 1.5;
+			} else if(!interfaz.up && interfaz.ampliado == true && interfaz.camara.P0[1] < 0.9) {
+				if(interfaz.down) interfaz.camara.P0[1] -= 1.0;
+				interfaz.camara.P0[1] += 2.0;
+				if(interfaz.down) interfaz.down = false;
+				else interfaz.up = true;
+			} else if (interfaz.ampliado == true && interfaz.camara.P0[1] > 0.5 && interfaz.camara.P0[1] < 2.0) {
+				interfaz.camara.P0[1] += 0.1;
+				interfaz.camara.r[1] += 0.1;
+			}
 		}
 		break;
 
 	case GLUT_KEY_DOWN:
-		if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] > -1.5 && interfaz.ampliado == false) {
-			interfaz.camara.P0[1] -= 1.5;
-			interfaz.camara.r[1] -= 1.5;
-		} else if(!interfaz.down && interfaz.ampliado == true && interfaz.camara.P0[1] < 0.9) {
-			if(interfaz.up) interfaz.camara.P0[1] -= 1.0;
-			interfaz.camara.P0[1] -= 1.0;
-			if(interfaz.up) interfaz.up = false;
-			else interfaz.down = true;
-		} else if (interfaz.ampliado == true && interfaz.camara.P0[1] > 0.5 && interfaz.camara.P0[1] > 1.0) {
-			interfaz.camara.P0[1] -= 0.1;
-			interfaz.camara.r[1] -= 0.1;
+		if(interfaz.vistaDetallada) {
+			interfaz.escena.decRotX();
+		} else {
+			if(interfaz.camara.P0[0] != 0 && interfaz.camara.P0[1] > -1.5 && interfaz.ampliado == false) {
+				interfaz.camara.P0[1] -= 1.5;
+				interfaz.camara.r[1] -= 1.5;
+			} else if(!interfaz.down && interfaz.ampliado == true && interfaz.camara.P0[1] < 0.9) {
+				if(interfaz.up) interfaz.camara.P0[1] -= 1.0;
+				interfaz.camara.P0[1] -= 1.0;
+				if(interfaz.up) interfaz.up = false;
+				else interfaz.down = true;
+			} else if (interfaz.ampliado == true && interfaz.camara.P0[1] > 0.5 && interfaz.camara.P0[1] > 1.0) {
+				interfaz.camara.P0[1] -= 0.1;
+				interfaz.camara.r[1] -= 0.1;
+			}
 		}
 		break;
 
 	case GLUT_KEY_LEFT:
-		if(interfaz.camara.P0[0] > -3.5 && interfaz.ampliado == false) {
-			interfaz.camara.P0[0] -= 3.5;
-			interfaz.camara.r[0] -= 3.5;
-			interfaz.camara.P0[1] = 0;
-			interfaz.camara.r[1] = 0;
-		} else if(!interfaz.left && interfaz.ampliado == true && interfaz.camara.P0[1] < 0.9) {
-			interfaz.camara.P0[0] -= 2.0;
-			if(interfaz.right) interfaz.right = false;
-			else interfaz.left = true;
-		} else if (interfaz.ampliado == true && interfaz.camara.P0[1] > 0.5 && 
-			(interfaz.camara.P0[0] > -4.6 && interfaz.camara.P0[0] <= -2.2) || (interfaz.camara.P0[0] > 2.3 && interfaz.camara.P0[0] <= 4.8) ) {
-				interfaz.camara.P0[0] -= 0.1;
-				interfaz.camara.r[0] -= 0.1;
+		if(interfaz.vistaDetallada) {
+			interfaz.escena.decRotY();
+		} else {
+			if(interfaz.camara.P0[0] > -3.5 && interfaz.ampliado == false) {
+				interfaz.camara.P0[0] -= 3.5;
+				interfaz.camara.r[0] -= 3.5;
+				interfaz.camara.P0[1] = 0;
+				interfaz.camara.r[1] = 0;
+			} else if(!interfaz.left && interfaz.ampliado == true && interfaz.camara.P0[1] < 0.9) {
+				interfaz.camara.P0[0] -= 2.0;
+				if(interfaz.right) interfaz.right = false;
+				else interfaz.left = true;
+			} else if (interfaz.ampliado == true && interfaz.camara.P0[1] > 0.5 && 
+				(interfaz.camara.P0[0] > -4.6 && interfaz.camara.P0[0] <= -2.2) || (interfaz.camara.P0[0] > 2.3 && interfaz.camara.P0[0] <= 4.8) ) {
+					interfaz.camara.P0[0] -= 0.1;
+					interfaz.camara.r[0] -= 0.1;
+			}
 		}
 		break;
 
 	case GLUT_KEY_RIGHT:
-		if(interfaz.camara.P0[0] < 3.5 && interfaz.ampliado == false) {
-			interfaz.camara.P0[0] += 3.5;
-			interfaz.camara.r[0] += 3.5;
-			interfaz.camara.P0[1] = 0;
-			interfaz.camara.r[1] = 0;
-		} else if(!interfaz.right && interfaz.ampliado == true && interfaz.camara.P0[1] < 0.9) {
-			interfaz.camara.P0[0] += 2.0;
-			if(interfaz.left) interfaz.left = false;
-			else interfaz.right = true;
-		} else if (interfaz.ampliado == true && interfaz.camara.P0[1] > 0.5 && 
-			(interfaz.camara.P0[0] >= -4.7 && interfaz.camara.P0[0] < -2.3) || (interfaz.camara.P0[0] >= 2.2 && interfaz.camara.P0[0] < 4.6) ) {
-				interfaz.camara.P0[0] += 0.1;
-				interfaz.camara.r[0] += 0.1;
+		if(interfaz.vistaDetallada) {
+			interfaz.escena.incRotY();
+		} else {
+			if(interfaz.camara.P0[0] < 3.5 && interfaz.ampliado == false) {
+				interfaz.camara.P0[0] += 3.5;
+				interfaz.camara.r[0] += 3.5;
+				interfaz.camara.P0[1] = 0;
+				interfaz.camara.r[1] = 0;
+			} else if(!interfaz.right && interfaz.ampliado == true && interfaz.camara.P0[1] < 0.9) {
+				interfaz.camara.P0[0] += 2.0;
+				if(interfaz.left) interfaz.left = false;
+				else interfaz.right = true;
+			} else if (interfaz.ampliado == true && interfaz.camara.P0[1] > 0.5 && 
+				(interfaz.camara.P0[0] >= -4.7 && interfaz.camara.P0[0] < -2.3) || (interfaz.camara.P0[0] >= 2.2 && interfaz.camara.P0[0] < 4.6) ) {
+					interfaz.camara.P0[0] += 0.1;
+					interfaz.camara.r[0] += 0.1;
+			}
 		}
 		break;
 
@@ -167,6 +186,23 @@ void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 		if(interfaz.camara.angulo < 90 && interfaz.ampliado && interfaz.camara.P0[1] > 0.5) interfaz.camara.angulo += 15;
 		break;
 
+	case 'v':
+		if(interfaz.vistaDetallada) {
+			interfaz.vistaDetallada = false;
+			interfaz.escena.reiniciarRot();
+		} else {
+			if(interfaz.camara.P0[0] < 0 && interfaz.camara.P0[1] < 0 && interfaz.ampliado) {
+				interfaz.vistaDetallada = true;
+				if(interfaz.escena.getSalaPrincipal()) interfaz.escena.set_figuraVisualizada(BOXEADOR);
+				else interfaz.escena.set_figuraVisualizada(ESFERASFLOTANTES);
+			} else if (interfaz.camara.P0[0] > 0 && interfaz.camara.P0[1] < 0 && interfaz.ampliado) {
+				interfaz.vistaDetallada = true;
+				if(interfaz.escena.getSalaPrincipal()) interfaz.escena.set_figuraVisualizada(HELICE);
+				else interfaz.escena.set_figuraVisualizada(CAJACOMBINATORIA);
+			}
+		}
+		break;
+
 	case 27: // tecla de escape para SALIR
 		exit(1);
 		break;
@@ -187,31 +223,30 @@ void igvInterfaz::set_glutReshapeFunc(int w, int h) {
 
 void igvInterfaz::set_glutDisplayFunc() {
 	GLuint lista_impactos[1024]; // array con la lista de impactos cuando se visualiza en modo selección
+	GLfloat luz_ambiental1[] = {0.0, 0.0, 0.0, 1.0};
+	GLfloat luz_ambiental2[] = {1.0, 1.0, 1.0, 1.0};
+
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // borra la ventana y el z-buffer
 
-	// se establece el viewport
-	glViewport(0, 0, interfaz.get_ancho_ventana(), interfaz.get_alto_ventana());
-
-	// Apartado D: antes de aplicar las transformaciones de cámara y proyección hay comprobar el modo,
-	if (interfaz.modo == IGV_SELECCIONAR) {
-		// Apartado D: si se está seleccionando se pasa a modo selección de OpenGL y se pasan los parámetros de selección a la cámara
-		interfaz.inicia_seleccion(1024,lista_impactos);
-	}
-
-	// establece los parámetros de la cámara y de la proyección
-	interfaz.camara.aplicar();
-
-	//visualiza la escena
-	interfaz.escena.visualizar();
-
-	if (interfaz.modo == IGV_SELECCIONAR) {
-		// Apartado D: salir del modo seleccion y procesar la lista de impactos
-		interfaz.finaliza_seleccion(1024,lista_impactos); 
+	if(!interfaz.vistaDetallada) {
+		// Viewport único
+		glViewport(0, 0, interfaz.get_ancho_ventana(), interfaz.get_alto_ventana());
+		if (interfaz.modo == IGV_SELECCIONAR) interfaz.inicia_seleccion(1024,lista_impactos);
+		interfaz.camara.aplicar();
+		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luz_ambiental1);
+		interfaz.escena.visualizar();
+		if (interfaz.modo == IGV_SELECCIONAR) interfaz.finaliza_seleccion(1024,lista_impactos); 
+		else glutSwapBuffers();
 	} else {
-		// refresca la ventana
+		// Viewport al detalle
+		glViewport(0, 0, interfaz.get_ancho_ventana(), interfaz.get_alto_ventana());
+		interfaz.camaraAparte.aplicar();
+		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luz_ambiental2); 
+		interfaz.escena.visualizarAparte(); 
 		glutSwapBuffers();
 	}
+
 }
 
 void igvInterfaz::set_glutMouseFunc(GLint boton,GLint estado,GLint x,GLint y) {

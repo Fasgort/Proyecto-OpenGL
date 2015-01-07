@@ -17,6 +17,11 @@ protected:
 	// Atributos
 	int _seleccionado;
 	bool _salaPrincipal;
+	int _figuraVisualizada;
+
+	// variables escena aparte
+	int rotX;
+	int rotY;
 
 	// Objetos
 	Museo* museo;
@@ -34,6 +39,7 @@ public:
 	// Métodos
 	// método con las llamadas OpenGL para visualizar la escena
 	void visualizar();
+	void visualizarAparte();
 
 	// Métodos que comunican con los objetos de la escena
 
@@ -46,7 +52,17 @@ public:
 		figura4->setSeleccionado(seleccionado);
 	};
 
+	void set_figuraVisualizada(int figura){_figuraVisualizada = figura;};
 	void cambiarSalaPrincipal(){museo->set_salaPrincipal(_salaPrincipal = _salaPrincipal?false:true);};
+	bool getSalaPrincipal(){return _salaPrincipal;};
+
+	// Métodos para rotar la figura en detalle
+
+	void incRotX(){rotX = (rotX + 15) % 360;};
+	void decRotX(){rotX = (rotX - 15) % 360;};
+	void incRotY(){rotY = (rotY + 15) % 360;};
+	void decRotY(){rotY = (rotY - 15) % 360;};
+	void reiniciarRot(){rotX = 0; rotY = 0;};
 
 	// Métodos para variar grados de libertad
 

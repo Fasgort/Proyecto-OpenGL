@@ -10,6 +10,10 @@
 igvEscena3D::igvEscena3D() {
 	_seleccionado = -1;
 	_salaPrincipal = true;
+	_figuraVisualizada = -1;
+
+	rotX = 0;
+	rotY = 0;
 
 	museo = new Museo();
 	figura1 = new Boxeador();
@@ -74,6 +78,36 @@ void igvEscena3D::visualizar(void) {
 		figura4->visualizar();
 		glPopMatrix();
 
+	}
+
+	glPopMatrix (); // restaura la matriz de modelado
+}
+
+void igvEscena3D::visualizarAparte(void) {
+	// crear el modelo
+	glPushMatrix(); // guarda la matriz de modelado
+
+	// Inicializamos pila de nombres
+	glInitNames();
+
+	glRotatef(rotX, -1, 0, 0);
+	glRotatef(rotY, 0, -1, 0);
+
+	glScalef(0.75, 0.75, 0.75);
+
+	switch(_figuraVisualizada){
+	case BOXEADOR:
+		figura1->visualizar();
+		break;
+	case HELICE:
+		figura2->visualizar();
+		break;
+	case ESFERASFLOTANTES:
+		figura3->visualizar();
+		break;
+	case CAJACOMBINATORIA:
+		figura4->visualizar();
+		break;
 	}
 
 	glPopMatrix (); // restaura la matriz de modelado
