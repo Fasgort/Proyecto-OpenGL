@@ -18,7 +18,7 @@ GLubyte *LoadDIBitmap(const char *filename, /* I - File to load */
 
 
 	/* Try opening the file; use "rb" mode to read this *binary* file. */
-	if ((fp = fopen(filename, "rb")) == NULL) {
+	if ((fopen_s(&fp, filename, "rb")) == NULL) {
 		printf("LoadDIBitmap: error al abrir el fichero");
 	}
 

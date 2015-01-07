@@ -26,9 +26,6 @@ class Helice: public Objeto {
 	poligonoComplejo* left;
 	poligonoComplejo* right;
 
-	// variables
-	bool _wasMoved;
-
 	// grados de libertad
 	float _rotacion;
 	float _palanca_inc;
