@@ -4,7 +4,6 @@
 #include <GL/glut.h>
 
 #include "Objeto.h"
-#include "nombres.h"
 #include "igvFuenteLuz.h"
 #include "igvMaterial.h"
 #include "poligonoComplejo.h"
@@ -16,6 +15,10 @@ class Museo: public Objeto {
 	// fuentes de luz
 	igvFuenteLuz* luzMuseo;
 	igvFuenteLuz* luzMuseo2;
+	igvFuenteLuz* luzFigura1;
+	igvFuenteLuz* luzFigura2;
+	igvFuenteLuz* luzCuadro1;
+	igvFuenteLuz* luzCuadro2;
 
 	// materiales
 	igvMaterial* matParedFrontal;

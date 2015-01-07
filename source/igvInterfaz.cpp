@@ -54,6 +54,11 @@ void igvInterfaz::configura_entorno(int argc, char** argv,
 										glShadeModel(GL_SMOOTH);
 
 										glEnable(GL_TEXTURE_2D); // activa el uso de texturas
+										glEnable(GL_LIGHT0);
+										glEnable(GL_LIGHT1);
+										glEnable(GL_LIGHT2);
+										glEnable(GL_LIGHT3);
+										glEnable(GL_LIGHT4);
 
 										crear_mundo(); // crea el mundo a visualizar en la ventana
 }

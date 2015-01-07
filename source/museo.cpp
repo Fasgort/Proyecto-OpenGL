@@ -16,6 +16,10 @@ void Museo::deconstruir() {
 	if(_isBuilt){
 		delete luzMuseo;
 		delete luzMuseo2;
+		delete luzFigura1;
+		delete luzFigura2;
+		delete luzCuadro1;
+		delete luzCuadro2;
 
 		delete matParedFrontal;
 		delete matParedLateral;
@@ -44,16 +48,24 @@ void Museo::deconstruir() {
 
 void Museo::construir() {
 	if(!_isBuilt){
-		GLfloat posLuz[4] = {0.0, 3.5, 5.5, 1.0};
+		GLfloat posLuzMuseo[4] = {0.0, 3.5, 5.5, 1.0};
+		GLfloat posLuzF1[4] = {-3.5, 3.95, 2.0, 1.0};
+		GLfloat posLuzF2[4] = {3.5, 3.95, 2.0, 1.0};
+		GLfloat posLuzC1[4] = {-5.99, 0.5, 2.55, 1.0};
+		GLfloat posLuzC2[4] = {5.99, 0.5, 2.55, 1.0};
 
-		luzMuseo = new igvFuenteLuz(GL_LIGHT0, posLuz, igvColor(0.8, 0.8, 0.75, 1.0), igvColor(0.7, 0.7, 0.7, 1.0), igvColor(0.7, 0.7, 0.7, 1.0), 0.75, 0.05, 0.008);
-		luzMuseo2 = new igvFuenteLuz(GL_LIGHT0, posLuz, igvColor(0.8, 0.75, 0.8, 1.0), igvColor(0.7, 0.7, 0.7, 1.0), igvColor(0.7, 0.7, 0.7, 1.0), 0.75, 0.05, 0.008);
+		luzMuseo = new igvFuenteLuz(GL_LIGHT0, posLuzMuseo, igvColor(0.7, 0.7, 0.65, 1.0), igvColor(0.7, 0.7, 0.65, 1.0), igvColor(0.7, 0.7, 0.65, 1.0), 3.0, 0.25, 0.015);
+		luzMuseo2 = new igvFuenteLuz(GL_LIGHT0, posLuzMuseo, igvColor(0.7, 0.65, 0.7, 1.0), igvColor(0.7, 0.65, 0.7, 1.0), igvColor(0.7, 0.65, 0.7, 1.0), 3.0, 0.25, 0.015);
+		luzFigura1 = new igvFuenteLuz(GL_LIGHT1, posLuzF1, igvColor(0.8, 0.8, 0.8, 1.0), igvColor(0.7, 0.7, 0.7, 1.0), igvColor(0.7, 0.7, 0.7, 1.0), 0.75, 0.05, 0.008, igvPunto3D(0.0, -1.0, 0.0), 30, 45);
+		luzFigura2 = new igvFuenteLuz(GL_LIGHT2, posLuzF2, igvColor(0.8, 0.75, 0.8, 1.0), igvColor(0.7, 0.7, 0.7, 1.0), igvColor(0.7, 0.7, 0.7, 1.0), 0.25, 0.25, 0.008, igvPunto3D(0.0, -1.0, 0.0), 30, 45);
+		luzCuadro1 = new igvFuenteLuz(GL_LIGHT3, posLuzC1, igvColor(0.8, 0.75, 0.8, 1.0), igvColor(0.7, 0.7, 0.7, 1.0), igvColor(0.7, 0.7, 0.7, 1.0), 0.25, 0.25, 0.008, igvPunto3D(2.49, 1.0, -1.5), 30, 45);
+		luzCuadro2 = new igvFuenteLuz(GL_LIGHT4, posLuzC2, igvColor(0.8, 0.75, 0.8, 1.0), igvColor(0.7, 0.7, 0.7, 1.0), igvColor(0.7, 0.7, 0.7, 1.0), 0.25, 0.25, 0.008, igvPunto3D(-2.49, 1.0, -1.5), 30, 45);
 
-		matParedFrontal = new igvMaterial(igvColor(0.9, 0.9, 0.9), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-		matParedLateral = new igvMaterial(igvColor(0.875, 0.875, 0.875), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-		matSupInf = new igvMaterial(igvColor(0.85, 0.85, 0.85), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-		matPuerta = new igvMaterial(igvColor(0.3, 0.15, 0.08), igvColor(0.7, 0.7, 0.7), igvColor(0.7, 0.7, 0.7), 120);
-		matMarco = new igvMaterial(igvColor(1.0, 1.0, 1.0), igvColor(0.0, 0.0, 0.0), igvColor(0.0, 0.0, 0.0), 120);
+		matParedFrontal = new igvMaterial(igvColor(0.9, 0.9, 0.9), igvColor(0.9, 0.9, 0.9), igvColor(0.3, 0.3, 0.3), 128);
+		matParedLateral = new igvMaterial(igvColor(0.875, 0.875, 0.875), igvColor(0.875, 0.875, 0.875), igvColor(0.3, 0.3, 0.3), 128);
+		matSupInf = new igvMaterial(igvColor(0.85, 0.85, 0.85), igvColor(0.85, 0.85, 0.85), igvColor(0.3, 0.3, 0.3), 128);
+		matPuerta = new igvMaterial(igvColor(0.3, 0.15, 0.08), igvColor(0.3, 0.15, 0.08), igvColor(0.3, 0.3, 0.3), 128);
+		matMarco = new igvMaterial(igvColor(1.0, 1.0, 1.0), igvColor(0.0, 0.0, 0.0), igvColor(0.0, 0.0, 0.0), 128);
 
 		paredFrontal = new poligonoComplejo(bFloat(-6,4,1), bFloat(-6,-3,1), bFloat(6,-3,1), bFloat(0,0,1), 100);
 		paredTrasera = new poligonoComplejo(bFloat(-6,4,10), bFloat(-6,-3,10), bFloat(6,-3,10), bFloat(0,0,-1), 100);
@@ -80,6 +92,11 @@ void Museo::visualizar() {
 
 	if (_salaPrincipal) luzMuseo->aplicar();
 	else luzMuseo2->aplicar();
+
+	luzFigura1->aplicar();
+	luzFigura2->aplicar();
+	luzCuadro1->aplicar();
+	luzCuadro2->aplicar();
 
 	glPushMatrix();
 	matParedFrontal->aplicar();

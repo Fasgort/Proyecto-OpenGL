@@ -4,7 +4,6 @@
 #include <GL/glut.h>
 
 #include "Objeto.h"
-#include "nombres.h"
 #include "igvMaterial.h"
 #include "poligonoComplejo.h"
 

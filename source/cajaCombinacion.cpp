@@ -296,7 +296,7 @@ void cajaCombinacion::setSeleccionado(int seleccionado) {
 			glLightModelfv (GL_LIGHT_MODEL_AMBIENT, luz_sorpresa); 
 			_sorpresa = true;
 		} else {
-			GLfloat luz_ambiental[] = {0.2, 0.2, 0.2, 1.0};
+			GLfloat luz_ambiental[] = {0.0, 0.0, 0.0, 1.0};
 			glLightModelfv (GL_LIGHT_MODEL_AMBIENT, luz_ambiental); 
 			_sorpresa = false;
 		}
