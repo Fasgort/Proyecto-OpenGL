@@ -288,18 +288,7 @@ void cajaCombinacion::setSeleccionado(int seleccionado) {
 		_combinacion.reset();
 		break;
 	case BOTON_SORPRESA:
-		if (!_sorpresa){
-			int randR = rand()%8 + 1;
-			int randG = rand()%8 + 1;
-			int randB = rand()%8 + 1;
-			GLfloat luz_sorpresa[] = {0.2 + float(randR)/10, 0.2 + float(randG)/10, 0.2 + float(randB)/10, 1.0};
-			glLightModelfv (GL_LIGHT_MODEL_AMBIENT, luz_sorpresa); 
-			_sorpresa = true;
-		} else {
-			GLfloat luz_ambiental[] = {0.0, 0.0, 0.0, 1.0};
-			glLightModelfv (GL_LIGHT_MODEL_AMBIENT, luz_ambiental); 
-			_sorpresa = false;
-		}
+		_sorpresa = _sorpresa?false:true;
 		break;
 	case PUERTA_CAJA:
 		_abierto = false;
