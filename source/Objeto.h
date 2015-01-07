@@ -2,7 +2,9 @@
 #define __OBJETO
 
 enum {
-	NO_SELECCIONABLE,
+	PUERTA, // puerta
+	CUADRO1, CUADRO2, // cuadro
+	FIGURA1, FIGURA2, // figura
 	P_BOXEADOR, BRAZO_1, BRAZO_2, PUÑO_1, PUÑO_2, // boxeador
 	P_HELICE, PALANCA, // helice
 	ESFERAR, ESFERAB, // esferas

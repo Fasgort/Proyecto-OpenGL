@@ -80,7 +80,7 @@ void Boxeador::visualizar() {
 
 	// Cuerpo
 	mat_cubo->aplicar();
-	glPushName(NO_SELECCIONABLE);
+	glPushName(FIGURA1);
 	top->visualizar();
 	bottom->visualizar();
 	front->visualizar();

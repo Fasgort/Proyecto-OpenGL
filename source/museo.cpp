@@ -118,17 +118,25 @@ void Museo::visualizar() {
 
 	glPushMatrix();
 	matPuerta->aplicar();
+	glPushName(PUERTA);
 	puerta->visualizar(); // puerta
+	glPopName();
 	glPopMatrix();
 
 	glPushMatrix();
 	matMarco->aplicar();
+
 	if(_salaPrincipal) pintura1->aplicar();
 	else pintura3->aplicar();
+	glPushName(CUADRO1);
 	cuadro1->visualizar(); // cuadro 1
+	glPopName();
+
 	if(_salaPrincipal) pintura2->aplicar();
 	else pintura4->aplicar();
+	glPushName(CUADRO2);
 	cuadro2->visualizar(); // cuadro 2
+	glPopName();
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glPopMatrix();
 

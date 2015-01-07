@@ -77,7 +77,7 @@ void Helice::visualizar() {
 
 	// Cuerpo
 	mat_cubo->aplicar();
-	glPushName(NO_SELECCIONABLE);
+	glPushName(FIGURA2);
 	top->visualizar();
 	bottom->visualizar();
 	front->visualizar();

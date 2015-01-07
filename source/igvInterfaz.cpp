@@ -27,8 +27,7 @@ igvInterfaz::~igvInterfaz () {}
 
 void igvInterfaz::crear_mundo(void) {
 	// crear cámaras
-	interfaz.camara.set(IGV_PERSPECTIVA, igvPunto3D(0, 0, 5.5),igvPunto3D(0, 0, 1),igvPunto3D(0, 1, 0),
-		90,1,0.001,15);
+	interfaz.camara.set(IGV_PERSPECTIVA, igvPunto3D(0, 0, 5.5),igvPunto3D(0, 0, 1),igvPunto3D(0, 1, 0), 90, 1, 0.001, 15);
 }
 
 void igvInterfaz::configura_entorno(int argc, char** argv,
@@ -140,26 +139,9 @@ void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 				interfaz.ampliado = true;
 			} else if(interfaz.camara.P0[0] == 0) interfaz.escena.cambiarSalaPrincipal();
 		} else {
-			interfaz.camara.P0[2] = 5.5;
-			interfaz.camara.r[2] = 1;
+			interfaz.camara.set(IGV_PERSPECTIVA, igvPunto3D(0, 0, 5.5),igvPunto3D(0, 0, 1),igvPunto3D(0, 1, 0), 90, 1, 0.001, 15);
 			interfaz.ampliado = false;
 			interfaz.escena.set_seleccionado(-1);
-			if(interfaz.up) {
-				interfaz.camara.P0[1] -= 2.0;
-				interfaz.up = false;
-			}
-			if(interfaz.down) {
-				interfaz.camara.P0[1] += 1.0;
-				interfaz.down = false;
-			}
-			if(interfaz.left) {
-				interfaz.camara.P0[0] += 2.0;
-				interfaz.left = false;
-			}
-			if(interfaz.right) {
-				interfaz.camara.P0[0] -= 2.0;
-				interfaz.right = false;
-			}
 		}
 		break;
 
@@ -217,7 +199,7 @@ void igvInterfaz::set_glutMouseFunc(GLint boton,GLint estado,GLint x,GLint y) {
 
 		// guardar que el boton se ha presionado o se ha soltado, si se ha pulsado hay que
 		// pasar a modo IGV_SELECCIONAR
-		if(estado == GLUT_DOWN && interfaz.ampliado) {
+		if(estado == GLUT_DOWN) {
 			interfaz.modo = IGV_SELECCIONAR;
 			interfaz.boton_retenido = true;
 
@@ -309,6 +291,30 @@ void igvInterfaz::finaliza_seleccion(int TAMANO_LISTA_IMPACTOS, GLuint *lista_im
 	if(numImpactos != 0) {
 		objeto_seleccionado = procesar_impactos(numImpactos, lista_impactos);
 	} else objeto_seleccionado = -1;
+
+	if(!interfaz.ampliado) {
+		switch(objeto_seleccionado){
+		case CUADRO1:
+			interfaz.camara.set(IGV_PERSPECTIVA, igvPunto3D(-3.5, 1.5, 2.25),igvPunto3D(-3.5, 1.5, 2), igvPunto3D(0, 1, 0), 90, 1, 0.001, 15);
+			interfaz.ampliado = true;
+			break;
+		case CUADRO2:
+			interfaz.camara.set(IGV_PERSPECTIVA, igvPunto3D(3.5, 1.5, 2.25),igvPunto3D(3.5, 1.5, 2), igvPunto3D(0, 1, 0), 90, 1, 0.001, 15);
+			interfaz.ampliado = true;
+			break;
+		case FIGURA1:
+			interfaz.camara.set(IGV_PERSPECTIVA, igvPunto3D(-3.5, -1.5, 4.0),igvPunto3D(-3.5, -1.5, 2), igvPunto3D(0, 1, 0), 90, 1, 0.001, 15);
+			interfaz.ampliado = true;
+			break;
+		case FIGURA2:
+			interfaz.camara.set(IGV_PERSPECTIVA, igvPunto3D(3.5, -1.5, 4.0),igvPunto3D(3.5, -1.5, 2), igvPunto3D(0, 1, 0), 90, 1, 0.001, 15);
+			interfaz.ampliado = true;
+			break;
+		case PUERTA:
+			interfaz.escena.cambiarSalaPrincipal();
+			break;
+		}
+	}
 
 	interfaz.escena.set_seleccionado(objeto_seleccionado);
 

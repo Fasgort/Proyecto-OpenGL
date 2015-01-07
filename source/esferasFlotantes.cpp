@@ -96,7 +96,7 @@ void esferasFlotantes::visualizar() {
 
 	// Cuerpo
 	mat_rectangulo->aplicar();
-	glPushName(NO_SELECCIONABLE);
+	glPushName(FIGURA1);
 	top1->visualizar();
 	bottom1->visualizar();
 	front1->visualizar();

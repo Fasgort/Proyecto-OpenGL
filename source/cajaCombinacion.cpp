@@ -134,7 +134,7 @@ void cajaCombinacion::visualizar() {
 	gluCylinder(cilindro, 0.5, 0.5, 5.0, 100, 100);
 	glPopMatrix();
 
-	glPushName(NO_SELECCIONABLE);
+	glPushName(FIGURA2);
 
 	// caja exterior
 	mat_cuboExt->aplicar();
@@ -156,7 +156,7 @@ void cajaCombinacion::visualizar() {
 		glPushName(PUERTA_CAJA);
 		doorOpened2->visualizar();
 		glPopName();
-		glPushName(NO_SELECCIONABLE);
+		glPushName(FIGURA2);
 	}
 	back2->visualizar();
 	left2->visualizar();
